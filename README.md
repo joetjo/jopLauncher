@@ -1,15 +1,12 @@
 # jopLauncher
 
-BUG : starting with exe don't work - prerequisite not managed properly by installer
-<pre>
-C:\Users\nicol\PycharmProjects\jopLauncher>dist\main.exe
-Traceback (most recent call last):
-  File "main.py", line 4, in <module>
-    from launcher.core.procmgr import ProcMgr
-  File "PyInstaller\loader\pyimod03_importers.py", line 540, in exec_module
-  File "launcher\core\procmgr.py", line 3, in <module>
-    import psutil
-ModuleNotFoundError: No module named 'psutil'
-[16108] Failed to execute script main
-</pre>
+Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
 
+Other feature:
+- show last 10 gaming sessions
+- allow to exclude process
+- allow to map a custom name for an exe or to use the parent folder name instead of the executable name.
+
+# To be done
+- better window placement at startup
+- add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
