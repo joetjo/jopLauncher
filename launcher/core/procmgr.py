@@ -15,7 +15,7 @@ LOCK = threading.Lock()
 
 class ProcMgr:
 
-    def __init__(self, testmode):
+    def __init__(self, testmode=False):
         self.testmode = testmode
         self.putil = ProcessUtil(testmode)
         self.shutdown = False
@@ -32,8 +32,8 @@ class ProcMgr:
             self.games = self.storage.data()["Games"]
 
         self.last_sessions = self.storage.getOrCreate(self.storage.data(), "last_sessions", [])
-        self.game_mappings = self.storage.getOrCreate( self.storage.data(), "mappings", {})
-        self.game_ignored = self.storage.getOrCreate( self.storage.data(), "ignored", [])
+        self.game_mappings = self.storage.getOrCreate(self.storage.data(), "mappings", {})
+        self.game_ignored = self.storage.getOrCreate(self.storage.data(), "ignored", [])
 
         self.loadPList()
 
@@ -49,20 +49,27 @@ class ProcMgr:
             if p is not None:
                 self.plist[p.getPid()] = p
                 if p.isGame():
-                    if self.pMonitored.get(p.getPid()) is None:
-                        try:
-                            p.setStoreEntry(self.find(p.getName()))
-                        except KeyError:
-                            print("Creating game {} within storage".format(p.getName()))
-                            self.games[p.getName()] = {"duration": "0"}
-                            p.setStoreEntry(self.games[p.getName()])
-                            self.storage.save()
+                    if not self.isIgnore(p.getName()):
+                        mapping = GhStorage.getValue(self.game_mappings, p.getName())
+                        if mapping is not None:
+                            p.forceName(mapping)
 
-                        p.setStarted()
-                        self.pMonitored[p.getPid()] = p
+                        if self.pMonitored.get(p.getPid()) is None:
+                            try:
+                                p.setStoreEntry(self.find(p.getName()))
+                            except KeyError:
+                                print("Creating game {} within storage".format(p.getName()))
+                                self.games[p.getName()] = {"duration": "0"}
+                                p.setStoreEntry(self.games[p.getName()])
+                                self.storage.save()
 
-                        if self.eventListener is not None:
-                            self.eventListener.newGame(p)
+                            p.setStarted()
+                            self.pMonitored[p.getPid()] = p
+
+                            if self.eventListener is not None:
+                                self.eventListener.newGame(p)
+                    else:
+                        print("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
 
         print("{} processes detected".format(len(self.plist)))
 
@@ -85,11 +92,11 @@ class ProcMgr:
                 store["last_session"] = str(time.time())
                 try:
                     self.last_sessions.remove(proc.getName())  # keep only one occurrence of each game
-                except ValueError:
-                    pass # Nothing to remove
+                except:
+                    pass  # Nothing to remove
                 self.last_sessions.insert(0, proc.getName())
                 if len(self.last_sessions) > JopLauncher.MAX_LAST_SESSION_COUNT:  # keep only 10 games in last sessions
-                    self.last_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT-1)
+                    self.last_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
                 self.storage.save()
 
                 if self.eventListener is not None:
@@ -115,11 +122,16 @@ class ProcMgr:
         else:
             return None
 
-    def ignore(self, name):
-        self.game_ignored.append(name)
-        self.last_sessions.remove(name)
-        self.storage.save()
+    def isIgnore(self, name):
+        return name in self.game_ignored
 
+    def ignore(self, name):
+        if not self.isIgnore(name):
+            self.game_ignored.append(name)
+            self.last_sessions.remove(name)
+            self.storage.save()
+
+    # set or overwrite mapping
     def mapname(self, name, mapname):
         self.game_mappings[name] = mapname
         self.storage.save()

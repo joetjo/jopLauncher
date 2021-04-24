@@ -39,6 +39,10 @@ class procGui(EventListener):
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.sessions.append(GameSession.create(content_col.right, 2 + idx, 0))
         self.reloadLastSessions()
+        self.help = GhApp.createLabel(content_col.right, JopLauncher.MAX_LAST_SESSION_COUNT, 0)
+        self.help.variable.set("if name is a specific one but unrelated to game, set a custom name\n"
+                               "if name is a generic launcher, use PARENT to use parent folder name")
+        self.help.widget.grid_remove()
 
         # FOOTER
         footer_col = GhColumnPanel(self.app.footer)
@@ -50,7 +54,7 @@ class procGui(EventListener):
 
         if self.procMgr.testmode:
             GhApp.createLabel(footer_col.right, 0, 0, text="**TEST**")
-            self.testgame = GhApp.createEntry(footer_col.right, 0, 1, 20, "jopLauncherTest").variable
+            self.testgame = GhApp.createEntry(footer_col.right, 0, 1, 20, "jopLauncherTest.exe").variable
             self.testgameButton = GhApp.createButton(footer_col.right, 0, 2, self.test_startstop, "Start").variable
             self.testgameButton.set("Start")
 
@@ -132,14 +136,16 @@ class procGui(EventListener):
                 if g.selected:
                     mapname = g.mapping.variable.get()
                     if len(mapname) == 0:
+                        error = True
                         messagebox.showerror("Empty name !", "set a name for {}".format(g.name))
                     else:
                         self.procMgr.mapname(g.name, mapname)
                         g.deselect()
                         g.disableMapping()
-                if not error:
-                    self.mapButton.set("apply mapping")
-                    self.cancelButton.grid()
+            if not error:
+                self.mapButton.set("map")
+                self.cancelButton.grid_remove()
+                self.help.widget.grid_remove()
         else:
             pair = self.listSelected("Do you really want to map theses files with custom name\n"
                                      " ( use PARENT for parent folder name ): ")
@@ -148,10 +154,12 @@ class procGui(EventListener):
                     g.enableMapping()
                 self.mapButton.set("apply mapping")
                 self.cancelButton.grid()
+                self.help.widget.grid()
 
     def cancelmap(self):
         self.mapButton.set("map")
         self.cancelButton.grid_remove()
+        self.help.widget.grid_remove()
         for g in self.sessions:
             g.deselect()
             g.disableMapping()

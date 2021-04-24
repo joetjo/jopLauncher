@@ -59,5 +59,14 @@ class GhStorage:
             return self.content[key]
         except KeyError:
             self.content[key] = default
-            return ""
+            self.save()
+            return self.content[key]
+
+    @staticmethod
+    def getValue(data, key):
+        try:
+            return data[key]
+        except:
+            return None
+
 

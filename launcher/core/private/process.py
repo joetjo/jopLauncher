@@ -1,3 +1,4 @@
+import os
 import re
 from datetime import datetime
 
@@ -11,6 +12,7 @@ class ProcessInfo:
         self.pid = pinfo['pid']
         self.name = pinfo['name']
         self.path = pinfo['exe']
+        self.originName = self.name
 
         self.game = self.gameDetector(self.path)
         self.storeEntry = None
@@ -23,6 +25,15 @@ class ProcessInfo:
 
     def getName(self):
         return self.name
+
+    def forceName(self, mapname):
+        if mapname == 'PARENT':
+            parent=os.path.dirname(self.path).split(os.path.sep)
+            self.name = parent[len(parent)-1]
+            print("Using PARENT folder name {} instead of {}".format(self.name, self.originName))
+        else:
+            self.name = mapname
+            print("Using custom name {} instead of {}".format(self.name, self.originName))
 
     def getPath(self):
         return self.path

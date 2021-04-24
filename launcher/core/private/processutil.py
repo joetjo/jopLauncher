@@ -1,3 +1,5 @@
+import os
+
 import psutil
 
 
@@ -31,5 +33,5 @@ class ProcessUtil:
         else:
             self.testlist = [game]
             self.testattrs["name"] = game
-            self.testattrs["exe"] = "/the/path/jeux/{}/{}.exe".format(game, game)
+            self.testattrs["exe"] = "{}the{}path{}jeux{}{}{}{}.exe".format(os.path.sep, os.path.sep, os.path.sep, os.path.sep, game, os.path.sep, game)
 

@@ -16,6 +16,7 @@ class GameSession(GhSimplePanel):
         self.check.widget.grid_remove()
         self.mapping = GhApp.createEntry(self.content, 0, 1, 20, "")
         self.mapping.widget.grid_remove()
+        self.mapping.variable.set('PARENT')
         self.label = GhApp.createLabel(self.content, 0, 2).variable
 
     def set(self, name=None, info=None):

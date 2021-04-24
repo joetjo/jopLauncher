@@ -1,91 +1,35 @@
 {
     "Games": {
-        "jopLauncherTest": {
-            "duration": "217.43991799999998",
-            "last_duration": "2.035724",
-            "last_session": "1619264053.0623891"
+        "Memoria.exe": {
+            "duration": "42965.701038"
         },
-        "jopLauncherTest2": {
-            "duration": "2.940416",
-            "last_duration": "2.940416",
-            "last_session": "1619256008"
+        "nw.exe": {
+            "duration": "16979.057661000003"
         },
-        "jopLauncherTest3": {
-            "duration": "3.411154",
-            "last_duration": "3.411154",
-            "last_session": "1619259439"
+        "Launcher.exe": {
+            "duration": "20.505977"
         },
-        "jopLauncherTest4": {
-            "duration": "2.066413",
-            "last_duration": "2.066413",
-            "last_session": "1619259511"
+        "Borderlands2.exe": {
+            "duration": "13443.149038"
         },
-        "jopLauncherTest5": {
-            "duration": "1.722281",
-            "last_duration": "1.722281",
-            "last_session": "1619259519"
+        "UnityCrashHandler32.exe": {
+            "duration": "7514.127144"
         },
-        "jopLauncherTest6": {
-            "duration": "1.588217",
-            "last_duration": "1.588217",
-            "last_session": "1619259527"
+        "Perfect Gold.exe": {
+            "duration": "7513.744114"
         },
-        "jopLauncherTest7": {
-            "duration": "1.938757",
-            "last_duration": "1.938757",
-            "last_session": "1619259534"
+        "AWayOut.exe": {
+            "duration": "4361.727794"
         },
-        "jopLauncherTest9": {
-            "duration": "4.643099",
-            "last_duration": "1.564748",
-            "last_session": "1619259550"
-        },
-        "jopLauncherTest10": {
-            "duration": "2.698158",
-            "last_duration": "2.698158",
-            "last_session": "1619259559"
-        },
-        "jopLauncherTest8": {
-            "duration": "2.244324",
-            "last_duration": "2.244324",
-            "last_session": "1619259579"
-        },
-        "jopLauncherTest11": {
-            "duration": "2.524421",
-            "last_duration": "2.524421",
-            "last_session": "1619259590"
-        },
-        "jopLauncherTest12": {
-            "duration": "2.641281",
-            "last_duration": "2.641281",
-            "last_session": "1619259602"
-        },
-        "badLauncher": {
-            "duration": "5.04803",
-            "last_duration": "5.04803",
-            "last_session": "1619261116.4154904"
-        },
-        "jopLauncherTest1": {
-            "duration": "3.157939",
-            "last_duration": "3.157939",
-            "last_session": "1619267136.4825895"
+        "MagiTrials.exe": {
+            "duration": "6645.860412999999",
+            "last_duration": "9.834027",
+            "last_session": "1619274092.0537314"
         }
     },
     "last_sessions": [
-        "jopLauncherTest1",
-        "jopLauncherTest",
-        "jopLauncherTest12",
-        "jopLauncherTest11",
-        "jopLauncherTest8",
-        "jopLauncherTest10",
-        "jopLauncherTest9",
-        "jopLauncherTest6"
+        "MagiTrials.exe"
     ],
-    "mappings": {
-        "jopLauncherTest11": "test 11",
-        "jopLauncherTest9": "test 9"
-    },
-    "ignored": [
-        "badLauncher"
-    ]
+    "mappings": {},
+    "ignored": []
 }
