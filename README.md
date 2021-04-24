@@ -11,6 +11,7 @@ Other feature:
 - remove exe extension from game name
 - larger window
 - better window placement at startup ( top right )
+- update last played on stating game ( with current total duration )
 
 migration note:
 - remove ".exe" from storage
@@ -21,7 +22,6 @@ migration note:
 - use a grid to put session history info ( alignment is bad currenlty )
 
 # Enhancement To be done
-- update last played on stating game ( with current total duration )
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
 - token "jeux" should be customizable
 - history count 10 should be configurable ( en window height should be adpated to history size )
