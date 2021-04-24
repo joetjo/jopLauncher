@@ -23,3 +23,5 @@ migration note:
 # Enhancement To be done
 - update last played on stating game ( with current total duration )
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
+- token "jeux" should be customizable
+- history count 10 should be configurable ( en window height should be adpated to history size )
