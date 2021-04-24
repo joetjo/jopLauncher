@@ -14,6 +14,7 @@ class procGui(EventListener):
         self.procMgr = procmgr
         self.procMgr.setListener(self)
 
+        GhAppSetup.width = 580
         GhAppSetup.height = 340
         self.app = GhApp("{} - {}".format(JopLauncher.APPNAME, JopLauncher.VERSION))
 

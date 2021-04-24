@@ -1,3 +1,5 @@
+from datetime import datetime, timedelta
+
 from basegui.application import GhApp
 from basegui.simplepanel import GhSimplePanel
 
@@ -17,8 +19,11 @@ class GameSession(GhSimplePanel):
         if name is None:
             self.label.set("")
         else:
+            date = datetime.fromtimestamp(int(float(info['last_session'])))
+            deltaTotal = timedelta(seconds=float(info['duration']))
+            deltaLast = timedelta(seconds=float(info['last_duration']))
+            self.label.set("{} | {} | {} | {}".format(date, deltaLast, deltaTotal, name))
 
-            self.label.set(name)
 
     @staticmethod
     def create(parent, row, col):
