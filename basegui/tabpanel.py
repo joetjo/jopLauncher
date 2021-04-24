@@ -1,5 +1,6 @@
 from tkinter import ttk
 
+
 class GhTab:
     # PRIVATE - Use GhTabPanel::addTab
     def __init__(self, parent, title):
@@ -8,6 +9,7 @@ class GhTab:
 
     def getContainer(self):
         return self.tab
+
 
 class GhTabPanel:
     # Parent: Window or main container

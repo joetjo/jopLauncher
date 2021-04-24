@@ -1,11 +1,11 @@
 import time
-
-import psutil
+# psutil must no be imported --> all call inside ProcessUtil fpr easy test purpose
 import logging  # This module is thread safe.
 import threading
 
 from base.jsonstore import GhStorage
-from launcher.core.process import ProcessInfo
+from launcher.core.private.process import ProcessInfo
+from launcher.core.private.processutil import ProcessUtil
 
 LOCAL_STORAGE = 'local_storage.json'
 LOCK = threading.Lock()
@@ -13,7 +13,9 @@ LOCK = threading.Lock()
 
 class ProcMgr:
 
-    def __init__(self):
+    def __init__(self, testmode):
+        self.testmode = testmode
+        self.putil = ProcessUtil(testmode)
         self.shutdown = False
         self.plist = dict()
         self.pMonitored = dict()
@@ -41,11 +43,11 @@ class ProcMgr:
 
     def loadPList(self):
         self.plist = dict()
-        for proc in psutil.process_iter():
-            try:
-                # Fetch process details as dict
-                p = ProcessInfo(proc.as_dict(attrs=['pid', 'name', 'exe']))
+        for proc in self.putil.process_iter():
+            # Fetch process details as dict
+            p = ProcessInfo(self.putil.readProcessAttributes(proc))
 
+            if p is not None:
                 self.plist[p.getPid()] = p
                 if p.isGame():
                     if self.pMonitored.get(p.getPid()) is None:
@@ -62,10 +64,6 @@ class ProcMgr:
 
                         if self.eventListener is not None:
                             self.eventListener.newGame(p)
-
-            except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
-                print("--- unable to access process ---" + e)
-                pass
 
         print("{} processes detected".format(len(self.plist)))
 
@@ -86,7 +84,10 @@ class ProcMgr:
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
-                self.last_sessions.remove(proc.getName())  # keep only one occurrence of each game
+                try:
+                    self.last_sessions.remove(proc.getName())  # keep only one occurrence of each game
+                except ValueError:
+                    pass # Nothing to remove
                 self.last_sessions.insert(0, proc.getName())
                 if len(self.last_sessions) > 10:  # keep only 10 games in last sessions
                     self.last_sessions.pop(9)
@@ -114,3 +115,7 @@ class ProcMgr:
 
     def stop(self):
         self.shutdown = True
+
+    # FOR TEST PURPOSE ONLU
+    def test_setgame(self, game):
+        self.putil.test_setgame(game)

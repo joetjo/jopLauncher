@@ -1,7 +1,7 @@
 from datetime import timedelta
-from tkinter import StringVar, Label, Button
+from tkinter import StringVar, Label, Button, Entry
 
-from basegui.application import GhApp, GhAppSetup
+from basegui.application import GhApp, GhAppSetup, GhColumnPanel
 from launcher.core.procevent import EventListener
 
 VERSION = '0.0.3'
@@ -43,8 +43,21 @@ class procGui(EventListener):
         self.playedDurationLabel.grid(row=1, column=2)
 
         # FOOTER
-        self.refresh = Button(self.app.status, text="Refresh", command=self.refresh)
-        self.refresh.grid(row=0, column=1)
+        footer = GhColumnPanel(self.app.footer)
+        self.refresh = Button(footer.left, text="Refresh", command=self.refresh)
+        self.refresh.grid()
+
+        if self.procMgr.testmode:
+            self.testgame = StringVar()
+            self.testgameButton = StringVar()
+            self.testgameButton.set("Start")
+            self.testgame.set("jopLauncherTest")
+            self.testgameEntry = Entry(footer.right, textvariable=self.testgame, width=15)
+            self.startstop = Button(footer.right, textvariable=self.testgameButton, anchor="e", command=self.test_startstop)
+
+            Label(footer.right, bg=GhAppSetup.bg_header, text="**TEST**").grid(row=0, padx=5)
+            self.testgameEntry.grid(row=0, column=1, padx=5)
+            self.startstop.grid(row=0, column=2)
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:
@@ -80,3 +93,12 @@ class procGui(EventListener):
         print("End game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(None)
         self.setPlayed(proc)
+
+    # TEST MODE PURPOSE ONLY
+    def test_startstop(self):
+        if len(self.playing.get()) == 0:
+            self.procMgr.test_setgame(self.testgame.get())
+            self.testgameButton.set("Stop")
+        else:
+            self.procMgr.test_setgame(None)
+            self.testgameButton.set("Start")

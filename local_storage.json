@@ -1,4 +1,12 @@
 {
-    "Games": {},
-    "last_sessions": []
+    "Games": {
+        "jopLauncherTest": {
+            "duration": "20.678054",
+            "last_duration": "6.741403",
+            "last_session": "1619250678.1964781"
+        }
+    },
+    "last_sessions": [
+        "jopLauncherTest"
+    ]
 }
