@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Label, StringVar, Button, Entry
+from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
 
 
 class GhAppSetup:
@@ -6,6 +6,12 @@ class GhAppSetup:
     bg_content = 'light grey'
     height = 550
     width = 550
+
+
+class GhAppHandle:
+    def __init__(self, variable, widget ):
+        self.widget = widget
+        self.variable = variable
 
 
 class GhApp:
@@ -47,9 +53,7 @@ class GhApp:
                       bg=parent.cget('bg'),
                       anchor=anchor, justify=justify)
         label.grid(row=row, column=col, sticky=anchor)
-        if textvariable is not None:
-            return textvariable
-        return label
+        return GhAppHandle(textvariable, label)
 
     @staticmethod
     def createButton(parent, row, col,
@@ -62,9 +66,33 @@ class GhApp:
         button = Button(parent, command=command, textvariable=textvariable,
                         anchor=anchor, padx=padx)
         button.grid(row=row, column=col, sticky=anchor)
-        if textvariable is not None:
-            return textvariable
-        return button
+        return GhAppHandle(textvariable, button)
+
+    @staticmethod
+    def createRadio(parent, row, col, command,
+                    text=None,
+                    anchor='w',
+                    padx=5):
+        radiovar = IntVar()
+        radio = Radiobutton(parent, bg=parent.cget('bg'), text=text,
+                            command=command, variable=radiovar,
+                            onvalue=1,
+                            anchor=anchor, padx=padx)
+        radio.grid(row=row, column=col, sticky=anchor)
+        return GhAppHandle(radiovar, radio)
+
+    @staticmethod
+    def createCheckbox(parent, row, col, command,
+                       text=None,
+                       anchor='w',
+                       padx=5):
+        checkvar = IntVar()
+        check = Checkbutton(parent, bg=parent.cget('bg'), text=text,
+                            command=command, variable=checkvar,
+                            onvalue=1,
+                            anchor=anchor, padx=padx)
+        check.grid(row=row, column=col, sticky=anchor)
+        return GhAppHandle(checkvar, check)
 
     @staticmethod
     def createEntry(parent, row, col, width, defaultvalue,
@@ -73,4 +101,4 @@ class GhApp:
         entryvar.set(defaultvalue)
         entry = Entry(parent, textvariable=entryvar, width=width)
         entry.grid(row=row, column=col, padx=padx)
-        return entryvar
+        return GhAppHandle(entryvar, entry)

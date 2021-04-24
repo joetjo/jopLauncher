@@ -30,13 +30,10 @@ class ProcMgr:
         except KeyError:
             self.storage.reset({"Games": {}})
             self.games = self.storage.data()["Games"]
-        # last_sessions may not be present
-        try:
-            self.last_sessions = self.storage.data()["last_sessions"]
-        except KeyError:
-            self.storage.data()["last_sessions"] = []
-            self.storage.save()
-            self.last_sessions = self.storage.data()["last_sessions"]
+
+        self.last_sessions = self.storage.getOrCreate(self.storage.data(), "last_sessions", [])
+        self.game_mappings = self.storage.getOrCreate( self.storage.data(), "mappings", {})
+        self.game_ignored = self.storage.getOrCreate( self.storage.data(), "ignored", [])
 
         self.loadPList()
 
@@ -117,6 +114,15 @@ class ProcMgr:
             return self.pMonitored[next(iter(self.pMonitored))]
         else:
             return None
+
+    def ignore(self, name):
+        self.game_ignored.append(name)
+        self.last_sessions.remove(name)
+        self.storage.save()
+
+    def mapname(self, name, mapname):
+        self.game_mappings[name] = mapname
+        self.storage.save()
 
     def stop(self):
         self.shutdown = True

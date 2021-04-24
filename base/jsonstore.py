@@ -53,3 +53,11 @@ class GhStorage:
 
     def data(self):
         return self.content
+
+    def getOrCreate(self, data, key, default):
+        try:
+            return self.content[key]
+        except KeyError:
+            self.content[key] = default
+            return ""
+

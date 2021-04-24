@@ -1,9 +1,9 @@
 {
     "Games": {
         "jopLauncherTest": {
-            "duration": "210.387642",
-            "last_duration": "3.50599",
-            "last_session": "1619260992.7192352"
+            "duration": "217.43991799999998",
+            "last_duration": "2.035724",
+            "last_session": "1619264053.0623891"
         },
         "jopLauncherTest2": {
             "duration": "2.940416",
@@ -59,18 +59,33 @@
             "duration": "2.641281",
             "last_duration": "2.641281",
             "last_session": "1619259602"
+        },
+        "badLauncher": {
+            "duration": "5.04803",
+            "last_duration": "5.04803",
+            "last_session": "1619261116.4154904"
+        },
+        "jopLauncherTest1": {
+            "duration": "3.157939",
+            "last_duration": "3.157939",
+            "last_session": "1619267136.4825895"
         }
     },
     "last_sessions": [
+        "jopLauncherTest1",
         "jopLauncherTest",
         "jopLauncherTest12",
         "jopLauncherTest11",
         "jopLauncherTest8",
         "jopLauncherTest10",
         "jopLauncherTest9",
-        "jopLauncherTest7",
-        "jopLauncherTest6",
-        "jopLauncherTest5",
-        "jopLauncherTest2"
+        "jopLauncherTest6"
+    ],
+    "mappings": {
+        "jopLauncherTest11": "test 11",
+        "jopLauncherTest9": "test 9"
+    },
+    "ignored": [
+        "badLauncher"
     ]
 }
