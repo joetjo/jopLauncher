@@ -11,13 +11,15 @@ from tkinter import messagebox
 
 
 def background(procmgr):
-    print("Starting auto refresh thread - sleeping delay: {}s".format(JopLauncher.REFRESH_DELAY))
+    print("Starting auto refresh thread - sleeping delay: {}s".format(JopLauncher.REFRESH_DELAY * 5))
     count = JopLauncher.REFRESH_DELAY
     while not procmgr.shutdown:
         time.sleep(5)
         if count > JopLauncher.REFRESH_DELAY:
             procmgr.refresh()
             count = 0
+        else:
+            count += 1
 
 
 def main():
@@ -27,7 +29,6 @@ def main():
     bg.start()
 
     procGui(procmgr)
-
 
     procmgr.stop()
 
