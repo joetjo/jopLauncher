@@ -1,10 +1,10 @@
 from datetime import timedelta
-from tkinter import StringVar, Label, Button, Entry
 
-from basegui.application import GhApp, GhAppSetup, GhColumnPanel
+from JopLauncherConstant import JopLauncher
+from basegui.application import GhApp, GhAppSetup
+from basegui.columnpanel import GhColumnPanel
 from launcher.core.procevent import EventListener
-
-VERSION = '0.0.3'
+from launcher.gui.gamesession import GameSession
 
 
 class procGui(EventListener):
@@ -14,50 +14,38 @@ class procGui(EventListener):
         self.procMgr = procmgr
         self.procMgr.setListener(self)
 
-        GhAppSetup.height = 150
-        self.app = GhApp("gGameScanner - {}".format(VERSION))
+        GhAppSetup.height = 340
+        self.app = GhApp("{} - {}".format(JopLauncher.APPNAME, JopLauncher.VERSION))
 
         # HEADER
-        Label(self.app.header, text="Playing:", bg=GhAppSetup.bg_header,
-              anchor="w", justify="left", width=procGui.label_width).grid(row=0, column=1)
-
-        self.playing = StringVar()
-        self.playingLabel = Label(self.app.header, bg=GhAppSetup.bg_header,
-                                  anchor="w", textvariable=self.playing, width=30)
-        self.playingLabel.grid(row=0, column=2)
+        GhApp.createLabel(self.app.header, 0, 0, text="Playing:")
+        self.playing = GhApp.createLabel(self.app.header, 0, 1)
 
         # CONTENT
-        Label(self.app.content, text="Last played:", bg=GhAppSetup.bg_content,
-              anchor="w", justify="left", width=procGui.label_width).grid(row=0, column=1)
-        self.played = StringVar()
-        self.playedLabel = Label(self.app.content, bg=GhAppSetup.bg_content,
-                                 anchor="w", textvariable=self.played, width=30)
-        self.playedLabel.grid(row=0, column=2)
+        content_col = GhColumnPanel(self.app.content)
 
-        Label(self.app.content, text="Time played:", bg=GhAppSetup.bg_content,
-              anchor="w", justify="left", width=procGui.label_width).grid(row=1, column=1)
+        GhApp.createLabel(content_col.left, 0, 0, text="Last played:")
+        self.played = GhApp.createLabel(content_col.right, 0, 0, anchor='e')
 
-        self.playedDuration = StringVar()
-        self.playedDurationLabel = Label(self.app.content, bg=GhAppSetup.bg_content,
-                                         anchor="w", textvariable=self.playedDuration, width=30)
-        self.playedDurationLabel.grid(row=1, column=2)
+        GhApp.createLabel(content_col.left, 1, 0, text="Time played:")
+        self.playedDuration = GhApp.createLabel(content_col.right, 1, 0, anchor='e')
+
+        GhApp.createLabel(content_col.left, 2, 0, text="Previous sessions:")
+
+        self.sessions = []
+        for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
+            self.sessions.append(GameSession.create(content_col.right, 2 + idx, 0))
+        self.reloadLastSessions()
 
         # FOOTER
-        footer = GhColumnPanel(self.app.footer)
-        self.refresh = Button(footer.left, text="Refresh", command=self.refresh)
-        self.refresh.grid()
+        footer_col = GhColumnPanel(self.app.footer)
+        GhApp.createButton(footer_col.left, 0, 0, self.refresh, "refresh")
 
         if self.procMgr.testmode:
-            self.testgame = StringVar()
-            self.testgameButton = StringVar()
+            GhApp.createLabel(footer_col.right, 0, 0, text="**TEST**")
+            self.testgame = GhApp.createEntry(footer_col.right, 0, 1, 15, "jopLauncherTest")
+            self.testgameButton = GhApp.createButton(footer_col.right, 0, 2, self.test_startstop, "Start")
             self.testgameButton.set("Start")
-            self.testgame.set("jopLauncherTest")
-            self.testgameEntry = Entry(footer.right, textvariable=self.testgame, width=15)
-            self.startstop = Button(footer.right, textvariable=self.testgameButton, anchor="e", command=self.test_startstop)
-
-            Label(footer.right, bg=GhAppSetup.bg_header, text="**TEST**").grid(row=0, padx=5)
-            self.testgameEntry.grid(row=0, column=1, padx=5)
-            self.startstop.grid(row=0, column=2)
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:
@@ -67,6 +55,17 @@ class procGui(EventListener):
 
     def refresh(self):
         self.procMgr.refresh()
+
+    def reloadLastSessions(self):
+        idx = 0
+        for name in self.procMgr.last_sessions:
+            info = self.procMgr.find(name)
+            if info is not None:
+                self.sessions[idx].set(name, info)
+                idx += 1
+
+        for idx2 in range(idx, JopLauncher.MAX_LAST_SESSION_COUNT):
+            self.sessions[idx].set()
 
     def setPlaying(self, proc):
         if proc is None:
@@ -93,6 +92,7 @@ class procGui(EventListener):
         print("End game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(None)
         self.setPlayed(proc)
+        self.reloadLastSessions()
 
     # TEST MODE PURPOSE ONLY
     def test_startstop(self):

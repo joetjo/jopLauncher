@@ -1,12 +1,76 @@
 {
     "Games": {
         "jopLauncherTest": {
-            "duration": "20.678054",
-            "last_duration": "6.741403",
-            "last_session": "1619250678.1964781"
+            "duration": "196.609509",
+            "last_duration": "1.955704",
+            "last_session": "1619259766.2983754"
+        },
+        "jopLauncherTest2": {
+            "duration": "2.940416",
+            "last_duration": "2.940416",
+            "last_session": "1619256008.279472"
+        },
+        "jopLauncherTest3": {
+            "duration": "3.411154",
+            "last_duration": "3.411154",
+            "last_session": "1619259439.084575"
+        },
+        "jopLauncherTest4": {
+            "duration": "2.066413",
+            "last_duration": "2.066413",
+            "last_session": "1619259511.234356"
+        },
+        "jopLauncherTest5": {
+            "duration": "1.722281",
+            "last_duration": "1.722281",
+            "last_session": "1619259519.9629655"
+        },
+        "jopLauncherTest6": {
+            "duration": "1.588217",
+            "last_duration": "1.588217",
+            "last_session": "1619259527.6538944"
+        },
+        "jopLauncherTest7": {
+            "duration": "1.938757",
+            "last_duration": "1.938757",
+            "last_session": "1619259534.5731852"
+        },
+        "jopLauncherTest9": {
+            "duration": "4.643099",
+            "last_duration": "1.564748",
+            "last_session": "1619259550.279566"
+        },
+        "jopLauncherTest10": {
+            "duration": "2.698158",
+            "last_duration": "2.698158",
+            "last_session": "1619259559.9217029"
+        },
+        "jopLauncherTest8": {
+            "duration": "2.244324",
+            "last_duration": "2.244324",
+            "last_session": "1619259579.9471016"
+        },
+        "jopLauncherTest11": {
+            "duration": "2.524421",
+            "last_duration": "2.524421",
+            "last_session": "1619259590.8631089"
+        },
+        "jopLauncherTest12": {
+            "duration": "2.641281",
+            "last_duration": "2.641281",
+            "last_session": "1619259602.0887551"
         }
     },
     "last_sessions": [
-        "jopLauncherTest"
+        "jopLauncherTest",
+        "jopLauncherTest12",
+        "jopLauncherTest11",
+        "jopLauncherTest8",
+        "jopLauncherTest10",
+        "jopLauncherTest9",
+        "jopLauncherTest7",
+        "jopLauncherTest6",
+        "jopLauncherTest5",
+        "jopLauncherTest2"
     ]
 }

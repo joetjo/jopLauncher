@@ -47,6 +47,7 @@ class GhStorage:
         if self.json_file is not None:
             with open(self.json_file, "w", encoding='utf-8') as file:
                 json.dump(self.content, file, ensure_ascii=False, indent=4)
+                print("GhStorage : {} saved".format(self.json_file))
         else:
             print("GhStorage : save ignored, not open from file")
 

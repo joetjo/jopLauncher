@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame
+from tkinter import Tk, Frame, Label, StringVar, Button, Entry
 
 
 class GhAppSetup:
@@ -33,15 +33,44 @@ class GhApp:
         self.window.mainloop()
         print("{} closed".format(self.title))
 
+    @staticmethod
+    # if text is None, create a StringVar and return it
+    def createLabel(parent, row, col,
+                    text=None,
+                    anchor='w',
+                    justify='left'):
+        textvariable = None
+        if text is None:
+            textvariable = StringVar()
+        label = Label(parent,
+                      text=text, textvariable=textvariable,
+                      bg=parent.cget('bg'),
+                      anchor=anchor, justify=justify)
+        label.grid(row=row, column=col, sticky=anchor)
+        if textvariable is not None:
+            return textvariable
+        return label
 
-class GhColumnPanel:
+    @staticmethod
+    def createButton(parent, row, col,
+                     command,
+                     text,
+                     anchor='w',
+                     padx=5):
+        textvariable = StringVar()
+        textvariable.set(text)
+        button = Button(parent, command=command, textvariable=textvariable,
+                        anchor=anchor, padx=padx)
+        button.grid(row=row, column=col, sticky=anchor)
+        if textvariable is not None:
+            return textvariable
+        return button
 
-    def __init__(self, parent):
-        self.left = Frame(parent, bg=parent.cget('bg'), padx=0, pady=0)
-        self.right = Frame(parent, bg=parent.cget('bg'), padx=0, pady=0)
-
-        parent.grid_rowconfigure(0, weight=1)
-        parent.grid_columnconfigure(0, weight=1)
-
-        self.left.grid(sticky="nsw")
-        self.right.grid(row=0, column=1, sticky="nse")
+    @staticmethod
+    def createEntry(parent, row, col, width, defaultvalue,
+                    padx=5):
+        entryvar = StringVar()
+        entryvar.set(defaultvalue)
+        entry = Entry(parent, textvariable=entryvar, width=width)
+        entry.grid(row=row, column=col, padx=padx)
+        return entryvar

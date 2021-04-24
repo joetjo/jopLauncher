@@ -3,6 +3,7 @@ import time
 import logging  # This module is thread safe.
 import threading
 
+from JopLauncherConstant import JopLauncher
 from base.jsonstore import GhStorage
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
@@ -52,7 +53,7 @@ class ProcMgr:
                 if p.isGame():
                     if self.pMonitored.get(p.getPid()) is None:
                         try:
-                            p.setStoreEntry(self.games[p.getName()])
+                            p.setStoreEntry(self.find(p.getName()))
                         except KeyError:
                             print("Creating game {} within storage".format(p.getName()))
                             self.games[p.getName()] = {"duration": "0"}
@@ -89,8 +90,8 @@ class ProcMgr:
                 except ValueError:
                     pass # Nothing to remove
                 self.last_sessions.insert(0, proc.getName())
-                if len(self.last_sessions) > 10:  # keep only 10 games in last sessions
-                    self.last_sessions.pop(9)
+                if len(self.last_sessions) > JopLauncher.MAX_LAST_SESSION_COUNT:  # keep only 10 games in last sessions
+                    self.last_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT-1)
                 self.storage.save()
 
                 if self.eventListener is not None:
@@ -106,6 +107,9 @@ class ProcMgr:
 
     def get(self, pid):
         return self.plist.get(pid)
+
+    def find(self, name):
+        return self.games[name]
 
     def getFirstMonitored(self):
         if len(self.pMonitored) > 0:
