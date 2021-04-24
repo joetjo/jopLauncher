@@ -13,6 +13,7 @@ Other feature:
 - use a grid to put session history info ( alignment is bad currenlty )
 
 # Enhancement To be done
+- remove exe extension from game name
 - update last played on stating game ( with current total duration )
 - better window placement at startup
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
