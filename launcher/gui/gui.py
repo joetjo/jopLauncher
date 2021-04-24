@@ -16,8 +16,10 @@ class procGui(EventListener):
         self.procMgr = procmgr
         self.procMgr.setListener(self)
 
-        GhAppSetup.width = 600
+        GhAppSetup.width = 660
         GhAppSetup.height = 400
+        GhAppSetup.vertical = 'top'
+        GhAppSetup.horizontal = 'right'
         self.app = GhApp("{} - {}".format(JopLauncher.APPNAME, JopLauncher.VERSION))
 
         # HEADER
@@ -84,6 +86,7 @@ class procGui(EventListener):
         else:
             self.playing.set(proc.getName())
             self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
+            self.played.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
 
     def setPlayed(self, proc):
         self.played.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))

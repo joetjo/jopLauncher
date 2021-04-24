@@ -23,7 +23,7 @@ def background(procmgr):
 
 
 def main():
-    procmgr = ProcMgr()
+    procmgr = ProcMgr(True)
 
     bg = threading.Thread(target=background, args=(procmgr,))
     bg.start()

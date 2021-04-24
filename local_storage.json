@@ -1,7 +1,9 @@
 {
     "Games": {
-        "Memoria.exe": {
-            "duration": "42965.701038"
+        "Hoshizora No Memoria": {
+            "duration": "44223.845553",
+            "last_duration": "544.387986",
+            "last_session": "1619281831.3954105"
         },
         "nw.exe": {
             "duration": "16979.057661000003"
@@ -22,14 +24,39 @@
             "duration": "4361.727794"
         },
         "MagiTrials.exe": {
-            "duration": "6645.860412999999",
-            "last_duration": "9.834027",
-            "last_session": "1619274092.0537314"
+            "duration": "9295.280530999999",
+            "last_duration": "1242.856117",
+            "last_session": "1619279567.856004"
+        },
+        "A Summer's End - Hong Kong 1986": {
+            "duration": "586.705151",
+            "last_duration": "586.705151",
+            "last_session": "1619282452.4603844"
+        },
+        "jopLauncherTest": {
+            "duration": "7.009438",
+            "last_duration": "7.009438",
+            "last_session": "1619283947.4227133"
+        },
+        "jopLauncherwdfqTest": {
+            "duration": "0"
+        },
+        "jopLauncherqsdTest": {
+            "duration": "5.718283",
+            "last_duration": "5.718283",
+            "last_session": "1619284003.204121"
         }
     },
     "last_sessions": [
+        "jopLauncherqsdTest",
+        "jopLauncherTest",
+        "A Summer's End - Hong Kong 1986",
+        "Hoshizora No Memoria",
         "MagiTrials.exe"
     ],
-    "mappings": {},
+    "mappings": {
+        "HK1986.exe": "A Summer's End - Hong Kong 1986",
+        "Memoria.exe": "Hoshizora No Memoria"
+    },
     "ignored": []
 }

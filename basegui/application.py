@@ -6,10 +6,14 @@ class GhAppSetup:
     bg_content = 'light grey'
     height = 550
     width = 550
+    # center top bottom
+    vertical = 'center'
+    # center left right
+    horizontal = 'center'
 
 
 class GhAppHandle:
-    def __init__(self, variable, widget ):
+    def __init__(self, variable, widget):
         self.widget = widget
         self.variable = variable
 
@@ -21,8 +25,25 @@ class GhApp:
 
         self.window = Tk()
 
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        x = 0
+        if GhAppSetup.horizontal == 'right':
+            x = screen_width - GhAppSetup.width - 10
+        elif GhAppSetup.horizontal == 'center':
+            x = int((screen_width - GhAppSetup.width) / 2)
+        y = 0
+        if GhAppSetup.vertical == 'bottom':
+            y = screen_height - GhAppSetup.height - 10
+        elif GhAppSetup.vertical == 'center':
+            y = int((screen_height - GhAppSetup.height) / 2)
+
         self.window.title(title)
-        self.window.geometry('{}x{}'.format(GhAppSetup.width, GhAppSetup.height))
+        self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
+
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
 
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=20)
         self.content = Frame(self.window, bg=GhAppSetup.bg_content, padx=5, pady=5)

@@ -35,6 +35,9 @@ class ProcessInfo:
             self.name = mapname
             print("Using custom name {} instead of {}".format(self.name, self.originName))
 
+    def removeExtension(self):
+        self.name = self.name[0:self.name.rfind(".exe")]
+
     def getPath(self):
         return self.path
 
