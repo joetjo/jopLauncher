@@ -13,7 +13,7 @@ and discover automatically which game is running ( with a prerequisite on where 
 
 Platform : **Windows** ( python )
 
-Note: the project is fully compatible to other platform be tested only on windows and package only for windows.
+Note: the project is fully compatible to other platform be tested only on windows and packaged only for windows.
 
 # next version
 
