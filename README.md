@@ -23,6 +23,7 @@ Fixes:
 - update last played on stating game ( with current total duration )
 - fix alignment in session history
 - setup a mapping keep old session in list ( bug ) and don't rename existing name in storage ( so 2 games exist )
+- fix 1st run when no data are available
 
 Enhancements:
 - add search in upper right and then previous session is replaced by search result
@@ -32,6 +33,7 @@ Enhancements:
 - |-> history count entry also in constant ( with window height adjustement )
 - show the original name on mapping when a mapping was already done
 - title for history display
+- add remove and rename ignore to exclude
 
 migration note:
 - remove ".exe" from storage
