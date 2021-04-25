@@ -42,13 +42,13 @@ class Session:
 class SessionList:
 
     # Storage none --> im memory session list ( for search result )
-    def __init__(self, storage=None):
+    def __init__(self, storage=None, proc_manager=None):
         self.sessions = []
         self.json_sessions = []
         if storage is not None:
             self.json_sessions = storage.getOrCreate(storage.data(), "last_sessions", [])
             for json in storage.getOrCreate(storage.data(), "last_sessions", []):
-                self.sessions.append(Session(json))
+                self.sessions.append(Session(json, proc_manager.find(json[0])))
         # set storage after reading session
         self.storage = storage
 
@@ -64,9 +64,6 @@ class SessionList:
                 self.removeSessionByName(session.getName())
             self.sessions.insert(0, session)
             self.json_sessions.insert(0, session.json)
-            if len(self.sessions) > JopLauncher.MAX_LAST_SESSION_COUNT:  # keep only 10 games in last sessions
-                self.sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
-                self.json_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
 
     def findSessionByName(self, name):
         found = None
@@ -113,7 +110,7 @@ class ProcMgr:
             self.storage.reset({"Games": {}})
             self.games = self.storage.data()["Games"]
 
-        self.sessions = SessionList(self.storage)
+        self.sessions = SessionList(self.storage, self)
         self.game_mappings = self.storage.getOrCreate(self.storage.data(), "mappings", {})
         self.game_ignored = self.storage.getOrCreate(self.storage.data(), "ignored", [])
 
@@ -124,9 +121,9 @@ class ProcMgr:
 
     def loadPList(self):
         self.plist = dict()
-        for proc in self.process_util.process_iter():
+        for process_name in self.process_util.process_iter():
             # Fetch process details as dict
-            p = ProcessInfo(self.process_util.readProcessAttributes(proc))
+            p = ProcessInfo(self.process_util.readProcessAttributes(process_name))
 
             if p is not None:
                 self.plist[p.getPid()] = p
@@ -174,8 +171,7 @@ class ProcMgr:
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
-                session = Session([proc.getName(), proc.path, proc.getOriginName()])
-
+                session = Session([proc.getName(), proc.path, proc.getOriginName()], self.find(proc.getName()))
                 try:
                     self.removeLastSession(session)  # keep only one occurrence of each game
                 except:
@@ -211,9 +207,13 @@ class ProcMgr:
     # Returns all games with the token in their name within the storage
     def searchInStorage(self, token):
         result = SessionList()
-        for game in self.games:
-            if token in game:
-                result.append(Session(self.sessions.findSessionByName(game), self.games[game]))
+        for game_name in self.games:
+            if token in game_name:
+                last = self.sessions.findSessionByName(game_name)
+                if last is None:
+                    # not played in 10 last session
+                    last = Session([game_name, "", game_name], self.games[game_name])
+                result.addSession(last)
         return result
 
     def getFirstMonitored(self):

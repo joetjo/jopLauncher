@@ -10,7 +10,7 @@ class JopLauncher:
     # delay between refresh 5s * REFRESH_DELAY
     REFRESH_DELAY = 10
     MAX_LAST_SESSION_COUNT = 10
-    TEST_MODE = True
+    TEST_MODE = False
 
     GAME_PATTERN = 'jeux'
     GAME_EXTENSION = '.exe'

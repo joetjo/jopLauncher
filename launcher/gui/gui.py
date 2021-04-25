@@ -94,10 +94,9 @@ class procGui(EventListener):
 
         idx = 0
         for session in self.procMgr.getSessions():
-            info = self.procMgr.find(session.getName())
-            if info is not None:
-                self.ui_sessions[idx].set(session, info)
-                idx += 1
+            if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
+                self.ui_sessions[idx].set(session)
+            idx += 1
 
     def clearAllSessions(self):
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
@@ -114,7 +113,7 @@ class procGui(EventListener):
             self.clearAllSessions()
 
             idx = 0
-            for session in self.procMgr.searchInStorage(token):
+            for session in self.procMgr.searchInStorage(token).list():
                 if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
                     self.ui_sessions[idx].set(session)
                 idx += 1

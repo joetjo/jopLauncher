@@ -1,5 +1,4 @@
-from datetime import datetime, timedelta
-from tkinter import DISABLED
+from datetime import datetime
 
 from base.jsonstore import GhStorage
 from basegui.application import GhApp
@@ -41,33 +40,32 @@ class GameSession(GhSimplePanel):
         GhApp.createLabel(self.content, 0, 6, "", width=2)
 
     @staticmethod
-    def setOptionalDateInfo(ui_label, info, info_name):
-        val = GhStorage.getValue(info, info_name)
+    def setOptionalDateInfo(ui_label, session, info_name):
+        val = GhStorage.getValue(session.getGameInfo(), info_name)
         if val is not None:
             ui_label.set(str(datetime.fromtimestamp(int(float(val)))))
         else:
             ui_label.set("-")
 
     @staticmethod
-    def setOptionalDurationInfo(ui_label, info, info_name):
-        val = int(float(GhStorage.getValue(info, info_name)))
+    def setOptionalDurationInfo(ui_label, session, info_name):
+        val = int(float(GhStorage.getValue(session.getGameInfo(), info_name)))
         if val is not None:
             if val < 60:
                 ui_label.set("{}s".format(str(val)))
             elif val < 3600:
-                minute = int(val/60)
+                minute = int(val / 60)
                 second = int(val - (minute * 60))
-                ui_label.set("{}m {}s".format(str(minute),str(second)))
+                ui_label.set("{}m {}s".format(str(minute), str(second)))
             else:
                 hour = int(val / 3600)
-                minute = int((val - ( hour * 3600 )) / 60)
-                ui_label.set("{}h{}m".format(str(val / 3600), str(minute)))
+                minute = int((val - (hour * 3600)) / 60)
+                ui_label.set("{}h{}m".format(str(hour), str(minute)))
         else:
             ui_label.set("-")
 
-    def set(self, session=None, info=None):
+    def set(self, session=None):
         self.session = session
-        self.info = info
         if self.session is None:
             self.ui_date_label.variable.set("")
             self.ui_total_label.variable.set("")
@@ -76,9 +74,9 @@ class GameSession(GhSimplePanel):
             self.ui_selection_check.widget.grid_remove()
         else:
             self.ui_selection_check.widget.grid()
-            GameSession.setOptionalDateInfo(self.ui_date_label.variable, info, 'last_session')
-            GameSession.setOptionalDurationInfo(self.ui_total_label.variable, info, 'duration')
-            GameSession.setOptionalDurationInfo(self.ui_last_label.variable, info, 'last_duration')
+            GameSession.setOptionalDateInfo(self.ui_date_label.variable, self.session, 'last_session')
+            GameSession.setOptionalDurationInfo(self.ui_total_label.variable, self.session, 'duration')
+            GameSession.setOptionalDurationInfo(self.ui_last_label.variable, self.session, 'last_duration')
             self.ui_name_label.variable.set(self.session.getName())
 
     def getName(self):
@@ -108,7 +106,7 @@ class GameSession(GhSimplePanel):
         if name == original_name:
             self.ui_name_label.variable.set(name)
         else:
-            self.ui_name_label.variable.set("{} ( real name : {} )".format( name, original_name ))
+            self.ui_name_label.variable.set("{} ( real name : {} )".format(name, original_name))
 
     def disableMapping(self):
         self.ui_mapping_entry.widget.grid_remove()
@@ -120,5 +118,5 @@ class GameSession(GhSimplePanel):
     @staticmethod
     def create(parent, app, row, col, title_mode=None):
         result = GameSession(parent, app, title_mode=title_mode)
-        parent.grid(row=0, column=col)
+        parent.grid(row=0, column=col) # TODO FIX THIS ROW+0 ??????????????????
         return result

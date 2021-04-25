@@ -1,111 +1,63 @@
 {
     "Games": {
+        "nw": {
+            "duration": "16979.057661000003"
+        },
         "Launcher": {
             "duration": "20.505977"
+        },
+        "Borderlands2": {
+            "duration": "22213.956674",
+            "last_duration": "8770.807636",
+            "last_session": "1619296585.9965107"
         },
         "UnityCrashHandler32": {
             "duration": "7514.127144"
         },
         "Perfect Gold": {
-            "duration": "7513.744114"
+            "duration": "7518.786611",
+            "last_duration": "5.042497",
+            "last_session": "1619368044.4734485"
         },
         "AWayOut": {
             "duration": "4361.727794"
         },
-        "jopLauncherwdfqTest": {
-            "duration": "0"
+        "MagiTrials": {
+            "duration": "9295.280530999999",
+            "last_duration": "1242.856117",
+            "last_session": "1619279567.856004"
         },
-        "FakeGameName1": {
-            "duration": "4.42269",
-            "last_duration": "1.846661",
-            "last_session": "1619343350.864846"
+        "Hoshizora No Memoria": {
+            "duration": "44690.911125",
+            "last_duration": "12.750356",
+            "last_session": "1619367931.4907124"
         },
-        "FakeGameName2": {
-            "duration": "4.930186",
-            "last_duration": "2.757974",
-            "last_session": "1619343721.1079218"
-        },
-        "FakeGameName3": {
-            "duration": "5.721856",
-            "last_duration": "1.733169",
-            "last_session": "1619343728.2300944"
-        },
-        "FakeGameName4": {
-            "duration": "2.8890130000000003",
-            "last_duration": "1.334135",
-            "last_session": "1619343733.972797"
-        },
-        "FakeGameName5": {
-            "duration": "5.587172000000001",
-            "last_duration": "1.638512",
-            "last_session": "1619343739.6828115"
-        },
-        "FakeGameName6": {
-            "duration": "3.473214",
-            "last_duration": "1.489828",
-            "last_session": "1619343745.364189"
-        },
-        "FakeGameName7": {
-            "duration": "5.195327",
-            "last_duration": "1.556892",
-            "last_session": "1619343751.1345747"
-        },
-        "FakeGameName8": {
-            "duration": "3.222193",
-            "last_duration": "1.568576",
-            "last_session": "1619343757.5322082"
-        },
-        "FakeGameName9": {
-            "duration": "3.1981770000000003",
-            "last_duration": "1.594174",
-            "last_session": "1619343766.8857534"
-        },
-        "FakeGameName10": {
-            "duration": "1.902955",
-            "last_duration": "1.902955",
-            "last_session": "1619339192.4734364"
-        },
-        "FakeGameName12": {
-            "duration": "1.991328",
-            "last_duration": "1.991328",
-            "last_session": "1619339569.262823"
-        },
-        "FakeMAP": {
-            "duration": "18.994014",
-            "last_duration": "2.510296",
-            "last_session": "1619346224.9971945"
-        },
-        "FakeGameNameFolder": {
-            "duration": "0"
-        },
-        "testmapFolder": {
-            "duration": "14.576269",
-            "last_duration": "2.956016",
-            "last_session": "1619352978.7036474"
-        },
-        "Fake2": {
-            "duration": "84.59189100000002",
-            "last_duration": "2.959579",
-            "last_session": "1619364801.6336682"
+        "A Summer's End - Hong Kong 1986": {
+            "duration": "2603.372001",
+            "last_duration": "3.814345",
+            "last_session": "1619367982.5946212"
         }
     },
     "last_sessions": [
         [
-            "Fake2",
-            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
-            "FakeGameName"
+            "Perfect Gold",
+            "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
+            "Perfect Gold"
         ],
         [
-            "testmapFolder",
-            "\\the\\path\\jeux\\testmapFolder\\testmap.exe",
-            "testmap"
+            "A Summer's End - Hong Kong 1986",
+            "\\the\\path\\jeux\\HK1986Folder\\HK1986.exe",
+            "HK1986"
+        ],
+        [
+            "Hoshizora No Memoria",
+            "\\the\\path\\jeux\\MemoriaFolder\\Memoria.exe",
+            "Memoria"
         ]
     ],
     "mappings": {
-        "testmap": "PARENT",
-        "FakeGameName": "Fake2"
+        "Memoria": "Hoshizora No Memoria",
+        "HK1986": "A Summer's End - Hong Kong 1986"
     },
-    "ignored": [
-        "testi"
-    ]
+    "ignored": []
 }
