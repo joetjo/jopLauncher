@@ -29,6 +29,7 @@ migration note:
 - last sessions game list should be deleted
 
 # Bug To be fix
+- duration display is a date so 1 Jan 1970
 
 # Enhancement To be done
 - ui preference
