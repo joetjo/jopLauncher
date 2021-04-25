@@ -31,3 +31,6 @@ migration note:
 # Enhancement To be done
 - ui preference
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
+- how to check and cancel ignored file
+- show the original name on mapping when a mapping was already done
+
