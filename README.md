@@ -12,8 +12,8 @@ Other feature:
 - larger window
 - better window placement at startup ( top right )
 - update last played on stating game ( with current total duration )
-- kix alignment in session history
-- 
+- fix alignment in session history
+
 migration note:
 - remove ".exe" from storage
 
