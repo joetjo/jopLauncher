@@ -129,11 +129,10 @@ class ProcMgr:
                 self.plist[p.getPid()] = p
                 if p.isGame():
                     if not self.isIgnore(p.getName()):
+                        p.removeExtension()
                         mapping = GhStorage.getValue(self.game_mappings, p.getName())
                         if mapping is not None:
                             p.forceName(mapping)
-                        else:
-                            p.removeExtension()
                         if self.pMonitored.get(p.getPid()) is None:
                             try:
                                 p.setStoreEntry(self.find(p.getName()))

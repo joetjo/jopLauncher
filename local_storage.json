@@ -28,9 +28,9 @@
             "last_session": "1619279567.856004"
         },
         "Hoshizora No Memoria": {
-            "duration": "44690.911125",
-            "last_duration": "12.750356",
-            "last_session": "1619367931.4907124"
+            "duration": "44725.853603999996",
+            "last_duration": "34.942479",
+            "last_session": "1619368602.7826512"
         },
         "A Summer's End - Hong Kong 1986": {
             "duration": "2603.372001",
@@ -40,6 +40,11 @@
     },
     "last_sessions": [
         [
+            "Hoshizora No Memoria",
+            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
+            "Memoria.exe"
+        ],
+        [
             "Perfect Gold",
             "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
             "Perfect Gold"
@@ -48,11 +53,6 @@
             "A Summer's End - Hong Kong 1986",
             "\\the\\path\\jeux\\HK1986Folder\\HK1986.exe",
             "HK1986"
-        ],
-        [
-            "Hoshizora No Memoria",
-            "\\the\\path\\jeux\\MemoriaFolder\\Memoria.exe",
-            "Memoria"
         ]
     ],
     "mappings": {

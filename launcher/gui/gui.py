@@ -70,7 +70,7 @@ class procGui(EventListener):
         self.ui_mapping_button.widget.grid_remove()
 
         if self.procMgr.test_mode:
-            GhApp.createLabel(footer_col.right, 0, 0, text="**TEST**")
+            GhApp.createLabel(footer_col.right, 0, 0, text="**TEST** ( no extension )")
             self.ui_testgame_entry = GhApp.createEntry(footer_col.right, 0, 1, 20, "FakeGameName")
             self.ui_testgame_button = GhApp.createButton(footer_col.right, 0, 2, self.test_startStop, "Start")
             self.ui_testgame_button.variable.set("Start")
