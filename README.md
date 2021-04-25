@@ -1,6 +1,6 @@
 # jop Game Launcher
 
-Game management platform that do not need internet, do not need any registering, do no store data into the cloud, do not need access to your game account....
+Global game management platform that do not need internet, do not need any registering, do no store data into the cloud, do not need access to your game account....
 and discover automatically which game is running ( with a prerequisite on where to install game ). 
 
 > All the recorded data are local and nothing is published. Local data are not protected ( protection rely on your local account on your laptop/desktop )
