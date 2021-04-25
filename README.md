@@ -40,9 +40,10 @@ migration note:
 # Bug To be fix
 - duration display is a date so 1 Jan 1970
 - scrollbar / minimum size
-
+ - mapping name may be identical to a real other process name when loading process - to check
+ 
 # Enhancement To be done
-- ui preference
+- ui preference ( use GHSetup )
 - separate storage in multiple files
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
 - add a way to define a custom launcher
