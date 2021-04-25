@@ -1,11 +1,11 @@
-# jopLauncher
+# jop Game Launcher
 
-Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
+Game management platform that do not need internal and discover automatically which game is running ( with a prerequisite on where to install game ).
 
-Other feature:
+- Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
 - show last 10 gaming sessions
 - allow to exclude process
-- allow to map a custom name for an exe or to use the parent folder name instead of the executable name.
+- allow to map a custom name for an executable or to use the parent folder name instead of the executable name.
 
 # next version
 
@@ -42,4 +42,7 @@ migration note:
 - add a way to add an http link to store page
 - add a way to add an http link to external link ( tips soluce or whatever =
 - how to check and cancel ignored file
+
+Test related:
+- use a separate window to run the test mode
 
