@@ -11,6 +11,10 @@ and discover automatically which game is running ( with a prerequisite on where 
 - allow to exclude process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange things ).
 - allow to map a custom name for an executable or to use the parent folder name instead of the executable name.
 
+Platform : **Windows** ( python )
+
+Note: the project is fully compatible to other platform be tested only on windows and package only for windows.
+
 # next version
 
 Fixes:
