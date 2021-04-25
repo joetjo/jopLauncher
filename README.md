@@ -1,6 +1,6 @@
 # jop Game Launcher
 
-Game management platform that do not need internet, do not need any registering, do no store data into the cloud, ....
+Game management platform that do not need internet, do not need any registering, do no store data into the cloud, do not need access to your game account....
 and discover automatically which game is running ( with a prerequisite on where to install game ). 
 
 - Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
