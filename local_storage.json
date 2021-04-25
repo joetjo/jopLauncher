@@ -1,62 +1,100 @@
 {
     "Games": {
-        "Hoshizora No Memoria": {
-            "duration": "44223.845553",
-            "last_duration": "544.387986",
-            "last_session": "1619281831.3954105"
+        "nw": {
+            "duration": "3.231768",
+            "last_duration": "3.231768",
+            "last_session": "1619339322.4447021"
         },
-        "nw.exe": {
-            "duration": "16979.057661000003"
-        },
-        "Launcher.exe": {
+        "Launcher": {
             "duration": "20.505977"
         },
-        "Borderlands2.exe": {
-            "duration": "13443.149038"
-        },
-        "UnityCrashHandler32.exe": {
+        "UnityCrashHandler32": {
             "duration": "7514.127144"
         },
-        "Perfect Gold.exe": {
+        "Perfect Gold": {
             "duration": "7513.744114"
         },
-        "AWayOut.exe": {
+        "AWayOut": {
             "duration": "4361.727794"
-        },
-        "MagiTrials.exe": {
-            "duration": "9295.280530999999",
-            "last_duration": "1242.856117",
-            "last_session": "1619279567.856004"
-        },
-        "A Summer's End - Hong Kong 1986": {
-            "duration": "586.705151",
-            "last_duration": "586.705151",
-            "last_session": "1619282452.4603844"
-        },
-        "jopLauncherTest": {
-            "duration": "10.686162",
-            "last_duration": "3.676724",
-            "last_session": "1619334080.0161538"
         },
         "jopLauncherwdfqTest": {
             "duration": "0"
         },
-        "jopLauncherqsdTest": {
-            "duration": "5.718283",
-            "last_duration": "5.718283",
-            "last_session": "1619284003.204121"
+        "FakeGameName": {
+            "duration": "9.143433",
+            "last_duration": "6.986064",
+            "last_session": "1619337918.6698494"
+        },
+        "FakeGameName1": {
+            "duration": "2.576029",
+            "last_duration": "2.576029",
+            "last_session": "1619339086.8728418"
+        },
+        "FakeGameName2": {
+            "duration": "2.172212",
+            "last_duration": "2.172212",
+            "last_session": "1619339096.8137436"
+        },
+        "FakeGameName3": {
+            "duration": "3.9886869999999996",
+            "last_duration": "1.858782",
+            "last_session": "1619339208.0493283"
+        },
+        "FakeGameName4": {
+            "duration": "1.554878",
+            "last_duration": "1.554878",
+            "last_session": "1619339115.723996"
+        },
+        "FakeGameName5": {
+            "duration": "3.9486600000000003",
+            "last_duration": "2.29996",
+            "last_session": "1619339199.578561"
+        },
+        "FakeGameName6": {
+            "duration": "1.983386",
+            "last_duration": "1.983386",
+            "last_session": "1619339132.628888"
+        },
+        "FakeGameName7": {
+            "duration": "3.638435",
+            "last_duration": "3.638435",
+            "last_session": "1619339169.4589546"
+        },
+        "FakeGameName8": {
+            "duration": "1.653617",
+            "last_duration": "1.653617",
+            "last_session": "1619339174.8451388"
+        },
+        "FakeGameName9": {
+            "duration": "1.604003",
+            "last_duration": "1.604003",
+            "last_session": "1619339184.5347517"
+        },
+        "FakeGameName10": {
+            "duration": "1.902955",
+            "last_duration": "1.902955",
+            "last_session": "1619339192.4734364"
+        },
+        "FakeGameName12": {
+            "duration": "1.991328",
+            "last_duration": "1.991328",
+            "last_session": "1619339569.262823"
         }
     },
     "last_sessions": [
-        "jopLauncherTest",
-        "jopLauncherqsdTest",
-        "A Summer's End - Hong Kong 1986",
-        "Hoshizora No Memoria",
-        "MagiTrials.exe"
+        "FakeGameName12",
+        "nw",
+        "FakeGameName3",
+        "FakeGameName5",
+        "FakeGameName10",
+        "FakeGameName9",
+        "FakeGameName8",
+        "FakeGameName7",
+        "FakeGameName6",
+        "FakeGameName"
     ],
     "mappings": {
-        "HK1986.exe": "A Summer's End - Hong Kong 1986",
-        "Memoria.exe": "Hoshizora No Memoria"
+        "nw": "PARENT"
     },
     "ignored": []
 }

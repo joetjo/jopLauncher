@@ -4,6 +4,9 @@ import psutil
 
 
 # All call to psutil is done here in order to be able to test without a real call
+from JopLauncherConstant import JopLauncher
+
+
 class ProcessUtil:
 
     def __init__(self, test):
@@ -33,5 +36,7 @@ class ProcessUtil:
         else:
             self.testlist = [game]
             self.testattrs["name"] = game
-            self.testattrs["exe"] = "{}the{}path{}jeux{}{}{}{}.exe".format(os.path.sep, os.path.sep, os.path.sep, os.path.sep, game, os.path.sep, game)
+            self.testattrs["exe"] = "{}the{}path{}{}{}{}{}{}{}".format(os.path.sep, os.path.sep,os.path.sep,
+                                                                       JopLauncher.GAME_PATTERN,os.path.sep,
+                                                                       game, os.path.sep,game,JopLauncher.GAME_EXTENSION)
 

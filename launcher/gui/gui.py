@@ -16,10 +16,12 @@ class procGui(EventListener):
     label_width = 40
 
     def __init__(self, procmgr):
+        self.ready = False
         self.procMgr = procmgr
+        self.search_mode = False
         self.procMgr.setListener(self)
 
-        self.app = GhApp("{} - {}".format(JopLauncher.APPNAME, JopLauncher.VERSION))
+        self.app = GhApp("{} - {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION))
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
@@ -45,14 +47,15 @@ class procGui(EventListener):
         self.ui_prev_session_label = GhApp.createLabel(content_col.left, 2, 0)
         self.ui_prev_session_label.variable.set("Previous sessions:")
 
+        self.ui_help_label = GhApp.createLabel(content_col.left, 3, 0)
+        self.ui_help_label.variable.set("if name is a specific one\n but unrelated to game,\n--> set a custom name\n"
+                                        "\nif name is a generic launcher,\n --> use PARENT to use \nparent folder name")
+        self.ui_help_label.widget.grid_remove()
+
         self.sessions = []
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.sessions.append(GameSession.create(content_col.right, self, 2 + idx, 0))
         self.reloadLastSessions()
-        self.ui_help_label = GhApp.createLabel(content_col.right, JopLauncher.MAX_LAST_SESSION_COUNT, 0)
-        self.ui_help_label.variable.set("if name is a specific one but unrelated to game, set a custom name\n"
-                                        "if name is a generic launcher, use PARENT to use parent folder name")
-        self.ui_help_label.widget.grid_remove()
 
         # FOOTER
         footer_col = GhColumnPanel(self.app.footer)
@@ -67,14 +70,18 @@ class procGui(EventListener):
 
         if self.procMgr.testmode:
             GhApp.createLabel(footer_col.right, 0, 0, text="**TEST**")
-            self.ui_testgame_entry = GhApp.createEntry(footer_col.right, 0, 1, 20, "jopLauncherTest.exe")
+            self.ui_testgame_entry = GhApp.createEntry(footer_col.right, 0, 1, 20, "FakeGameName")
             self.ui_testgame_button = GhApp.createButton(footer_col.right, 0, 2, self.test_startStop, "Start")
             self.ui_testgame_button.variable.set("Start")
+        else:
+            GhApp.createLabel(footer_col.right, 0, 0, text=JopLauncher.SHORT_ABOUT)
+            GhApp.createButton(footer_col.right, 0, 2, procGui.applyAbout, "?")
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:
             self.setPlaying(proc)
 
+        self.ready = True
         self.app.start()
 
     def applyRefresh(self):
@@ -83,6 +90,7 @@ class procGui(EventListener):
 
     def reloadLastSessions(self):
         self.clearAllSessions()
+
         idx = 0
         for name in self.procMgr.last_sessions:
             info = self.procMgr.find(name)
@@ -93,11 +101,13 @@ class procGui(EventListener):
     def clearAllSessions(self):
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.sessions[idx].set()
+        self.notifyEntrySelectionUpdate()
 
     def applySearch(self):
         token = self.ui_search_entry.variable.get()
         print("Searching for {}".format(token))
         if len(token) > 0:
+            self.search_mode = True
             self.ui_prev_session_label.variable.set("Search result:")
             self.ui_search_reset_button.widget.grid()
             self.clearAllSessions()
@@ -116,11 +126,15 @@ class procGui(EventListener):
                 self.ui_help_label.variable.set("{} game(s) map the current search".format(idx))
 
     def applyResetSearch(self):
+        self.search_mode = False
         self.ui_search_entry.variable.set("")
         self.ui_help_label.variable.set("")
         self.ui_search_reset_button.widget.grid_remove()
         self.ui_prev_session_label.variable.set("Previous sessions:")
         self.reloadLastSessions()
+
+    def searchInProgress(self):
+        return self.search_mode
 
     def setPlaying(self, proc):
         if proc is None:
@@ -154,12 +168,13 @@ class procGui(EventListener):
 
     # BEGIN GameSession listener
     def notifyEntrySelectionUpdate(self):
-        if self.isGameSelected():
-            self.ui_remove_button.widget.grid()
-            self.ui_mapping_button.widget.grid()
-        else:
-            self.ui_remove_button.widget.grid_remove()
-            self.ui_mapping_button.widget.grid_remove()
+        if self.ready:
+            if self.isGameSelected():
+                self.ui_remove_button.widget.grid()
+                self.ui_mapping_button.widget.grid()
+            else:
+                self.ui_remove_button.widget.grid_remove()
+                self.ui_mapping_button.widget.grid_remove()
 
     # END GameSession listener
 
@@ -191,8 +206,12 @@ class procGui(EventListener):
         if pair is not None:
             for g in pair.one:
                 g.deselect()
-                self.procMgr.applyIgnore(g.name)
-            self.reloadLastSessions()
+                self.procMgr.ignore(g.name)
+
+            if self.searchInProgress():
+                self.applySearch()
+            else:
+                self.reloadLastSessions()
 
     def applyMapping(self):
         if self.ui_mapping_button.variable.get() == "apply mapping":
@@ -211,7 +230,13 @@ class procGui(EventListener):
                 self.ui_mapping_button.variable.set("map")
                 self.ui_cancel_button.widget.grid_remove()
                 self.ui_help_label.widget.grid_remove()
-        else:
+
+                if self.searchInProgress():
+                    self.applySearch()
+                else:
+                    self.reloadLastSessions()
+
+        elif self.isGameSelected():
             pair = self.getGameSelected()
             if pair is not None:
                 for g in pair.one:
@@ -228,10 +253,14 @@ class procGui(EventListener):
             g.deselect()
             g.disableMapping()
 
+    @staticmethod
+    def applyAbout():
+        messagebox.showinfo(JopLauncher.APP_NAME, "Version {}\n\n{} \n{}".format(JopLauncher.VERSION, JopLauncher.SHORT_ABOUT, JopLauncher.URL))
+
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):
         if self.ui_playing_label.variable.get() == NO_GAME:
-            self.procMgr.test_setgame(self.ui_testgame_entry.variable.get())
+            self.procMgr.test_setgame("{}.exe".format(self.ui_testgame_entry.variable.get()))
             self.ui_testgame_button.variable.set("Stop")
         else:
             self.procMgr.test_setgame(None)

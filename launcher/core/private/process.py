@@ -2,7 +2,7 @@ import os
 import re
 from datetime import datetime
 
-GENERIC_NAMES = ["nw.exe"]
+from JopLauncherConstant import JopLauncher
 
 
 class ProcessInfo:
@@ -36,7 +36,7 @@ class ProcessInfo:
             print("Using custom name {} instead of {}".format(self.name, self.originName))
 
     def removeExtension(self):
-        self.name = self.name[0:self.name.rfind(".exe")]
+        self.name = self.name[0:self.name.rfind(JopLauncher.GAME_EXTENSION)]
 
     def getPath(self):
         return self.path
@@ -45,7 +45,7 @@ class ProcessInfo:
         return self.game
 
     def gameDetector(self, path):
-        return (self.path is not None) and re.search('jeux', path, re.IGNORECASE)
+        return (self.path is not None) and re.search(JopLauncher.GAME_PATTERN, path, re.IGNORECASE)
 
     def setStarted(self):
         if self.started is None:

@@ -23,7 +23,7 @@ def background(procmgr):
 
 
 def main():
-    procmgr = ProcMgr(True)
+    procmgr = ProcMgr(JopLauncher.TEST_MODE)
 
     bg = threading.Thread(target=background, args=(procmgr,))
     bg.start()

@@ -144,7 +144,12 @@ class ProcMgr:
     def ignore(self, name):
         if not self.isIgnore(name):
             self.game_ignored.append(name)
-            self.last_sessions.remove(name)
+            if name in self.last_sessions:
+                self.last_sessions.remove(name)
+            if name in self.games:
+                del self.games[name]
+            if name in self.game_mappings:
+                del self.game_mappings[name]
             self.storage.save()
 
     # set or overwrite mapping
