@@ -31,6 +31,7 @@ Enhancements:
 - |-> pattern token ( jeux ) and game extension ( .exe ) included but not configurable ( windows only, game pattern is frenchy )
 - |-> history count entry also in constant ( with window height adjustement )
 - show the original name on mapping when a mapping was already done
+- title for history display
 
 migration note:
 - remove ".exe" from storage
@@ -39,7 +40,6 @@ migration note:
 # Bug To be fix
 - duration display is a date so 1 Jan 1970
 - scrollbar / minimum size
-- title for history display
 
 # Enhancement To be done
 - ui preference
