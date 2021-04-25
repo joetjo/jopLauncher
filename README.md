@@ -19,8 +19,8 @@ Enhancements:
 - add search in upper right and then previous session is replaced by search result
 - remove exe extension from game name
 - ui preference group in JopConstant ( but GhSetup not yet introduce ),
--     pattern token ( jeux ) and game extension ( .exe ) included but not configurable ( windows only, game pattern is frenchy )
--     history count entry also in constant ( with window height adjustement )
+- |-> pattern token ( jeux ) and game extension ( .exe ) included but not configurable ( windows only, game pattern is frenchy )
+- |-> history count entry also in constant ( with window height adjustement )
 
 migration note:
 - remove ".exe" from storage
