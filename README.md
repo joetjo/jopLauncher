@@ -18,6 +18,9 @@ Fixes:
 Enhancements:
 - add search in upper right and then previous session is replaced by search result
 - remove exe extension from game name
+- ui preference group in JopConstant ( but GhSetup not yet introduce ),
+-     pattern token ( jeux ) and game extension ( .exe ) included but not configurable ( windows only, game pattern is frenchy )
+-     history count entry also in constant ( with window height adjustement )
 
 migration note:
 - remove ".exe" from storage
@@ -28,5 +31,3 @@ migration note:
 # Enhancement To be done
 - ui preference
 - add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
-- token "jeux" should be customizable
-- history count 10 should be configurable ( en window height should be adpated to history size )
