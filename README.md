@@ -38,6 +38,8 @@ migration note:
 
 # Bug To be fix
 - duration display is a date so 1 Jan 1970
+- scrollbar / minimum size
+- title for history display
 
 # Enhancement To be done
 - ui preference
