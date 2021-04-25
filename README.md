@@ -17,28 +17,6 @@ Note: the project is fully compatible to other platform be tested only on window
 
 # next version
 
-Fixes:
-- larger window
-- better window placement at startup ( top right - my preference - not configurable yet)
-- update last played on stating game ( with current total duration )
-- fix alignment in session history
-- setup a mapping keep old session in list ( bug ) and don't rename existing name in storage ( so 2 games exist )
-- fix 1st run when no data are available
-
-Enhancements:
-- add search in upper right and then previous session is replaced by search result
-- remove exe extension from game name
-- ui preference group in JopConstant ( but GhSetup not yet introduce ),
-- |-> pattern token ( jeux ) and game extension ( .exe ) included but not configurable ( windows only, game pattern is frenchy )
-- |-> history count entry also in constant ( with window height adjustement )
-- show the original name on mapping when a mapping was already done
-- title for history display
-- add remove and rename ignore to exclude
-
-migration note:
-- remove ".exe" from storage
-- last sessions game list should be deleted
-
 # Bug To be fix
 - scrollbar / minimum size
 - mapping name may be identical to a real other process name when loading process - to check
