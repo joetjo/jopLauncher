@@ -17,6 +17,7 @@ class Session:
 
     def __init__(self, json, game_info=None):
         self.json = json
+        self.json[2] = ProcessInfo.removeGameExtension(self.json[2])
         self.game_info = game_info
 
     def getName(self):
@@ -48,7 +49,7 @@ class SessionList:
         if storage is not None:
             self.json_sessions = storage.getOrCreate(storage.data(), "last_sessions", [])
             for json in storage.getOrCreate(storage.data(), "last_sessions", []):
-                self.sessions.append(Session(json, proc_manager.find(json[0])))
+                self.sessions.append(Session(json, proc_manager.find(json[0], "init session list")))
         # set storage after reading session
         self.storage = storage
 
@@ -134,14 +135,15 @@ class ProcMgr:
                         if mapping is not None:
                             p.forceName(mapping)
                         if self.pMonitored.get(p.getPid()) is None:
-                            try:
-                                p.setStoreEntry(self.find(p.getName()))
-                            except KeyError:
+                            storeEntry = self.find(p.getName(), "loading plist: process discovery")
+                            if storeEntry is None:
                                 # TODO mapping name may be identical to a real other process name - to check
                                 print("Creating game {} within storage".format(p.getName()))
                                 self.games[p.getName()] = {"duration": "0"}
                                 p.setStoreEntry(self.games[p.getName()])
                                 self.storage.save()
+                            else:
+                                p.setStoreEntry(storeEntry)
 
                             p.setStarted()
                             self.pMonitored[p.getPid()] = p
@@ -167,10 +169,12 @@ class ProcMgr:
                     duration = float(store["duration"])
                 except KeyError:
                     duration = 0.0
+                duration = 0.0
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
-                session = Session([proc.getName(), proc.path, proc.getOriginName()], self.find(proc.getName()))
+                session = Session([proc.getName(), proc.path, proc.getOriginName()],
+                                  self.find(proc.getName(), "loading plist: processing end process"))
                 try:
                     self.removeLastSession(session)  # keep only one occurrence of each game
                 except:
@@ -197,11 +201,12 @@ class ProcMgr:
         return self.plist.get(pid)
 
     # Returns the entry with the exact name provided ( unique )
-    def find(self, name):
+    def find(self, name, context):
         try:
             return self.games[name]
         except KeyError:
-            print("\n\n!!!\n\nERROR : Game {} not found".format(name))
+            print("{} - Warning : Game {} not found (ok if 1st run only)".format(context, name))
+            return None
 
     # Returns all games with the token in their name within the storage
     def searchInStorage(self, token):
@@ -224,15 +229,21 @@ class ProcMgr:
     def isIgnore(self, name):
         return name in self.game_ignored
 
+    def remove(self, name):
+        if not self.isIgnore(name):
+            session = self.sessions.removeSessionByName(name)
+            if name in self.games:
+                del self.games[name]
+            if session is not None and session.getOriginName() in self.game_mappings:
+                mapping = self.game_mappings[session.getOriginName()]
+                if mapping != 'PARENT':
+                    del self.game_mappings[name]
+            self.storage.save()
+
     def ignore(self, name):
         if not self.isIgnore(name):
             self.game_ignored.append(name)
-            self.sessions.removeSessionByName(name)
-            if name in self.games:
-                del self.games[name]
-            if name in self.game_mappings:
-                del self.game_mappings[name]
-            self.storage.save()
+            self.remove(name)
 
     # set or overwrite mapping
     def addMapping(self, session, map_name):

@@ -1,8 +1,5 @@
 {
     "Games": {
-        "nw": {
-            "duration": "16979.057661000003"
-        },
         "Launcher": {
             "duration": "20.505977"
         },
@@ -36,28 +33,59 @@
             "duration": "2603.372001",
             "last_duration": "3.814345",
             "last_session": "1619367982.5946212"
+        },
+        "Snowed IN": {
+            "duration": "38.150134",
+            "last_duration": "38.150134",
+            "last_session": "1619372414.6480386"
+        },
+        "Elisa The Innkeeper - Prequel": {
+            "duration": "6.747709",
+            "last_duration": "6.747709",
+            "last_session": "1619372456.028747"
+        },
+        "Soul Gambler": {
+            "duration": "31.359629",
+            "last_duration": "31.359629",
+            "last_session": "1619372514.963373"
         }
     },
     "last_sessions": [
         [
+            "Soul Gambler",
+            "E:\\Jeux\\steamapps\\common\\Soul Gambler\\nw.exe",
+            "nw"
+        ],
+        [
+            "Elisa The Innkeeper - Prequel",
+            "E:\\Jeux\\steamapps\\common\\Elisa The Innkeeper - Prequel\\nw.exe",
+            "nw"
+        ],
+        [
+            "Snowed IN",
+            "E:\\Jeux\\steamapps\\common\\Snowed IN\\nw.exe",
+            "nw"
+        ],
+        [
             "Hoshizora No Memoria",
             "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
-            "Memoria.exe"
+            "Memoria"
         ],
         [
             "Perfect Gold",
             "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
-            "Perfect Gold"
+            null
         ],
         [
             "A Summer's End - Hong Kong 1986",
             "\\the\\path\\jeux\\HK1986Folder\\HK1986.exe",
-            "HK1986"
+            null
         ]
     ],
     "mappings": {
         "Memoria": "Hoshizora No Memoria",
-        "HK1986": "A Summer's End - Hong Kong 1986"
+        "HK1986": "A Summer's End - Hong Kong 1986",
+        "nw": "PARENT"
     },
     "ignored": []
 }

@@ -41,8 +41,12 @@ class ProcessInfo:
             return map_name
 
     def removeExtension(self):
-        if JopLauncher.GAME_EXTENSION in self.name:
-            self.name = self.name[0:self.name.rfind(JopLauncher.GAME_EXTENSION)]
+        self.name = ProcessInfo.removeGameExtension(self.name)
+
+    @staticmethod
+    def removeGameExtension(name):
+        if JopLauncher.GAME_EXTENSION in name:
+            return name[0:name.rfind(JopLauncher.GAME_EXTENSION)]
 
     def getPath(self):
         return self.path
@@ -71,6 +75,9 @@ class ProcessInfo:
 
     def getPlayedTime(self):
         return self.duration
+
+    def hasData(self):
+        return self.storeEntry is not None
 
     def setStoreEntry(self, entry):
         self.storeEntry = entry

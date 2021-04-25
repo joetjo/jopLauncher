@@ -61,11 +61,13 @@ class procGui(EventListener):
         footer_col = GhColumnPanel(self.app.footer)
         GhApp.createButton(footer_col.left, 0, 0, self.applyRefresh, Strings.REFRESH_ACTION)
         GhApp.createLabel(footer_col.left, 0, 1, text=" ")
-        self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 2, self.applyIgnore, Strings.IGNORE_ACTION)
-        self.ui_mapping_button = GhApp.createButton(footer_col.left, 0, 3, self.applyMapping, Strings.MAPPING_ACTION)
-        self.ui_cancel_button = GhApp.createButton(footer_col.left, 0, 4, self.applyCancelMapping,
+        self.ui_ignore_button = GhApp.createButton(footer_col.left, 0, 2, self.applyIgnore, Strings.IGNORE_ACTION)
+        self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 4, self.applyRemove, Strings.REMOVE_ACTION)
+        self.ui_mapping_button = GhApp.createButton(footer_col.left, 0, 5, self.applyMapping, Strings.MAPPING_ACTION)
+        self.ui_cancel_button = GhApp.createButton(footer_col.left, 0, 6, self.applyCancelMapping,
                                                    Strings.MAPPING_CANCEL_ACTION)
         self.ui_cancel_button.widget.grid_remove()
+        self.ui_ignore_button.widget.grid_remove()
         self.ui_remove_button.widget.grid_remove()
         self.ui_mapping_button.widget.grid_remove()
 
@@ -139,8 +141,13 @@ class procGui(EventListener):
             self.ui_playing_label.variable.set(Strings.NO_GAME)
         else:
             self.ui_playing_label.variable.set(proc.getName())
-            self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
-            self.ui_played_label.variable.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
+            if proc.hasData():
+                self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
+                self.ui_played_label.variable.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
+            else:
+                self.setPlayedDuration(0)
+                self.ui_played_label.variable.set("{} | 0s".format(proc.getName()))
+
 
     def setPlayed(self, proc):
         self.ui_played_label.variable.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
@@ -172,9 +179,11 @@ class procGui(EventListener):
                     ui_session.setSelected(selected)
 
             if selected:
+                self.ui_ignore_button.widget.grid()
                 self.ui_remove_button.widget.grid()
                 self.ui_mapping_button.widget.grid()
             else:
+                self.ui_ignore_button.widget.grid_remove()
                 self.ui_remove_button.widget.grid_remove()
                 self.ui_mapping_button.widget.grid_remove()
 
@@ -204,17 +213,23 @@ class procGui(EventListener):
             return Pair(selection, names)
         return None
 
-    def applyIgnore(self):
-        pair = self.getGameSelected(Strings.CONFIRM_IGNORE_APPLY)
+    def applyIgnoreOrRemove(self, message, action):
+        pair = self.getGameSelected(message)
         if pair is not None:
             for ui_session in pair.one:
                 ui_session.setSelected(False)
-                self.procMgr.ignore(ui_session.getName())
+                action(ui_session.getName())
 
             if self.searchInProgress():
                 self.applySearch()
             else:
                 self.reloadLastSessions()
+
+    def applyRemove(self):
+        self.applyIgnoreOrRemove(Strings.CONFIRM_REMOVE_APPLY, self.procMgr.remove)
+
+    def applyIgnore(self):
+        self.applyIgnoreOrRemove(Strings.CONFIRM_IGNORE_APPLY, self.procMgr.ignore)
 
     def applyMapping(self):
         if self.ui_mapping_button.variable.get() == Strings.MAPPING_APPLY_ACTION:
