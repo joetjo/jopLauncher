@@ -38,9 +38,8 @@ migration note:
 - last sessions game list should be deleted
 
 # Bug To be fix
-- duration display is a date so 1 Jan 1970
 - scrollbar / minimum size
- - mapping name may be identical to a real other process name when loading process - to check
+- mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
 - ui preference ( use GHSetup )
