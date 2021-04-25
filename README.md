@@ -24,6 +24,7 @@ Enhancements:
 
 migration note:
 - remove ".exe" from storage
+- last sessions game list should be deleted
 
 # Bug To be fix
 - setup a mapping keep old session in list ( bug ) and don't rename existing name in storage ( so 2 games exist )
