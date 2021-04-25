@@ -1,4 +1,3 @@
-import datetime
 import time
 # psutil must no be imported --> all call inside ProcessUtil fpr easy test purpose
 import logging  # This module is thread safe.
@@ -13,17 +12,94 @@ LOCAL_STORAGE = 'local_storage.json'
 LOCK = threading.Lock()
 
 
-class GameSearchResult:
-    def __init__(self, name, info):
-        self.name = name
-        self.info = info
+# Map Json storage for a session
+class Session:
+
+    def __init__(self, json, game_info=None):
+        self.json = json
+        self.game_info = game_info
+
+    def getName(self):
+        return self.json[0]
+
+    def setName(self, name):
+        self.json[0] = name
+
+    def getPath(self):
+        return self.json[1]
+
+    def getOriginName(self):
+        return self.json[2]
+
+    # Only on search result ( not available for session from storage )
+    def getGameInfo(self):
+        return self.game_info
+
+
+# encapsulate previous sessions management - List of Session managed
+# either in storage ( last sessions )
+# either in memory ( search result )
+class SessionList:
+
+    # Storage none --> im memory session list ( for search result )
+    def __init__(self, storage=None):
+        self.sessions = []
+        self.json_sessions = []
+        if storage is not None:
+            self.json_sessions = storage.getOrCreate(storage.data(), "last_sessions", [])
+            for json in storage.getOrCreate(storage.data(), "last_sessions", []):
+                self.sessions.append(Session(json))
+        # set storage after reading session
+        self.storage = storage
+
+    def list(self):
+        return self.sessions
+
+    # session : Session
+    def addSession(self, session):
+        if self.storage is None:
+            self.sessions.append(session)
+        else:
+            if self.findSessionByName(session.getName()):
+                self.removeSessionByName(session.getName())
+            self.sessions.insert(0, session)
+            self.json_sessions.insert(0, session.json)
+            if len(self.sessions) > JopLauncher.MAX_LAST_SESSION_COUNT:  # keep only 10 games in last sessions
+                self.sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
+                self.json_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
+
+    def findSessionByName(self, name):
+        found = None
+        for session in self.sessions:
+            if session.getName() == name:
+                found = session
+        return found
+
+    def renameSession(self, name, new_name):
+        self.findSessionByName(name).name = new_name
+        self.findJsonSessionEntryByName(name)[0] = new_name
+
+    def findJsonSessionEntryByName(self, name):
+        found = None
+        for session in self.json_sessions:
+            if session[0] == name:
+                found = session
+        return found
+
+    # Returns the removed sessions
+    def removeSessionByName(self, name):
+        found = self.findSessionByName(name)
+        if found is not None:
+            self.sessions.remove(found)
+            self.json_sessions.remove(self.findJsonSessionEntryByName(name))
+        return found
 
 
 class ProcMgr:
 
-    def __init__(self, testmode=False):
-        self.testmode = testmode
-        self.putil = ProcessUtil(testmode)
+    def __init__(self, test_mode=False):
+        self.test_mode = test_mode
+        self.process_util = ProcessUtil(test_mode)
         self.shutdown = False
         self.plist = dict()
         self.pMonitored = dict()
@@ -37,7 +113,7 @@ class ProcMgr:
             self.storage.reset({"Games": {}})
             self.games = self.storage.data()["Games"]
 
-        self.last_sessions = self.storage.getOrCreate(self.storage.data(), "last_sessions", [])
+        self.sessions = SessionList(self.storage)
         self.game_mappings = self.storage.getOrCreate(self.storage.data(), "mappings", {})
         self.game_ignored = self.storage.getOrCreate(self.storage.data(), "ignored", [])
 
@@ -48,9 +124,9 @@ class ProcMgr:
 
     def loadPList(self):
         self.plist = dict()
-        for proc in self.putil.process_iter():
+        for proc in self.process_util.process_iter():
             # Fetch process details as dict
-            p = ProcessInfo(self.putil.readProcessAttributes(proc))
+            p = ProcessInfo(self.process_util.readProcessAttributes(proc))
 
             if p is not None:
                 self.plist[p.getPid()] = p
@@ -65,6 +141,7 @@ class ProcMgr:
                             try:
                                 p.setStoreEntry(self.find(p.getName()))
                             except KeyError:
+                                # TODO mapping name may be identical to a real other process name - to check
                                 print("Creating game {} within storage".format(p.getName()))
                                 self.games[p.getName()] = {"duration": "0"}
                                 p.setStoreEntry(self.games[p.getName()])
@@ -97,13 +174,14 @@ class ProcMgr:
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
+                session = Session([proc.getName(), proc.path, proc.getOriginName()])
+
                 try:
-                    self.last_sessions.remove(proc.getName())  # keep only one occurrence of each game
+                    self.removeLastSession(session)  # keep only one occurrence of each game
                 except:
                     pass  # Nothing to remove
-                self.last_sessions.insert(0, proc.getName())
-                if len(self.last_sessions) > JopLauncher.MAX_LAST_SESSION_COUNT:  # keep only 10 games in last sessions
-                    self.last_sessions.pop(JopLauncher.MAX_LAST_SESSION_COUNT - 1)
+                self.sessions.addSession(session)
+
                 self.storage.save()
 
                 if self.eventListener is not None:
@@ -117,19 +195,25 @@ class ProcMgr:
         else:
             logging.info("Couldn't get the lock. Maybe next time")
 
+    def getSessions(self):
+        return self.sessions.list()
+
     def get(self, pid):
         return self.plist.get(pid)
 
     # Returns the entry with the exact name provided ( unique )
     def find(self, name):
-        return self.games[name]
+        try:
+            return self.games[name]
+        except KeyError:
+            print("\n\n!!!\n\nERROR : Game {} not found".format(name))
 
     # Returns all games with the token in their name within the storage
     def searchInStorage(self, token):
-        result = []
+        result = SessionList()
         for game in self.games:
             if token in game:
-                result.append(GameSearchResult(game, self.games[game]))
+                result.append(Session(self.sessions.findSessionByName(game), self.games[game]))
         return result
 
     def getFirstMonitored(self):
@@ -144,8 +228,7 @@ class ProcMgr:
     def ignore(self, name):
         if not self.isIgnore(name):
             self.game_ignored.append(name)
-            if name in self.last_sessions:
-                self.last_sessions.remove(name)
+            self.sessions.removeSessionByName(name)
             if name in self.games:
                 del self.games[name]
             if name in self.game_mappings:
@@ -153,13 +236,26 @@ class ProcMgr:
             self.storage.save()
 
     # set or overwrite mapping
-    def mapname(self, name, mapname):
-        self.game_mappings[name] = mapname
+    def addMapping(self, session, map_name):
+        current_name = session.getName()
+        new_name = ProcessInfo.getMapName(session.getPath(), map_name)
+
+        # mapping are always stored using the original name
+        self.game_mappings[session.getOriginName()] = map_name
+
+        # update existing session stored with the current name
+        self.sessions.renameSession(current_name, new_name)
+
+        # update name in game list
+        if current_name in self.games:
+            self.games[new_name] = self.games[current_name]
+            del self.games[current_name]
+
         self.storage.save()
 
     def stop(self):
         self.shutdown = True
 
     # FOR TEST PURPOSE ONLU
-    def test_setgame(self, game):
-        self.putil.test_setgame(game)
+    def test_setGame(self, game):
+        self.process_util.test_setGame(game)

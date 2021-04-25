@@ -26,17 +26,23 @@ class ProcessInfo:
     def getName(self):
         return self.name
 
-    def forceName(self, mapname):
-        if mapname == 'PARENT':
-            parent=os.path.dirname(self.path).split(os.path.sep)
-            self.name = parent[len(parent)-1]
-            print("Using PARENT folder name {} instead of {}".format(self.name, self.originName))
+    def getOriginName(self):
+        return self.originName
+
+    def forceName(self, map_name):
+        self.name = ProcessInfo.getMapName(self.path, map_name)
+
+    @staticmethod
+    def getMapName(path, map_name):
+        if map_name == 'PARENT':
+            parent = os.path.dirname(path).split(os.path.sep)
+            return parent[len(parent) - 1]
         else:
-            self.name = mapname
-            print("Using custom name {} instead of {}".format(self.name, self.originName))
+            return map_name
 
     def removeExtension(self):
-        self.name = self.name[0:self.name.rfind(JopLauncher.GAME_EXTENSION)]
+        if JopLauncher.GAME_EXTENSION in self.name:
+            self.name = self.name[0:self.name.rfind(JopLauncher.GAME_EXTENSION)]
 
     def getPath(self):
         return self.path

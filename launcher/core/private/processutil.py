@@ -10,33 +10,33 @@ from JopLauncherConstant import JopLauncher
 class ProcessUtil:
 
     def __init__(self, test):
-        self.testmode = test
-        self.testlist = []
-        self.testattrs = dict()
-        self.testattrs["pid"] = 12
+        self.test_mode = test
+        self.test_list = []
+        self.test_attrs = dict()
+        self.test_attrs["pid"] = 12
 
     def process_iter(self):
-        if self.testmode:
-            return iter(self.testlist)
+        if self.test_mode:
+            return iter(self.test_list)
         else:
             return psutil.process_iter()
 
     def readProcessAttributes(self, process):
-        if self.testmode:
-            return self.testattrs
+        if self.test_mode:
+            return self.test_attrs
         try:
             return process.as_dict(attrs=['pid', 'name', 'exe'])
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
             print("--- unable to access process ---" + e)
             return None
 
-    def test_setgame(self, game):
+    def test_setGame(self, game):
         if game is None:
-            self.testlist = []
+            self.test_list = []
         else:
-            self.testlist = [game]
-            self.testattrs["name"] = game
-            self.testattrs["exe"] = "{}the{}path{}{}{}{}{}{}{}".format(os.path.sep, os.path.sep,os.path.sep,
-                                                                       JopLauncher.GAME_PATTERN,os.path.sep,
-                                                                       game, os.path.sep,game,JopLauncher.GAME_EXTENSION)
+            self.test_list = [game]
+            self.test_attrs["name"] = game
+            self.test_attrs["exe"] = "{}the{}path{}{}{}{}Folder{}{}{}".format(os.path.sep, os.path.sep, os.path.sep,
+                                                                       JopLauncher.GAME_PATTERN, os.path.sep,
+                                                                       game, os.path.sep, game, JopLauncher.GAME_EXTENSION)
 

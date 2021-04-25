@@ -83,6 +83,8 @@ class GhApp:
                       text=text, textvariable=textvariable,
                       bg=parent.cget('bg'), width=width,
                       anchor=anchor, justify=justify)
+        if anchor == 'center':
+            anchor = 'w'
         label.grid(row=row, column=col, sticky=anchor)
         return GhAppHandle(textvariable, label)
 

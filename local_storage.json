@@ -1,10 +1,5 @@
 {
     "Games": {
-        "nw": {
-            "duration": "3.231768",
-            "last_duration": "3.231768",
-            "last_session": "1619339322.4447021"
-        },
         "Launcher": {
             "duration": "20.505977"
         },
@@ -20,55 +15,50 @@
         "jopLauncherwdfqTest": {
             "duration": "0"
         },
-        "FakeGameName": {
-            "duration": "9.143433",
-            "last_duration": "6.986064",
-            "last_session": "1619337918.6698494"
-        },
         "FakeGameName1": {
-            "duration": "2.576029",
-            "last_duration": "2.576029",
-            "last_session": "1619339086.8728418"
+            "duration": "4.42269",
+            "last_duration": "1.846661",
+            "last_session": "1619343350.864846"
         },
         "FakeGameName2": {
-            "duration": "2.172212",
-            "last_duration": "2.172212",
-            "last_session": "1619339096.8137436"
+            "duration": "4.930186",
+            "last_duration": "2.757974",
+            "last_session": "1619343721.1079218"
         },
         "FakeGameName3": {
-            "duration": "3.9886869999999996",
-            "last_duration": "1.858782",
-            "last_session": "1619339208.0493283"
+            "duration": "5.721856",
+            "last_duration": "1.733169",
+            "last_session": "1619343728.2300944"
         },
         "FakeGameName4": {
-            "duration": "1.554878",
-            "last_duration": "1.554878",
-            "last_session": "1619339115.723996"
+            "duration": "2.8890130000000003",
+            "last_duration": "1.334135",
+            "last_session": "1619343733.972797"
         },
         "FakeGameName5": {
-            "duration": "3.9486600000000003",
-            "last_duration": "2.29996",
-            "last_session": "1619339199.578561"
+            "duration": "5.587172000000001",
+            "last_duration": "1.638512",
+            "last_session": "1619343739.6828115"
         },
         "FakeGameName6": {
-            "duration": "1.983386",
-            "last_duration": "1.983386",
-            "last_session": "1619339132.628888"
+            "duration": "3.473214",
+            "last_duration": "1.489828",
+            "last_session": "1619343745.364189"
         },
         "FakeGameName7": {
-            "duration": "3.638435",
-            "last_duration": "3.638435",
-            "last_session": "1619339169.4589546"
+            "duration": "5.195327",
+            "last_duration": "1.556892",
+            "last_session": "1619343751.1345747"
         },
         "FakeGameName8": {
-            "duration": "1.653617",
-            "last_duration": "1.653617",
-            "last_session": "1619339174.8451388"
+            "duration": "3.222193",
+            "last_duration": "1.568576",
+            "last_session": "1619343757.5322082"
         },
         "FakeGameName9": {
-            "duration": "1.604003",
-            "last_duration": "1.604003",
-            "last_session": "1619339184.5347517"
+            "duration": "3.1981770000000003",
+            "last_duration": "1.594174",
+            "last_session": "1619343766.8857534"
         },
         "FakeGameName10": {
             "duration": "1.902955",
@@ -79,22 +69,43 @@
             "duration": "1.991328",
             "last_duration": "1.991328",
             "last_session": "1619339569.262823"
+        },
+        "FakeMAP": {
+            "duration": "18.994014",
+            "last_duration": "2.510296",
+            "last_session": "1619346224.9971945"
+        },
+        "FakeGameNameFolder": {
+            "duration": "0"
+        },
+        "testmapFolder": {
+            "duration": "14.576269",
+            "last_duration": "2.956016",
+            "last_session": "1619352978.7036474"
+        },
+        "Fake2": {
+            "duration": "84.59189100000002",
+            "last_duration": "2.959579",
+            "last_session": "1619364801.6336682"
         }
     },
     "last_sessions": [
-        "FakeGameName12",
-        "nw",
-        "FakeGameName3",
-        "FakeGameName5",
-        "FakeGameName10",
-        "FakeGameName9",
-        "FakeGameName8",
-        "FakeGameName7",
-        "FakeGameName6",
-        "FakeGameName"
+        [
+            "Fake2",
+            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
+            "FakeGameName"
+        ],
+        [
+            "testmapFolder",
+            "\\the\\path\\jeux\\testmapFolder\\testmap.exe",
+            "testmap"
+        ]
     ],
     "mappings": {
-        "nw": "PARENT"
+        "testmap": "PARENT",
+        "FakeGameName": "Fake2"
     },
-    "ignored": []
+    "ignored": [
+        "testi"
+    ]
 }

@@ -18,7 +18,7 @@ class JopLauncher:
 
 # TODO - setup using GhSetup
 
-GhAppSetup.width = 660
+GhAppSetup.width = 700
 GhAppSetup.height = 200 + 20 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
