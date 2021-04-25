@@ -13,6 +13,12 @@ LOCAL_STORAGE = 'local_storage.json'
 LOCK = threading.Lock()
 
 
+class GameSearchResult:
+    def __init__(self, name, info):
+        self.name = name
+        self.info = info
+
+
 class ProcMgr:
 
     def __init__(self, testmode=False):
@@ -114,8 +120,17 @@ class ProcMgr:
     def get(self, pid):
         return self.plist.get(pid)
 
+    # Returns the entry with the exact name provided ( unique )
     def find(self, name):
         return self.games[name]
+
+    # Returns all games with the token in their name within the storage
+    def searchInStorage(self, token):
+        result = []
+        for game in self.games:
+            if token in game:
+                result.append(GameSearchResult(game, self.games[game]))
+        return result
 
     def getFirstMonitored(self):
         if len(self.pMonitored) > 0:

@@ -8,7 +8,7 @@ class GhAppSetup:
     width = 550
     # center top bottom
     vertical = 'center'
-    # center left right
+    # position (digit) or center left right
     horizontal = 'center'
 
 
@@ -25,19 +25,27 @@ class GhApp:
 
         self.window = Tk()
 
+        # Set initial position from setup
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
 
-        x = 0
         if GhAppSetup.horizontal == 'right':
             x = screen_width - GhAppSetup.width - 10
         elif GhAppSetup.horizontal == 'center':
             x = int((screen_width - GhAppSetup.width) / 2)
-        y = 0
+        elif GhAppSetup.horizontal == 'left':
+            x = 0
+        else:
+            x = int(GhAppSetup.horizontal)
+
         if GhAppSetup.vertical == 'bottom':
             y = screen_height - GhAppSetup.height - 10
         elif GhAppSetup.vertical == 'center':
             y = int((screen_height - GhAppSetup.height) / 2)
+        elif GhAppSetup.vertical == 'top':
+            y = 0
+        else:
+            y = int(GhAppSetup.vertical)
 
         self.window.title(title)
         self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
@@ -45,6 +53,7 @@ class GhApp:
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
 
+        # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=20)
         self.content = Frame(self.window, bg=GhAppSetup.bg_content, padx=5, pady=5)
         self.footer = Frame(self.window, bg=GhAppSetup.bg_header, pady=3, padx=5)
@@ -65,13 +74,14 @@ class GhApp:
     def createLabel(parent, row, col,
                     text=None,
                     anchor='w',
-                    justify='left'):
+                    justify='left',
+                    width=None):
         textvariable = None
         if text is None:
             textvariable = StringVar()
         label = Label(parent,
                       text=text, textvariable=textvariable,
-                      bg=parent.cget('bg'),
+                      bg=parent.cget('bg'), width=width,
                       anchor=anchor, justify=justify)
         label.grid(row=row, column=col, sticky=anchor)
         return GhAppHandle(textvariable, label)
@@ -117,9 +127,9 @@ class GhApp:
 
     @staticmethod
     def createEntry(parent, row, col, width, defaultvalue,
-                    padx=5):
+                    padx=5, command=None):
         entryvar = StringVar()
         entryvar.set(defaultvalue)
-        entry = Entry(parent, textvariable=entryvar, width=width)
+        entry = Entry(parent, textvariable=entryvar, width=width, validatecommand=command)
         entry.grid(row=row, column=col, padx=padx)
         return GhAppHandle(entryvar, entry)

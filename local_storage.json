@@ -34,9 +34,9 @@
             "last_session": "1619282452.4603844"
         },
         "jopLauncherTest": {
-            "duration": "7.009438",
-            "last_duration": "7.009438",
-            "last_session": "1619283947.4227133"
+            "duration": "10.686162",
+            "last_duration": "3.676724",
+            "last_session": "1619334080.0161538"
         },
         "jopLauncherwdfqTest": {
             "duration": "0"
@@ -48,8 +48,8 @@
         }
     },
     "last_sessions": [
-        "jopLauncherqsdTest",
         "jopLauncherTest",
+        "jopLauncherqsdTest",
         "A Summer's End - Hong Kong 1986",
         "Hoshizora No Memoria",
         "MagiTrials.exe"
