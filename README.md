@@ -6,8 +6,8 @@ and discover automatically which game is running ( with a prerequisite on where 
 > All the recorded data are local and nothing is published. Local data are not protected ( protection rely on your local account on your laptop/desktop )
 
 - Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
-- show last 10 gaming sessions and allow to start them
-- | -> or to search an already played game and allow to start it 
+- show last 10 gaming sessions and allow to restart corresponding game
+- | -> or to search an already played game and allow to restart it 
 - allow to exclude process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange things ).
 - allow to map a custom name for an executable or to use the parent folder name instead of the executable name.
 
