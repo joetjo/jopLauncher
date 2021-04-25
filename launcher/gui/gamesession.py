@@ -113,7 +113,8 @@ class GameSession(GhSimplePanel):
         self.ui_date_label.widget.grid()
         self.ui_total_label.widget.grid()
         self.ui_last_label.widget.grid()
-        self.ui_name_label.variable.set(self.session.getName())
+        if self.session is not None:
+            self.ui_name_label.variable.set(self.session.getName())
 
     @staticmethod
     def create(parent, app, row, col, title_mode=None):

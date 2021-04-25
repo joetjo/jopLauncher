@@ -47,6 +47,8 @@ class ProcessInfo:
     def removeGameExtension(name):
         if JopLauncher.GAME_EXTENSION in name:
             return name[0:name.rfind(JopLauncher.GAME_EXTENSION)]
+        else:
+            return name
 
     def getPath(self):
         return self.path

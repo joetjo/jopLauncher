@@ -3,94 +3,13 @@ import time
 import logging  # This module is thread safe.
 import threading
 
-from JopLauncherConstant import JopLauncher
 from base.jsonstore import GhStorage
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
+from launcher.core.private.session import SessionList, Session
 
 LOCAL_STORAGE = 'local_storage.json'
 LOCK = threading.Lock()
-
-
-# Map Json storage for a session
-class Session:
-
-    def __init__(self, json, game_info=None):
-        self.json = json
-        self.json[2] = ProcessInfo.removeGameExtension(self.json[2])
-        self.game_info = game_info
-
-    def getName(self):
-        return self.json[0]
-
-    def setName(self, name):
-        self.json[0] = name
-
-    def getPath(self):
-        return self.json[1]
-
-    def getOriginName(self):
-        return self.json[2]
-
-    # Only on search result ( not available for session from storage )
-    def getGameInfo(self):
-        return self.game_info
-
-
-# encapsulate previous sessions management - List of Session managed
-# either in storage ( last sessions )
-# either in memory ( search result )
-class SessionList:
-
-    # Storage none --> im memory session list ( for search result )
-    def __init__(self, storage=None, proc_manager=None):
-        self.sessions = []
-        self.json_sessions = []
-        if storage is not None:
-            self.json_sessions = storage.getOrCreate(storage.data(), "last_sessions", [])
-            for json in storage.getOrCreate(storage.data(), "last_sessions", []):
-                self.sessions.append(Session(json, proc_manager.find(json[0], "init session list")))
-        # set storage after reading session
-        self.storage = storage
-
-    def list(self):
-        return self.sessions
-
-    # session : Session
-    def addSession(self, session):
-        if self.storage is None:
-            self.sessions.append(session)
-        else:
-            if self.findSessionByName(session.getName()):
-                self.removeSessionByName(session.getName())
-            self.sessions.insert(0, session)
-            self.json_sessions.insert(0, session.json)
-
-    def findSessionByName(self, name):
-        found = None
-        for session in self.sessions:
-            if session.getName() == name:
-                found = session
-        return found
-
-    def renameSession(self, name, new_name):
-        self.findSessionByName(name).name = new_name
-        self.findJsonSessionEntryByName(name)[0] = new_name
-
-    def findJsonSessionEntryByName(self, name):
-        found = None
-        for session in self.json_sessions:
-            if session[0] == name:
-                found = session
-        return found
-
-    # Returns the removed sessions
-    def removeSessionByName(self, name):
-        found = self.findSessionByName(name)
-        if found is not None:
-            self.sessions.remove(found)
-            self.json_sessions.remove(self.findJsonSessionEntryByName(name))
-        return found
 
 
 class ProcMgr:
@@ -135,15 +54,15 @@ class ProcMgr:
                         if mapping is not None:
                             p.forceName(mapping)
                         if self.pMonitored.get(p.getPid()) is None:
-                            storeEntry = self.find(p.getName(), "loading plist: process discovery")
-                            if storeEntry is None:
+                            store_entry = self.find(p.getName(), "loading plist: process discovery")
+                            if store_entry is None:
                                 # TODO mapping name may be identical to a real other process name - to check
                                 print("Creating game {} within storage".format(p.getName()))
                                 self.games[p.getName()] = {"duration": "0"}
                                 p.setStoreEntry(self.games[p.getName()])
                                 self.storage.save()
                             else:
-                                p.setStoreEntry(storeEntry)
+                                p.setStoreEntry(store_entry)
 
                             p.setStarted()
                             self.pMonitored[p.getPid()] = p
@@ -169,16 +88,11 @@ class ProcMgr:
                     duration = float(store["duration"])
                 except KeyError:
                     duration = 0.0
-                duration = 0.0
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
                 session = Session([proc.getName(), proc.path, proc.getOriginName()],
                                   self.find(proc.getName(), "loading plist: processing end process"))
-                try:
-                    self.removeLastSession(session)  # keep only one occurrence of each game
-                except:
-                    pass  # Nothing to remove
                 self.sessions.addSession(session)
 
                 self.storage.save()
@@ -266,6 +180,6 @@ class ProcMgr:
     def stop(self):
         self.shutdown = True
 
-    # FOR TEST PURPOSE ONLU
+    # FOR TEST PURPOSE ONLY
     def test_setGame(self, game):
         self.process_util.test_setGame(game)

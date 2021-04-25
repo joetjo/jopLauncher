@@ -74,12 +74,12 @@
         [
             "Perfect Gold",
             "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
-            null
+            "Perfect Gold"
         ],
         [
             "A Summer's End - Hong Kong 1986",
             "\\the\\path\\jeux\\HK1986Folder\\HK1986.exe",
-            null
+            "HK1986"
         ]
     ],
     "mappings": {
