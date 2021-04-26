@@ -54,6 +54,7 @@ Not available
 Last version is 2021.1.0425
 
 # Known bugs
+- exclude do not remove last_session ( game is removed, and ignores, just last_session is kept )
 - when displaying search result, all stuff is shift to the right ( minor, but all should be attach to the left... )
 - mapping name may be identical to a real other process name when loading process - to check
  
