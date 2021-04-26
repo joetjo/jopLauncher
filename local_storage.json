@@ -48,9 +48,19 @@
             "duration": "31.359629",
             "last_duration": "31.359629",
             "last_session": "1619372514.963373"
+        },
+        "FakeGameName": {
+            "duration": "5.908977",
+            "last_duration": "1.146322",
+            "last_session": "1619437075.867395"
         }
     },
     "last_sessions": [
+        [
+            "FakeGameName",
+            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
+            "FakeGameName"
+        ],
         [
             "Soul Gambler",
             "E:\\Jeux\\steamapps\\common\\Soul Gambler\\nw.exe",

@@ -59,26 +59,30 @@ class procGui(EventListener):
 
         # FOOTER
         footer_col = GhColumnPanel(self.app.footer)
-        GhApp.createButton(footer_col.left, 0, 0, self.applyRefresh, Strings.REFRESH_ACTION)
-        GhApp.createLabel(footer_col.left, 0, 1, text=" ")
-        self.ui_ignore_button = GhApp.createButton(footer_col.left, 0, 2, self.applyIgnore, Strings.IGNORE_ACTION)
-        self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 4, self.applyRemove, Strings.REMOVE_ACTION)
-        self.ui_mapping_button = GhApp.createButton(footer_col.left, 0, 5, self.applyMapping, Strings.MAPPING_ACTION)
-        self.ui_cancel_button = GhApp.createButton(footer_col.left, 0, 6, self.applyCancelMapping,
+
+        if self.procMgr.test_mode:
+            print(" ******** TEST MODE DETECTED ********************  USE ABOUT BUTTON !!! ")
+            self.test_visible = True
+            self.ui_test_game_label = GhApp.createLabel(footer_col.left, 0, 0, text="**TEST** ( no extension )")
+            self.ui_test_game_entry = GhApp.createEntry(footer_col.left, 0, 1, 20, "FakeGameName")
+            self.ui_test_game_button = GhApp.createButton(footer_col.left, 0, 2, self.test_startStop, "Start")
+            self.ui_test_game_button.variable.set("Start")
+            self.applyAbout()
+
+        GhApp.createButton(footer_col.left, 0, 3, self.applyRefresh, Strings.REFRESH_ACTION)
+        GhApp.createLabel(footer_col.left, 0, 4, text=" ")
+        self.ui_ignore_button = GhApp.createButton(footer_col.left, 0, 5, self.applyIgnore, Strings.IGNORE_ACTION)
+        self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 6, self.applyRemove, Strings.REMOVE_ACTION)
+        self.ui_mapping_button = GhApp.createButton(footer_col.left, 0, 7, self.applyMapping, Strings.MAPPING_ACTION)
+        self.ui_cancel_button = GhApp.createButton(footer_col.left, 0, 8, self.applyCancelMapping,
                                                    Strings.MAPPING_CANCEL_ACTION)
         self.ui_cancel_button.widget.grid_remove()
         self.ui_ignore_button.widget.grid_remove()
         self.ui_remove_button.widget.grid_remove()
         self.ui_mapping_button.widget.grid_remove()
 
-        if self.procMgr.test_mode:
-            GhApp.createLabel(footer_col.right, 0, 0, text="**TEST** ( no extension )")
-            self.ui_testgame_entry = GhApp.createEntry(footer_col.right, 0, 1, 20, "FakeGameName")
-            self.ui_testgame_button = GhApp.createButton(footer_col.right, 0, 2, self.test_startStop, "Start")
-            self.ui_testgame_button.variable.set("Start")
-        else:
-            GhApp.createLabel(footer_col.right, 0, 0, text=JopLauncher.SHORT_ABOUT)
-            GhApp.createButton(footer_col.right, 0, 2, procGui.applyAbout, Strings.ABOUT_ACTION)
+        GhApp.createLabel(footer_col.right, 0, 0, text=JopLauncher.SHORT_ABOUT)
+        GhApp.createButton(footer_col.right, 0, 2, self.applyAbout, Strings.ABOUT_ACTION)
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:
@@ -271,19 +275,30 @@ class procGui(EventListener):
             ui_session.setSelected(False)
             ui_session.disableMapping()
 
-    @staticmethod
-    def applyAbout():
-        messagebox.showinfo(JopLauncher.APP_NAME,
-                            "Version {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.VERSION,
-                                                                          JopLauncher.DB_VERSION,
-                                                                          JopLauncher.SHORT_ABOUT,
-                                                                          JopLauncher.URL))
+    def applyAbout(self):
+        if self.procMgr.test_mode:
+            if self.test_visible:
+                self.test_visible = False
+                self.ui_test_game_label.widget.grid_remove()
+                self.ui_test_game_entry.widget.grid_remove()
+                self.ui_test_game_button.widget.grid_remove()
+            else:
+                self.test_visible = True
+                self.ui_test_game_label.widget.grid()
+                self.ui_test_game_entry.widget.grid()
+                self.ui_test_game_button.widget.grid()
+        else:
+            messagebox.showinfo(JopLauncher.APP_NAME,
+                                "Version {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.VERSION,
+                                                                              JopLauncher.DB_VERSION,
+                                                                              JopLauncher.SHORT_ABOUT,
+                                                                              JopLauncher.URL))
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):
         if self.ui_playing_label.variable.get() == Strings.NO_GAME:
-            self.procMgr.test_setGame(self.ui_testgame_entry.variable.get())
-            self.ui_testgame_button.variable.set("Stop")
+            self.procMgr.test_setGame(self.ui_test_game_entry.variable.get())
+            self.ui_test_game_button.variable.set("Stop")
         else:
             self.procMgr.test_setGame(None)
-            self.ui_testgame_button.variable.set("Start")
+            self.ui_test_game_button.variable.set("Start")

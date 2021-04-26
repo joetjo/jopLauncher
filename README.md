@@ -49,15 +49,12 @@ not possible yet to add game manually in list.
 
 Not available
 
-
-
 # What will be in next version ?
 
 > minor update
 - update window app sizing
 
 # Known bugs
-- scrollbar / minimum size
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
@@ -73,10 +70,10 @@ Not available
 - how to check and cancel ignored file
 - ui preference editor ( use GHSetup )
 
-Test related:
-- use a separate window to run the test mode
-
 # Step to switch to public
 - license decision
 - header in file
 - screenshots in readme
+
+# Note:
+- info about scrollbar : https://www.geeksforgeeks.org/scrollable-frames-in-tkinter/
