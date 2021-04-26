@@ -19,6 +19,23 @@ Note: the project is fully compatible to other platforms but tested only on wind
 A good companion app to take notes about your games : https://www.electronjs.org/apps/notable
 it allows to set a markdown file by game and "tag" game to search in your own game. jopLauncher allows to link the md file of the game and to open it outside notable. What is interessant with notable is that is used standard markdown file that can used anywhere nut notable allows a nice tagging / indexing / searching / visualization.
 
+# FAQ
+
+> My game use a generic launcher name use for many game, how automatic detection will deal with it ?
+
+On first game that use the generic name, select it in history ( or search result ) and set a custom mapping using 'map' button' and set mapping to `PARENT`. Folder name will be used instead of executable name.
+
+> My game executable name use ( automatic name ) is not really a good one, can I change ot ?
+
+Select game in history ( or search result ) and set a custom mapping using 'map'. Set the name you want instead of the original executable name.
+
+> Jop Game Launcher has detect a process that is not a game, how to remove it ?
+
+Select invalid game in history ( or search result ) and use `exclude` button. This executable will be removed and ignore if detected again.
+
+> How to reset stat for a game ?
+
+Select game in history  and use `remove` button. Game will appears back when launch.
 
 # next version
 
