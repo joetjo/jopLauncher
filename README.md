@@ -34,7 +34,7 @@ Select game in history ( or search result ) and set a custom mapping using 'map'
 > Jop Game Launcher has detect a process that is not a game, how to remove it ?
 
 Select invalid game in history ( or search result ) and use `exclude` button. This executable will be removed and ignore if detected again. 
-There is currently ne way to cancel the exclude mode though the GUI ( storage in json format has te be edited manually ).
+There is currently no way to cancel the executable exclusion using the application ( storage in json format has to be edited manually ).
 
 > How to reset stat for a game ?
 
