@@ -58,6 +58,7 @@ Last version is 2021.1.0425
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
+- playing : add current play time ( on each refresh )
 - ui preference ( use GHSetup )
 - separate storage in multiple files
 - add launcher button + a way to select a different launcher that running execution + a way to disable the running mode if not supported.
