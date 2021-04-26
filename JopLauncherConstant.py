@@ -2,8 +2,12 @@ from basegui.application import GhAppSetup
 
 
 class JopLauncher:
+
+    # To be updated on release
+    TEST_MODE = False
+    VERSION = '2021.1.4.0425'
+    ###########################
     APP_NAME = 'Jop Game Launcher'
-    VERSION = '2021.1.4.wip'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
 
@@ -12,7 +16,6 @@ class JopLauncher:
     # delay between refresh 5s * REFRESH_DELAY
     REFRESH_DELAY = 10
     MAX_LAST_SESSION_COUNT = 10
-    TEST_MODE = True
 
     GAME_PATTERN = 'jeux'
     GAME_EXTENSION = '.exe'

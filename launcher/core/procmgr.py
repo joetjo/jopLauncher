@@ -148,20 +148,20 @@ class ProcMgr:
         return name in self.game_ignored
 
     def remove(self, name):
-        if not self.isIgnore(name):
-            session = self.sessions.removeSessionByName(name)
-            if name in self.games:
-                del self.games[name]
-            if session is not None and session.getOriginName() in self.game_mappings:
-                mapping = self.game_mappings[session.getOriginName()]
-                if mapping != 'PARENT':
-                    del self.game_mappings[name]
-            self.storage.save()
+        session = self.sessions.removeSessionByName(name)
+        if name in self.games:
+            del self.games[name]
+        if session is not None and session.getOriginName() in self.game_mappings:
+            mapping = self.game_mappings[session.getOriginName()]
+            if mapping != 'PARENT':
+                del self.game_mappings[name]
+        self.storage.save()
 
     def ignore(self, name):
         if not self.isIgnore(name):
             self.game_ignored.append(name)
             self.remove(name)
+            self.storage.save()
 
     # set or overwrite mapping
     def addMapping(self, session, map_name):

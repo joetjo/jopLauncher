@@ -4,9 +4,9 @@
             "duration": "20.505977"
         },
         "Borderlands2": {
-            "duration": "22213.956674",
-            "last_duration": "8770.807636",
-            "last_session": "1619296585.9965107"
+            "duration": "22357.116407",
+            "last_duration": "143.159733",
+            "last_session": "1619455441.2155347"
         },
         "UnityCrashHandler32": {
             "duration": "7514.127144"
@@ -17,64 +17,46 @@
             "last_session": "1619368044.4734485"
         },
         "AWayOut": {
-            "duration": "4361.727794"
+            "duration": "16381.37491",
+            "last_duration": "19.647116",
+            "last_session": "1619455832.0046875"
         },
         "MagiTrials": {
-            "duration": "9295.280530999999",
-            "last_duration": "1242.856117",
-            "last_session": "1619279567.856004"
+            "duration": "11773.814225999999",
+            "last_duration": "2478.533695",
+            "last_session": "1619384020.6049063"
         },
         "Hoshizora No Memoria": {
-            "duration": "44725.853603999996",
-            "last_duration": "34.942479",
-            "last_session": "1619368602.7826512"
+            "duration": "45234.660889",
+            "last_duration": "508.807285",
+            "last_session": "1619380756.134272"
         },
         "A Summer's End - Hong Kong 1986": {
-            "duration": "2603.372001",
-            "last_duration": "3.814345",
-            "last_session": "1619367982.5946212"
-        },
-        "Snowed IN": {
-            "duration": "38.150134",
-            "last_duration": "38.150134",
-            "last_session": "1619372414.6480386"
-        },
-        "Elisa The Innkeeper - Prequel": {
-            "duration": "6.747709",
-            "last_duration": "6.747709",
-            "last_session": "1619372456.028747"
-        },
-        "Soul Gambler": {
-            "duration": "31.359629",
-            "last_duration": "31.359629",
-            "last_session": "1619372514.963373"
-        },
-        "FakeGameName": {
-            "duration": "5.908977",
-            "last_duration": "1.146322",
-            "last_session": "1619437075.867395"
+            "duration": "8078.755568",
+            "last_duration": "1494.026475",
+            "last_session": "1619386489.302962"
         }
     },
     "last_sessions": [
         [
-            "FakeGameName",
-            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
-            "FakeGameName"
+            "AWayOut",
+            "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
+            "AWayOut"
         ],
         [
-            "Soul Gambler",
-            "E:\\Jeux\\steamapps\\common\\Soul Gambler\\nw.exe",
-            "nw"
+            "Borderlands2",
+            "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
+            "Borderlands2"
         ],
         [
-            "Elisa The Innkeeper - Prequel",
-            "E:\\Jeux\\steamapps\\common\\Elisa The Innkeeper - Prequel\\nw.exe",
-            "nw"
+            "A Summer's End - Hong Kong 1986",
+            "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
+            "HK1986"
         ],
         [
-            "Snowed IN",
-            "E:\\Jeux\\steamapps\\common\\Snowed IN\\nw.exe",
-            "nw"
+            "MagiTrials",
+            "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
+            "MagiTrials"
         ],
         [
             "Hoshizora No Memoria",
@@ -85,11 +67,6 @@
             "Perfect Gold",
             "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
             "Perfect Gold"
-        ],
-        [
-            "A Summer's End - Hong Kong 1986",
-            "\\the\\path\\jeux\\HK1986Folder\\HK1986.exe",
-            "HK1986"
         ]
     ],
     "mappings": {
@@ -97,6 +74,8 @@
         "HK1986": "A Summer's End - Hong Kong 1986",
         "nw": "PARENT"
     },
-    "ignored": [],
+    "ignored": [
+        "ActivationUI"
+    ],
     "version": 1
 }

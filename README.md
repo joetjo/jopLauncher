@@ -54,13 +54,16 @@ Not available
 > minor update
 - update window app sizing
 
+Last version is 2021.1.0424
+
 # Known bugs
+- exclude does not work anymore in 2021.1.0424
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
 - ui preference ( use GHSetup )
 - separate storage in multiple files
-- add launcher button + a way to select a different launcher that running executation + a way to disable the running mode if not supported.
+- add launcher button + a way to select a different launcher that running execution + a way to disable the running mode if not supported.
 - add a way to define a custom launcher
 - add a way to add a specific process that do not map the pattern
 - add a way to add Game platform, check if running and allow to start them if not started
@@ -74,6 +77,7 @@ Not available
 - license decision
 - header in file
 - screenshots in readme
+- reset local storage to no publish my data
 
 # Note:
 - info about scrollbar : https://www.geeksforgeeks.org/scrollable-frames-in-tkinter/
