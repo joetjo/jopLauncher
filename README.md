@@ -39,3 +39,6 @@ Note: the project is fully compatible to other platform be tested only on window
 Test related:
 - use a separate window to run the test mode
 
+# Step to switch to public
+- license decision
+- header in file
