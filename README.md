@@ -51,13 +51,9 @@ Not available
 
 # What will be in next version ?
 
-> minor update
-- update window app sizing
-
-Last version is 2021.1.0424
+Last version is 2021.1.0425
 
 # Known bugs
-- exclude does not work anymore in 2021.1.0424
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
