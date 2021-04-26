@@ -19,7 +19,9 @@ Note: the project is fully compatible to other platforms but tested only on wind
 A good companion app to take notes about your games : https://www.electronjs.org/apps/notable
 it allows to set a markdown file by game and "tag" game to search in your own game. jopLauncher allows to link the md file of the game and to open it outside notable. What is interessant with notable is that is used standard markdown file that can used anywhere nut notable allows a nice tagging / indexing / searching / visualization.
 
-# FAQ
+# FAQ - Documentation
+
+No manual available - but here a list of **How to ?**
 
 > My game use a generic launcher name use for many game, how automatic detection will deal with it ?
 
