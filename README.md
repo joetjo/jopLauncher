@@ -72,6 +72,9 @@ Last version is 2021.1.0425
 - how to check and cancel ignored file
 - ui preference editor ( use GHSetup )
 
+# Major enhancement
+- merge different storage when playing on several laptop/desktop
+
 # Step to switch to public
 - license decision
 - header in file
