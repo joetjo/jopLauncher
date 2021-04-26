@@ -16,7 +16,9 @@ Platform : **Windows** ( python )
 Note: the project is fully compatible to other platform be tested only on windows and packaged only for windows.
 
 # next version
-Not planned
+
+> minor update
+- update window app sizing
 
 # Bug To be fix
 - scrollbar / minimum size
