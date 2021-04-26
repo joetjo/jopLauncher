@@ -40,6 +40,7 @@ it allows to set a markdown file by game and "tag" game to search in your own ga
 - add a way to add an http link to store page
 - add a way to add an http link to external link ( tips soluce or whatever =
 - how to check and cancel ignored file
+- ui preference editor ( use GHSetup )
 
 Test related:
 - use a separate window to run the test mode
