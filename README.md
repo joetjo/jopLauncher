@@ -11,8 +11,10 @@ and discover automatically which game is running ( with a prerequisite on where 
 - allow to exclude process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange things ).
 - allow to map a custom name for an executable or to use the parent folder name instead of the executable name.
 
-Platform : **Windows** ( python )
+A good companion app to take note about your games : Edited with : https://www.electronjs.org/apps/notable
+it allows to set a markdown file by game and "tag" game to search in your own game. jopLauncher allows to link the md file of the game and to open it outside notable.
 
+Platform : **Windows** ( python )
 Note: the project is fully compatible to other platforms but tested only on windows and packaged only for windows.
 
 # next version
