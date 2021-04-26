@@ -9,5 +9,9 @@ class EventListener(ABC):
         print("[ABC Impl] New game detected {} ({})".format(proc.getName(), proc.getPath()))
 
     @abstractmethod
+    def refreshDone(self):
+        pass
+
+    @abstractmethod
     def endGame(self, proc):
         print("[ABC Impl] End game detected {} ({})".format(proc.getName(), proc.getPath()))

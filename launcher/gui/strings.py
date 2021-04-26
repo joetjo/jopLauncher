@@ -3,12 +3,12 @@
 class Strings:
     # Labels
     NO_GAME = "-"
-    PLAYING = "Playing:"
+    PLAYING = "Playing"
     PREVIOUS = "Previous sessions:"
     SEARCH = "| Search:"
     SEARCHING = "Searching..."
-    LAST_PLAYED = "Last played:"
-    TIME_PLAYED = "Time played:"
+    PLAY_TIME = "Play time"
+    TIME_PLAYED = "Total time"
     LAST_LAUNCH = "Last play"
     LAST_DURATION = "Last play duration"
     TOTAL_DURATION = "Total play time"

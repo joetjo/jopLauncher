@@ -1,3 +1,4 @@
+import time
 from datetime import timedelta
 from tkinter import messagebox
 
@@ -18,15 +19,32 @@ class procGui(EventListener):
         self.procMgr = procmgr
         self.search_mode = False
         self.procMgr.setListener(self)
+        self.last_start = -1
 
-        self.app = GhApp("{} - {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION))
+        mode = ""
+        if procmgr.test_mode:
+            mode = "- test mode"
+        self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, mode))
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
-        GhApp.createLabel(header_col.left, 0, 0, text=Strings.PLAYING)
-        self.ui_playing_label = GhApp.createLabel(header_col.left, 0, 1)
+
+        # HEADER LEFT
+        label_width = 8
+        GhApp.createLabel(header_col.left, 0, 0, text=Strings.PLAYING, width=label_width)
+        GhApp.createLabel(header_col.left, 0, 1, text=":")
+        self.ui_playing_label = GhApp.createLabel(header_col.left, 0, 2)
         self.ui_playing_label.variable.set(Strings.NO_GAME)
 
+        GhApp.createLabel(header_col.left, 1, 0, text=Strings.PLAY_TIME, width=label_width)
+        GhApp.createLabel(header_col.left, 1, 1, text=":")
+        self.ui_play_time_label = GhApp.createLabel(header_col.left, 1, 2, anchor='e')
+
+        GhApp.createLabel(header_col.left, 2, 0, text=Strings.TIME_PLAYED, width=label_width)
+        GhApp.createLabel(header_col.left, 2, 1, text=":")
+        self.ui_played_duration_label = GhApp.createLabel(header_col.left, 2, 2, anchor='e')
+
+        # HEADER RIGHT
         GhApp.createLabel(header_col.right, 0, 0, text=Strings.SEARCH)
         self.ui_search_entry = GhApp.createEntry(header_col.right, 0, 1, 20, "", command=self.applySearch)
         self.ui_search_button = GhApp.createButton(header_col.right, 0, 2, self.applySearch, text=Strings.SEARCH_ACTION)
@@ -38,18 +56,13 @@ class procGui(EventListener):
         content_col = GhColumnPanel(self.app.content)
 
         # CONTENT LEFT
-        GhApp.createLabel(content_col.left, 0, 0, text=Strings.LAST_PLAYED)
-        GhApp.createLabel(content_col.left, 1, 0, text=Strings.TIME_PLAYED)
-        self.ui_prev_session_label = GhApp.createLabel(content_col.left, 2, 0)
+        self.ui_prev_session_label = GhApp.createLabel(content_col.left, 1, 1)
         self.ui_prev_session_label.variable.set(Strings.PREVIOUS)
-
         self.ui_help_label = GhApp.createLabel(content_col.left, 3, 0)
         self.ui_help_label.variable.set(Strings.HELP_MAPPING)
         self.ui_help_label.widget.grid_remove()
 
         # CONTENT RIGHT
-        self.ui_played_label = GhApp.createLabel(content_col.right, 0, 0, anchor='e')
-        self.ui_played_duration_label = GhApp.createLabel(content_col.right, 1, 0, anchor='e')
 
         GameSession.create(content_col.right, self, 2, 0, title_mode=True)
         self.ui_sessions = []
@@ -142,20 +155,18 @@ class procGui(EventListener):
 
     def setPlaying(self, proc):
         if proc is None:
+            self.last_start = -1
+            self.ui_play_time_label.variable.set("")
             self.ui_playing_label.variable.set(Strings.NO_GAME)
+            self.ui_played_duration_label.variable.set("")
         else:
+            self.last_start = time.time()
             self.ui_playing_label.variable.set(proc.getName())
+            self.ui_play_time_label.variable.set("just launch !")
             if proc.hasData():
                 self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
-                self.ui_played_label.variable.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
             else:
                 self.setPlayedDuration(0)
-                self.ui_played_label.variable.set("{} | 0s".format(proc.getName()))
-
-
-    def setPlayed(self, proc):
-        self.ui_played_label.variable.set("{} | {}".format(proc.getName(), proc.getPlayedTime()))
-        self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
 
     def setPlayedDuration(self, duration):
         delta = timedelta(seconds=duration)
@@ -167,10 +178,14 @@ class procGui(EventListener):
         print("New game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(proc)
 
+    def refreshDone(self):
+        if self.last_start > 0:
+            duration = int((time.time() - self.last_start) / 60)
+            self.ui_play_time_label.variable.set("~{} minutes".format(duration))
+
     def endGame(self, proc):
         print("End game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(None)
-        self.setPlayed(proc)
         self.reloadLastSessions()
 
     # END Proc listener implementations

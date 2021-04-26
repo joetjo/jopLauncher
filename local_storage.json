@@ -1,25 +1,15 @@
 {
+    "version": 1,
     "Games": {
-        "Launcher": {
-            "duration": "20.505977"
-        },
         "Borderlands2": {
             "duration": "22357.116407",
             "last_duration": "143.159733",
             "last_session": "1619455441.2155347"
         },
-        "UnityCrashHandler32": {
-            "duration": "7514.127144"
-        },
         "Perfect Gold": {
             "duration": "7518.786611",
             "last_duration": "5.042497",
             "last_session": "1619368044.4734485"
-        },
-        "AWayOut": {
-            "duration": "16381.37491",
-            "last_duration": "19.647116",
-            "last_session": "1619455832.0046875"
         },
         "MagiTrials": {
             "duration": "11773.814225999999",
@@ -32,26 +22,41 @@
             "last_session": "1619380756.134272"
         },
         "A Summer's End - Hong Kong 1986": {
-            "duration": "8078.755568",
-            "last_duration": "1494.026475",
-            "last_session": "1619386489.302962"
+            "duration": "9588.242858",
+            "last_duration": "1509.48729",
+            "last_session": "1619462392.3220496"
+        },
+        "A Way Out (Willy)": {
+            "duration": "16388.768503",
+            "last_duration": "7.393593",
+            "last_session": "1619464444.19321"
+        },
+        "FakeGameName": {
+            "duration": "32.834562",
+            "last_duration": "31.799431",
+            "last_session": "1619469778.121407"
         }
     },
     "last_sessions": [
         [
-            "AWayOut",
-            "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
-            "AWayOut"
+            "FakeGameName",
+            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
+            "FakeGameName"
         ],
         [
-            "Borderlands2",
-            "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
-            "Borderlands2"
+            "A Way Out (Willy)",
+            "\\the\\path\\jeux\\AWayOutFolder\\AWayOut.exe",
+            "AWayOut"
         ],
         [
             "A Summer's End - Hong Kong 1986",
             "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
             "HK1986"
+        ],
+        [
+            "Borderlands2",
+            "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
+            "Borderlands2"
         ],
         [
             "MagiTrials",
@@ -72,10 +77,10 @@
     "mappings": {
         "Memoria": "Hoshizora No Memoria",
         "HK1986": "A Summer's End - Hong Kong 1986",
-        "nw": "PARENT"
+        "nw": "PARENT",
+        "AWayOut": "A Way Out (Willy)"
     },
     "ignored": [
         "ActivationUI"
-    ],
-    "version": 1
+    ]
 }

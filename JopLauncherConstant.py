@@ -5,7 +5,7 @@ class JopLauncher:
 
     # To be updated on release
     TEST_MODE = False
-    VERSION = '2021.1.4.0425'
+    VERSION = '2021.1.4.0425.2'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"

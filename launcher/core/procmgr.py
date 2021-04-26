@@ -77,6 +77,8 @@ class ProcMgr:
                         print("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
 
         print("{} processes detected".format(len(self.plist)))
+        if self.eventListener is not None:
+            self.eventListener.refreshDone()
 
         values = dict(self.pMonitored)
         # copy list before to be able to remove element from list while looping
@@ -159,8 +161,8 @@ class ProcMgr:
 
     def ignore(self, name):
         if not self.isIgnore(name):
-            self.game_ignored.append(name)
             self.remove(name)
+            self.game_ignored.append(name)
             self.storage.save()
 
     # set or overwrite mapping

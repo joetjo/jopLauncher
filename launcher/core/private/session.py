@@ -58,11 +58,10 @@ class SessionList:
             self.json_sessions.insert(0, session.json)
 
     def findSessionByName(self, name):
-        found = None
         for session in self.sessions:
             if session.getName() == name:
-                found = session
-        return found
+                return session
+        return None
 
     def renameSession(self, name, new_name):
         self.findSessionByName(name).name = new_name
