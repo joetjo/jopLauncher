@@ -23,17 +23,18 @@ it allows to set a markdown file by game and "tag" game to search in your own ga
 
 No manual available - but here a list of **How to ?**
 
-> My game use a generic launcher name use for many game, how automatic detection will deal with it ?
+> My game use a generic launcher name use for many games, how automatic detection will deal with it ?
 
 On first game that use the generic name, select it in history ( or search result ) and set a custom mapping using 'map' button' and set mapping to `PARENT`. Folder name will be used instead of executable name.
 
-> My game executable name use ( automatic name ) is not really a good one, can I change ot ?
+> My game executable name use ( automatic name ) is not really a good one, can I change it ?
 
 Select game in history ( or search result ) and set a custom mapping using 'map'. Set the name you want instead of the original executable name.
 
 > Jop Game Launcher has detect a process that is not a game, how to remove it ?
 
-Select invalid game in history ( or search result ) and use `exclude` button. This executable will be removed and ignore if detected again.
+Select invalid game in history ( or search result ) and use `exclude` button. This executable will be removed and ignore if detected again. 
+There is currently ne way to cancel the exclude mode though the GUI ( storage in json format has te be edited manually ).
 
 > How to reset stat for a game ?
 
