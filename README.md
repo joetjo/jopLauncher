@@ -51,12 +51,12 @@ Not available
 
 
 
-# next version
+# What will be in next version ?
 
 > minor update
 - update window app sizing
 
-# Bug To be fix
+# Known bugs
 - scrollbar / minimum size
 - mapping name may be identical to a real other process name when loading process - to check
  
