@@ -274,8 +274,10 @@ class procGui(EventListener):
     @staticmethod
     def applyAbout():
         messagebox.showinfo(JopLauncher.APP_NAME,
-                            "Version {}\n\n{} \n{}".format(JopLauncher.VERSION, JopLauncher.SHORT_ABOUT,
-                                                           JopLauncher.URL))
+                            "Version {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.VERSION,
+                                                                          JopLauncher.DB_VERSION,
+                                                                          JopLauncher.SHORT_ABOUT,
+                                                                          JopLauncher.URL))
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):
