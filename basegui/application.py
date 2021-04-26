@@ -5,7 +5,9 @@ class GhAppSetup:
     bg_header = 'light blue'
     bg_content = 'light grey'
     height = 550
+    min_height = 250
     width = 550
+    min_width = 400
     # center top bottom
     vertical = 'center'
     # position (digit) or center left right
@@ -50,8 +52,7 @@ class GhApp:
         self.window.title(title)
         self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
 
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
+        self.window.minsize(GhAppSetup.min_width,GhAppSetup.min_height)
 
         # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=20)

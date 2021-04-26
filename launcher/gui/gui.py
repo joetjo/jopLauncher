@@ -43,7 +43,7 @@ class procGui(EventListener):
         self.ui_prev_session_label = GhApp.createLabel(content_col.left, 2, 0)
         self.ui_prev_session_label.variable.set(Strings.PREVIOUS)
 
-        self.ui_help_label = GhApp.createLabel(content_col.left, 3, 0, width=5)
+        self.ui_help_label = GhApp.createLabel(content_col.left, 3, 0)
         self.ui_help_label.variable.set(Strings.HELP_MAPPING)
         self.ui_help_label.widget.grid_remove()
 

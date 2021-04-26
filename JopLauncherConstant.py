@@ -3,7 +3,7 @@ from basegui.application import GhAppSetup
 
 class JopLauncher:
     APP_NAME = 'Jop Game Launcher'
-    VERSION = '2021.1.0424'
+    VERSION = '2021.1.4.wip'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
 
@@ -18,7 +18,7 @@ class JopLauncher:
 
 # TODO - setup using GhSetup
 
-GhAppSetup.width = 700
+GhAppSetup.width = 750
 GhAppSetup.height = 200 + 20 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
