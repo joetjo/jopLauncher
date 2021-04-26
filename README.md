@@ -48,3 +48,4 @@ Test related:
 # Step to switch to public
 - license decision
 - header in file
+- screenshots in readme
