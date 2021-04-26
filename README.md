@@ -37,6 +37,17 @@ Select invalid game in history ( or search result ) and use `exclude` button. Th
 
 Select game in history  and use `remove` button. Game will appears back when launch.
 
+> My game is not detected, what I can do ?
+
+game has to be installed in a folder hierarchy that contains the pattern `jeux` ( not configurable yet )
+not possible yet to add game manually in list.
+
+> How to I change game setup ?
+
+Not available
+
+
+
 # next version
 
 > minor update
