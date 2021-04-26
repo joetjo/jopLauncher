@@ -21,7 +21,7 @@ it allows to set a markdown file by game and "tag" game to search in your own ga
 
 # FAQ - Documentation
 
-No manual available - but here a list of **How to ?**
+No manual available - but here a list of **How to**
 
 > My game use a generic launcher name use for many games, how automatic detection will deal with it ?
 
