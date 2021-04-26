@@ -45,7 +45,7 @@ Select game in history  and use `remove` button. Game will appears back when lau
 game has to be installed in a folder hierarchy that contains the pattern `jeux` ( not configurable yet )
 not possible yet to add game manually in list.
 
-> How to I change game setup ?
+> How to I change application setup ?
 
 Not available
 
