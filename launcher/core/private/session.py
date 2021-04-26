@@ -38,8 +38,8 @@ class SessionList:
         self.sessions = []
         self.json_sessions = []
         if storage is not None:
-            self.json_sessions = storage.getOrCreate(storage.data(), "last_sessions", [])
-            for json in storage.getOrCreate(storage.data(), "last_sessions", []):
+            self.json_sessions = storage.getOrCreate("last_sessions", [])
+            for json in self.json_sessions:
                 self.sessions.append(Session(json, proc_manager.find(json[0], "init session list")))
         # set storage after reading session
         self.storage = storage

@@ -8,6 +8,7 @@ class GhStorage:
         if content is None :
             self.json_file = json_file
             self.content = {}
+            self.version = 0
             try:
                 self.open()
             except FileNotFoundError:
@@ -19,13 +20,15 @@ class GhStorage:
             # init from direct json content
             self.json_file = None
             self.content = content
+            self.version = 0
             print("GhStorage: transient usage")
 
     def open(self):
         if self.json_file is not None:
             with open(self.json_file) as file:
                 self.content = json.load(file)
-            print("GhStorage loaded")
+                self.version = self.getOrCreate("version", 0)
+            print("GhStorage loaded - version {}".format(self.version))
         else:
             print("GhStorage : open ignored, not open from file")
 
@@ -33,7 +36,9 @@ class GhStorage:
         if self.json_file is not None:
             print("Creating local storage")
             with open(self.json_file, "w") as file:
-                file.write("{}")
+                file.write("{"
+                           "    version = 0"
+                           "}")
             self.open()
         else:
             print("GhStorage : create ignored, not open from file")
@@ -51,10 +56,17 @@ class GhStorage:
         else:
             print("GhStorage : save ignored, not open from file")
 
+    def getVersion(self):
+        return self.version
+
+    def setVersion(self, version):
+        self.version = version
+        self.content["version"] = version
+
     def data(self):
         return self.content
 
-    def getOrCreate(self, data, key, default):
+    def getOrCreate(self, key, default):
         try:
             return self.content[key]
         except KeyError:

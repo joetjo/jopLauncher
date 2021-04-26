@@ -7,6 +7,8 @@ class JopLauncher:
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
 
+    DB_VERSION = 1
+
     # delay between refresh 5s * REFRESH_DELAY
     REFRESH_DELAY = 10
     MAX_LAST_SESSION_COUNT = 10

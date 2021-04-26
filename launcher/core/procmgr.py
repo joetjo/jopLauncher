@@ -3,7 +3,9 @@ import time
 import logging  # This module is thread safe.
 import threading
 
+from JopLauncherConstant import JopLauncher
 from base.jsonstore import GhStorage
+from launcher.core.migrations.migrate import StorageVersion
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
 from launcher.core.private.session import SessionList, Session
@@ -24,6 +26,8 @@ class ProcMgr:
         self.eventListener = None
 
         self.storage = GhStorage(LOCAL_STORAGE)
+        StorageVersion.check_migration(self.storage, JopLauncher.DB_VERSION)
+
         try:
             self.games = self.storage.data()["Games"]
         except KeyError:
@@ -31,8 +35,8 @@ class ProcMgr:
             self.games = self.storage.data()["Games"]
 
         self.sessions = SessionList(self.storage, self)
-        self.game_mappings = self.storage.getOrCreate(self.storage.data(), "mappings", {})
-        self.game_ignored = self.storage.getOrCreate(self.storage.data(), "ignored", [])
+        self.game_mappings = self.storage.getOrCreate("mappings", {})
+        self.game_ignored = self.storage.getOrCreate("ignored", [])
 
         self.loadPList()
 
