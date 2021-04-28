@@ -4,9 +4,9 @@ class Strings:
     # Labels
     NO_GAME = "-"
     PLAYING = "Playing"
-    PREVIOUS = "Previous sessions:"
+    PREVIOUS = "Display mode [last sessions]"
     SEARCH = "| Search:"
-    SEARCHING = "Searching..."
+    SEARCHING = "Display mode [Searching...please wait]"
     PLAY_TIME = "Play time"
     TIME_PLAYED = "Total time"
     LAST_LAUNCH = "Last play"
@@ -15,7 +15,7 @@ class Strings:
     GAME_NAME = "Game"
 
     # Buttons
-    SEARCH_ACTION = "Go"
+    SEARCH_ACTION = "  Go"
     RESET_SEARCH_ACTION = "Reset"
     REFRESH_ACTION = "Refresh"
     IGNORE_ACTION = "exclude"
@@ -26,11 +26,11 @@ class Strings:
     ABOUT_ACTION = "?"
 
     # Messages
-    HELP_MAPPING = ("if name is a specific one\n but unrelated to game,\n--> set a custom name\n"
-                    "\nif name is a generic launcher,\n --> use PARENT to use \nparent folder name")
-    RESULT_SEARCH_EXCEED = ("Search result: {} games,\n\n only {} displayed\n"
-                            "\nrefine the token \nto find your game !")
-    RESULT_SEARCH = "Search result: {} games"
+    HELP_MAPPING = ("Display mode: [Help]\n- if name is a specific one but unrelated to game,--> set a custom name"
+                    "                    \n- if name is a generic launcher, --> use PARENT to use parent folder name")
+    RESULT_SEARCH_EXCEED = ("Display mode: [Search result: {} games] - only {} displayed\n"
+                            "refine the token to find your game !")
+    RESULT_SEARCH = "Display mode: [Search result: {} games]"
     CONFIRM_TITLE= "Please confirm !"
     CONFIRM_IGNORE_SELECTION = "{}:\n- {}"
     CONFIRM_IGNORE_APPLY = "Do you really want to exclude theses executable \n(Future execution will be ignored): "

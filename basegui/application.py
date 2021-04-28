@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
+from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar, PhotoImage, CENTER
 
 
 class GhAppSetup:
@@ -12,12 +12,19 @@ class GhAppSetup:
     vertical = 'center'
     # position (digit) or center left right
     horizontal = 'center'
+    icon = None
 
 
 class GhAppHandle:
     def __init__(self, variable, widget):
         self.widget = widget
         self.variable = variable
+
+
+'''
+Generic Application based on grid layout with header / content / footer
+mandatory : title ( application window title )
+'''
 
 
 class GhApp:
@@ -50,9 +57,10 @@ class GhApp:
             y = int(GhAppSetup.vertical)
 
         self.window.title(title)
-        self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
+        self.window.iconbitmap(GhAppSetup.icon)
 
-        self.window.minsize(GhAppSetup.min_width,GhAppSetup.min_height)
+        self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
+        self.window.minsize(GhAppSetup.min_width, GhAppSetup.min_height)
 
         # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=20)
@@ -71,36 +79,51 @@ class GhApp:
         print("{} closed".format(self.title))
 
     @staticmethod
+    def setupImage(widget, image, align):
+        widget.config(image=image, compound=align)
+
+    @staticmethod
     # if text is None, create a StringVar and return it
     def createLabel(parent, row, col,
                     text=None,
                     anchor='w',
                     justify='left',
+                    colspan=1,
                     width=None):
-        textvariable = None
+        text_variable = None
         if text is None:
-            textvariable = StringVar()
+            text_variable = StringVar()
         label = Label(parent,
-                      text=text, textvariable=textvariable,
+                      text=text, textvariable=text_variable,
                       bg=parent.cget('bg'), width=width,
                       anchor=anchor, justify=justify)
         if anchor == 'center':
             anchor = 'w'
-        label.grid(row=row, column=col, sticky=anchor)
-        return GhAppHandle(textvariable, label)
+        label.grid(row=row, column=col, sticky=anchor, columnspan=colspan)
+        return GhAppHandle(text_variable, label)
 
     @staticmethod
     def createButton(parent, row, col,
                      command,
                      text,
                      anchor='w',
-                     padx=5):
-        textvariable = StringVar()
-        textvariable.set(text)
-        button = Button(parent, command=command, textvariable=textvariable,
-                        anchor=anchor, padx=padx)
+                     padx=5,
+                     width=None,
+                     image=None):
+        text_variable = StringVar()
+
+        button = Button(parent, command=command, textvariable=text_variable,
+                        anchor=anchor, padx=padx, width=width)
         button.grid(row=row, column=col, sticky=anchor)
-        return GhAppHandle(textvariable, button)
+
+        if not GhAppSetup.image_button \
+                or GhAppSetup.image_text_button \
+                or image is None:
+            text_variable.set(text)
+
+        if GhAppSetup.image_button:
+            GhApp.setupImage(button, image, "left")
+        return GhAppHandle(text_variable, button)
 
     @staticmethod
     def createRadio(parent, row, col, command,

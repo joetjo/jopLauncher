@@ -5,10 +5,6 @@ from JopLauncherConstant import JopLauncher
 from launcher.core.procmgr import ProcMgr
 from launcher.gui.gui import procGui
 
-# to help installer detect it
-import psutil
-from tkinter import messagebox
-
 
 def background(procmgr):
     print("Starting auto refresh thread - sleeping delay: {}s".format(JopLauncher.REFRESH_DELAY * 5))

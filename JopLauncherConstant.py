@@ -4,8 +4,8 @@ from basegui.application import GhAppSetup
 class JopLauncher:
 
     # To be updated on release
-    TEST_MODE = False
-    VERSION = '2021.1.4.0425.2'
+    TEST_MODE = True
+    VERSION = '2021.1.wip'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
@@ -27,6 +27,11 @@ GhAppSetup.width = 750
 GhAppSetup.height = 200 + 20 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
+GhAppSetup.icon = 'icons/joystick.ico'
+
+GhAppSetup.image_button = True
+# Must not be false if image_button is false
+GhAppSetup.image_text_button = True
 
 # GhAppSetup.vertical = 10
 # GhAppSetup.horizontal = 10

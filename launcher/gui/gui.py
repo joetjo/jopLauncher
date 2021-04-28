@@ -1,18 +1,19 @@
 import time
 from datetime import timedelta
-from tkinter import messagebox
+from tkinter import messagebox, PhotoImage, Image, LEFT, RIGHT
 
 from JopLauncherConstant import JopLauncher
 from base.pair import Pair
 from basegui.application import GhApp
 from basegui.columnpanel import GhColumnPanel
+from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
 from launcher.gui.gamesession import GameSession
 from launcher.gui.strings import Strings
 
 
 class procGui(EventListener):
-    label_width = 40
+    HEADER_LABEL_WIDTH = 40
 
     def __init__(self, procmgr):
         self.ready = False
@@ -20,11 +21,14 @@ class procGui(EventListener):
         self.search_mode = False
         self.procMgr.setListener(self)
         self.last_start = -1
+        self.display_mode = Strings.PREVIOUS
 
         mode = ""
         if procmgr.test_mode:
             mode = "- test mode"
         self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, mode))
+
+        self.icons = GhIcons()
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
@@ -45,29 +49,29 @@ class procGui(EventListener):
         self.ui_played_duration_label = GhApp.createLabel(header_col.left, 2, 2, anchor='e')
 
         # HEADER RIGHT
-        GhApp.createLabel(header_col.right, 0, 0, text=Strings.SEARCH)
-        self.ui_search_entry = GhApp.createEntry(header_col.right, 0, 1, 20, "", command=self.applySearch)
-        self.ui_search_button = GhApp.createButton(header_col.right, 0, 2, self.applySearch, text=Strings.SEARCH_ACTION)
-        self.ui_search_reset_button = GhApp.createButton(header_col.right, 0, 3, self.applyResetSearch,
-                                                         text=Strings.RESET_SEARCH_ACTION)
+        GhApp.createLabel(header_col.right, 0, 0, width=15)
+        GhApp.createLabel(header_col.right, 0, 1, text=Strings.SEARCH)
+        self.ui_search_entry = GhApp.createEntry(header_col.right, 0, 2, 20, "", command=self.applySearch)
+        self.ui_search_button = GhApp.createButton(header_col.right, 0, 3, self.applySearch,
+                                                   text=Strings.SEARCH_ACTION, width=5)
+
+        GhApp.createLabel(header_col.right, 2, 1, text=" ")
+
+        self.ui_prev_session_label = GhApp.createLabel(header_col.right, 3, 0, colspan=3)
+        self.ui_prev_session_label.variable.set(self.display_mode)
+        self.ui_search_reset_button = GhApp.createButton(header_col.right, 3, 3, self.applyResetSearch,
+                                                         text=Strings.RESET_SEARCH_ACTION, width=5)
         self.ui_search_reset_button.widget.grid_remove()
 
         # CONTENT
         content_col = GhColumnPanel(self.app.content)
-
-        # CONTENT LEFT
-        self.ui_prev_session_label = GhApp.createLabel(content_col.left, 1, 1)
-        self.ui_prev_session_label.variable.set(Strings.PREVIOUS)
-        self.ui_help_label = GhApp.createLabel(content_col.left, 3, 0)
-        self.ui_help_label.variable.set(Strings.HELP_MAPPING)
-        self.ui_help_label.widget.grid_remove()
+        content_panel = content_col.left
 
         # CONTENT RIGHT
-
-        GameSession.create(content_col.right, self, 2, 0, title_mode=True)
+        GameSession.create(content_panel, self, 2, 0, title_mode=True)
         self.ui_sessions = []
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
-            self.ui_sessions.append(GameSession.create(content_col.right, self, 3 + idx, 0))
+            self.ui_sessions.append(GameSession.create(content_panel, self, 3 + idx, 0))
         self.reloadLastSessions()
 
         # FOOTER
@@ -82,7 +86,8 @@ class procGui(EventListener):
             self.ui_test_game_button.variable.set("Start")
             self.applyAbout()
 
-        GhApp.createButton(footer_col.left, 0, 3, self.applyRefresh, Strings.REFRESH_ACTION)
+        GhApp.createButton(footer_col.left, 0, 3, self.applyRefresh,
+                           Strings.REFRESH_ACTION, image=self.icons.REFRESH)
         GhApp.createLabel(footer_col.left, 0, 4, text=" ")
         self.ui_ignore_button = GhApp.createButton(footer_col.left, 0, 5, self.applyIgnore, Strings.IGNORE_ACTION)
         self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 6, self.applyRemove, Strings.REMOVE_ACTION)
@@ -138,15 +143,16 @@ class procGui(EventListener):
                 idx += 1
 
             if idx >= JopLauncher.MAX_LAST_SESSION_COUNT:
-                self.ui_prev_session_label.variable.set(Strings.RESULT_SEARCH_EXCEED
-                                                        .format(idx, JopLauncher.MAX_LAST_SESSION_COUNT))
+                self.display_mode = Strings.RESULT_SEARCH_EXCEED.format(idx, JopLauncher.MAX_LAST_SESSION_COUNT)
             else:
-                self.ui_prev_session_label.variable.set(Strings.RESULT_SEARCH.format(idx))
+                self.display_mode = (Strings.RESULT_SEARCH.format(idx))
+            self.ui_prev_session_label.variable.set(self.display_mode)
 
     def applyResetSearch(self):
         self.search_mode = False
+        self.display_mode = Strings.PREVIOUS
         self.ui_search_entry.variable.set("")
-        self.ui_prev_session_label.variable.set(Strings.PREVIOUS)
+        self.ui_prev_session_label.variable.set(self.display_mode)
         self.ui_search_reset_button.widget.grid_remove()
         self.reloadLastSessions()
 
@@ -266,7 +272,6 @@ class procGui(EventListener):
             if not error:
                 self.ui_mapping_button.variable.set(Strings.MAPPING_ACTION)
                 self.ui_cancel_button.widget.grid_remove()
-                self.ui_help_label.widget.grid_remove()
 
                 if self.searchInProgress():
                     self.applySearch()
@@ -280,12 +285,12 @@ class procGui(EventListener):
                     ui_session.enableMapping()
                 self.ui_mapping_button.variable.set(Strings.MAPPING_APPLY_ACTION)
                 self.ui_cancel_button.widget.grid()
-                self.ui_help_label.widget.grid()
+                self.ui_prev_session_label.variable.set(Strings.HELP_MAPPING)
 
     def applyCancelMapping(self):
         self.ui_mapping_button.variable.set("map")
         self.ui_cancel_button.widget.grid_remove()
-        self.ui_help_label.widget.grid_remove()
+        self.ui_prev_session_label.variable.set(self.display_mode)
         for ui_session in self.ui_sessions:
             ui_session.setSelected(False)
             ui_session.disableMapping()
