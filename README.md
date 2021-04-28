@@ -53,13 +53,18 @@ Not available
 
 Last version is 2021.1.0425
 
+Fixed:
+- when displaying search result, all stuff is shift to the right ( minor, but all should be attached to the left... )
+
+Enhancement:
+- playing : add current play time ( on each refresh ) and rework header panel
+
 # Known bugs
+- select several games ( buttons appear ), unselect one buttons disappear and there is still some game selected...
 - exclude do not remove last_session ( game is removed, and ignores, just last_session is kept )
-- when displaying search result, all stuff is shift to the right ( minor, but all should be attach to the left... )
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
-- playing : add current play time ( on each refresh )
 - ui preference ( use GHSetup )
 - separate storage in multiple files
 - add launcher button + a way to select a different launcher that running execution + a way to disable the running mode if not supported.
@@ -67,8 +72,8 @@ Last version is 2021.1.0425
 - add a way to add a specific process that do not map the pattern
 - add a way to add Game platform, check if running and allow to start them if not started
 - add a way to reference a local md file from a "common" folder
-- add a way to add an http link to store page
-- add a way to add an http link to external link ( tips soluce or whatever =
+- add a way to add a http link to store page
+- add a way to add a http link to external link ( tips soluce or whatever =
 - how to check and cancel ignored file
 - ui preference editor ( use GHSetup )
 

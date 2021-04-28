@@ -24,12 +24,12 @@ class JopLauncher:
 # TODO - setup using GhSetup
 
 GhAppSetup.width = 750
-GhAppSetup.height = 200 + 20 * JopLauncher.MAX_LAST_SESSION_COUNT
+GhAppSetup.height = 200 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
 GhAppSetup.icon = 'icons/joystick.ico'
 
-GhAppSetup.image_button = True
+GhAppSetup.image_button = False
 # Must not be false if image_button is false
 GhAppSetup.image_text_button = True
 

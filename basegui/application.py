@@ -1,4 +1,4 @@
-from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar, PhotoImage, CENTER
+from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
 
 
 class GhAppSetup:
@@ -13,6 +13,9 @@ class GhAppSetup:
     # position (digit) or center left right
     horizontal = 'center'
     icon = None
+    image_button = True
+    # Must not be false if image_button is false
+    image_text_button = True
 
 
 class GhAppHandle:
@@ -24,6 +27,7 @@ class GhAppHandle:
 '''
 Generic Application based on grid layout with header / content / footer
 mandatory : title ( application window title )
+With static method to create widget ( and make of common look and feel application )
 '''
 
 

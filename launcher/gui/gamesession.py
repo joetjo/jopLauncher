@@ -2,6 +2,7 @@ from datetime import datetime
 
 from base.jsonstore import GhStorage
 from basegui.application import GhApp
+from basegui.columnpanel import GhColumnPanel
 from basegui.simplepanel import GhSimplePanel
 from launcher.gui.strings import Strings
 
@@ -16,28 +17,53 @@ class GameSession(GhSimplePanel):
         self.selected = False
         self.title_mode = title_mode
 
+        row = 0
+        col = 0
+
+        col_panel = GhColumnPanel(self.content)
+        main_panel = col_panel.left
+        action_panel = col_panel.right
+
         if not title_mode:
-            self.ui_selection_check = GhApp.createCheckbox(self.content, 0, 0, self.applySelection)
+            self.ui_selection_check = GhApp.createCheckbox(main_panel, row, col, self.applySelection)
             self.ui_selection_check.widget.grid_remove()
         else:
-            self.ui_selection_check = GhApp.createCheckbox(self.content, 0, 0, self.applySelection)
+            self.ui_selection_check = GhApp.createCheckbox(main_panel, row, col, self.applySelection)
 
-        self.ui_mapping_entry = GhApp.createEntry(self.content, 0, 1, 20, "")
+        col += 1
+
+        self.ui_mapping_entry = GhApp.createEntry(main_panel, row, col, 20, "")
         self.ui_mapping_entry.widget.grid_remove()
         self.ui_mapping_entry.variable.set('PARENT')
-        self.ui_date_label = GhApp.createLabel(self.content, 0, 2, width=15, anchor="center", justify='center')
+
+        col += 1
+
+        self.ui_date_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_date_label.variable.set(Strings.LAST_LAUNCH)
-        self.ui_total_label = GhApp.createLabel(self.content, 0, 3, width=15, anchor="center", justify='center')
+
+        col += 1
+
+        self.ui_total_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_total_label.variable.set(Strings.TOTAL_DURATION)
-        self.ui_last_label = GhApp.createLabel(self.content, 0, 4, width=15, anchor="center", justify='center')
+
+        col += 1
+
+        self.ui_last_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_last_label.variable.set(Strings.LAST_DURATION)
-        self.ui_name_label = GhApp.createLabel(self.content, 0, 5)
+
+        col += 1
+
+        self.ui_name_label = GhApp.createLabel(main_panel, row, col)
         if title_mode:
             self.ui_name_label.variable.set(Strings.GAME_NAME)
-        GhApp.createLabel(self.content, 0, 6, "", width=2)
+
+        # Actions column
+        GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
+        self.ui_launch_button = GhApp.createButton(action_panel, 0, 1, self.launchGame, text=">", anchor="e")
+        self.ui_launch_button.widget.grid_remove()
 
     @staticmethod
     def setOptionalDateInfo(ui_label, session, info_name):
@@ -72,12 +98,14 @@ class GameSession(GhSimplePanel):
             self.ui_last_label.variable.set("")
             self.ui_name_label.variable.set("")
             self.ui_selection_check.widget.grid_remove()
+            self.ui_launch_button.widget.grid_remove()
         else:
             self.ui_selection_check.widget.grid()
             GameSession.setOptionalDateInfo(self.ui_date_label.variable, self.session, 'last_session')
             GameSession.setOptionalDurationInfo(self.ui_total_label.variable, self.session, 'duration')
             GameSession.setOptionalDurationInfo(self.ui_last_label.variable, self.session, 'last_duration')
             self.ui_name_label.variable.set(self.session.getName())
+            self.ui_launch_button.widget.grid()
 
     def getName(self):
         if self.session is None:
@@ -101,6 +129,7 @@ class GameSession(GhSimplePanel):
         self.ui_date_label.widget.grid_remove()
         self.ui_total_label.widget.grid_remove()
         self.ui_last_label.widget.grid_remove()
+        self.ui_launch_button.widget.grid_remove()
         name = self.session.getName()
         original_name = self.session.getOriginName()
         if name == original_name:
@@ -113,11 +142,16 @@ class GameSession(GhSimplePanel):
         self.ui_date_label.widget.grid()
         self.ui_total_label.widget.grid()
         self.ui_last_label.widget.grid()
+        self.ui_launch_button.widget.grid()
         if self.session is not None:
             self.ui_name_label.variable.set(self.session.getName())
 
     @staticmethod
     def create(parent, app, row, col, title_mode=None):
         result = GameSession(parent, app, title_mode=title_mode)
-        parent.grid(row=0, column=col) # TODO FIX THIS ROW+0 ??????????????????
+        parent.grid(row=0, column=col)  # TODO FIX THIS ROW+0 ??????????????????
         return result
+
+    # ACTIONS !
+    def launchGame(self):
+        pass
