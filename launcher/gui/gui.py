@@ -28,6 +28,7 @@ class procGui(EventListener):
         if procmgr.test_mode:
             mode = "- test mode"
         self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, mode))
+        app = self.app
 
         self.icons = GhIcons()
 
@@ -36,31 +37,39 @@ class procGui(EventListener):
 
         # HEADER LEFT
         label_width = 8
-        GhApp.createLabel(header_col.left, 0, 0, text=Strings.PLAYING, width=label_width)
-        GhApp.createLabel(header_col.left, 0, 1, text=":")
-        self.ui_playing_label = GhApp.createLabel(header_col.left, 0, 2)
+
+        # 1st line
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAYING, width=label_width)
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
+        self.ui_playing_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset())
         self.ui_playing_label.variable.set(Strings.NO_GAME)
 
-        GhApp.createLabel(header_col.left, 1, 0, text=Strings.PLAY_TIME, width=label_width)
-        GhApp.createLabel(header_col.left, 1, 1, text=":")
-        self.ui_play_time_label = GhApp.createLabel(header_col.left, 1, 2, anchor='e')
+        # 2nd line
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAY_TIME, width=label_width)
+        GhApp.createLabel(header_col.left, app.row_next(), app.col_next(), text=":")
+        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row(), app.col_reset(), anchor='e')
 
-        GhApp.createLabel(header_col.left, 2, 0, text=Strings.TIME_PLAYED, width=label_width)
-        GhApp.createLabel(header_col.left, 2, 1, text=":")
-        self.ui_played_duration_label = GhApp.createLabel(header_col.left, 2, 2, anchor='e')
+        # 3rd line
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.TIME_PLAYED, width=label_width)
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
+        self.ui_played_duration_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_next(), anchor='e')
 
         # HEADER RIGHT
-        GhApp.createLabel(header_col.right, 0, 0, width=15)
-        GhApp.createLabel(header_col.right, 0, 1, text=Strings.SEARCH)
-        self.ui_search_entry = GhApp.createEntry(header_col.right, 0, 2, 20, "", command=self.applySearch)
-        self.ui_search_button = GhApp.createButton(header_col.right, 0, 3, self.applySearch,
-                                                   text=Strings.SEARCH_ACTION, width=5)
+        app.row_col_reset()
+        GhApp.createLabel(header_col.right, app.row(), app.col_next(), width=15)
+        GhApp.createLabel(header_col.right, app.row(), app.col_next(), text=Strings.SEARCH)
+        self.ui_search_entry = GhApp.createEntry(header_col.right, app.row(), app.col_next(), 20, "",
+                                                 command=self.applySearch)
+        self.ui_search_button = GhApp.createButton(header_col.right, app.row_reset(2), app.col_reset(1),
+                                                   self.applySearch, text=Strings.SEARCH_ACTION, width=5)
 
-        GhApp.createLabel(header_col.right, 2, 1, text=" ")
+        GhApp.createLabel(header_col.right, app.row_next(), app.col_reset(), text=" ")
 
-        self.ui_prev_session_label = GhApp.createLabel(header_col.right, 3, 0, colspan=3)
+        self.ui_prev_session_label = GhApp.createLabel(header_col.right, app.row(), app.col_reset(3), colspan=3)
         self.ui_prev_session_label.variable.set(self.display_mode)
-        self.ui_search_reset_button = GhApp.createButton(header_col.right, 3, 3, self.applyResetSearch,
+        self.ui_search_reset_button = GhApp.createButton(header_col.right,
+                                                         app.row(), app.col_next(),
+                                                         self.applyResetSearch,
                                                          text=Strings.RESET_SEARCH_ACTION, width=5)
         self.ui_search_reset_button.widget.grid_remove()
 
@@ -69,32 +78,37 @@ class procGui(EventListener):
         content_panel = content_col.left
 
         # CONTENT RIGHT
-        GameSession(content_panel, self, 0, 0, title_mode=True)
+        app.row_col_reset()
+        GameSession(content_panel, self, app.row_next(), app.col(), title_mode=True)
         self.ui_sessions = []
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
-            self.ui_sessions.append(GameSession(content_panel, self, 1 + idx, 0))
+            self.ui_sessions.append(GameSession(content_panel, self, app.row_reset(1 + idx), app.col()))
         self.reloadLastSessions()
 
         # FOOTER
+        app.row_col_reset()
         footer_col = GhColumnPanel(self.app.footer)
 
+        # FOOTER LEFT
         if self.procMgr.test_mode:
             print(" ******** TEST MODE DETECTED ********************  USE ABOUT BUTTON !!! ")
             self.test_visible = True
-            self.ui_test_game_label = GhApp.createLabel(footer_col.left, 0, 0, text="**TEST** ( no extension )")
-            self.ui_test_game_entry = GhApp.createEntry(footer_col.left, 0, 1, 20, "FakeGameName")
-            self.ui_test_game_button = GhApp.createButton(footer_col.left, 0, 2, self.test_startStop, "Start")
+            self.ui_test_game_label = GhApp.createLabel(footer_col.left, app.row(), app.col_next(), text="**TEST** ( no extension )")
+            self.ui_test_game_entry = GhApp.createEntry(footer_col.left, app.row(), app.col_next(), 20, "FakeGameName")
+            self.ui_test_game_button = GhApp.createButton(footer_col.left, app.row(), app.col_next(), self.test_startStop, "Start")
             self.ui_test_game_button.variable.set("Start")
             self.applyAbout()
 
-        GhApp.createButton(footer_col.left, 0, 3, self.applyRefresh,
+        GhApp.createButton(footer_col.left, app.row(), app.col_next(), self.applyRefresh,
                            Strings.REFRESH_ACTION, image=self.icons.REFRESH)
-        GhApp.createLabel(footer_col.left, 0, 4, text=" ")
-        self.ui_game_action_panel = GameActionPanel(footer_col.left, self, 0, 5)
+        GhApp.createLabel(footer_col.left, app.row(), app.col_next(), text=" ")
+        self.ui_game_action_panel = GameActionPanel(footer_col.left, self, app.row(), 5)
         self.ui_game_action_panel.grid_remove()
 
-        GhApp.createLabel(footer_col.right, 0, 0, text=JopLauncher.SHORT_ABOUT)
-        GhApp.createButton(footer_col.right, 0, 2, self.applyAbout, Strings.ABOUT_ACTION)
+        # FOOTER RIGHT
+        app.row_col_reset()
+        GhApp.createLabel(footer_col.right, app.row(), app.col_next(), text=JopLauncher.SHORT_ABOUT)
+        GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION)
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:

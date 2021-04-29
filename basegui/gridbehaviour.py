@@ -6,11 +6,22 @@ class GhGridBehaviour:
         self.current_row = row
         self.current_col = col
 
-    def row_col_reset(self, col, row):
+    def row_col_reset(self, row = 0, col = 0):
         self.current_row = row
         self.current_col = col
 
-    # Return current row
+    # return current and reset value to row
+    def row_reset(self,  row = 0):
+        current = self.current_row
+        self.current_row = row
+        return current
+
+    # return current and reset value to col
+    def col_reset(self,  col = 0):
+        current = self.current_col
+        self.current_col = col
+        return current
+
     def row(self):
         return self.current_row
 

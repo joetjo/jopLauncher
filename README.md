@@ -63,11 +63,12 @@ Enhancement:
 
 # Known bugs
 - launcher setup cannot be done ( manual storage edit )
-- select several games ( buttons appear ), unselect one buttons disappear and there is still some game selected...
+- select several games ( buttons appear ), unselect one buttons disappear and there is still some game selected... still some buttons visible on empty line.
 - exclude do not remove last_session ( game is removed, and ignores, just last_session is kept )
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
+- python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
 - remove game mapping
 - add top / left menu button
 - filter installed game

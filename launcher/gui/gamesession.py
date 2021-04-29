@@ -21,52 +21,41 @@ class GameSession(GhSimplePanel):
         self.selected = False
         self.title_mode = title_mode
 
-        row = 0
-        col = 0
-
         col_panel = GhColumnPanel(self.content)
         main_panel = col_panel.left
         action_panel = col_panel.right
 
         if not title_mode:
-            self.ui_selection_check = GhApp.createCheckbox(main_panel, row, col, self.applySelection)
+            self.ui_selection_check = GhApp.createCheckbox(main_panel, self.row(), self.col_next(), self.applySelection)
             self.ui_selection_check.widget.grid_remove()
         else:
-            self.ui_selection_check = GhApp.createCheckbox(main_panel, row, col, self.applySelection)
+            self.ui_selection_check = GhApp.createCheckbox(main_panel, self.row(), self.col_next(), self.applySelection)
 
-        col += 1
-
-        self.ui_mapping_entry = GhApp.createEntry(main_panel, row, col, 20, "")
+        self.ui_mapping_entry = GhApp.createEntry(main_panel, self.row(), self.col_next(), 20, "")
         self.ui_mapping_entry.widget.grid_remove()
         self.ui_mapping_entry.variable.set('PARENT')
 
-        col += 1
-
-        self.ui_date_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
+        self.ui_date_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_date_label.variable.set(Strings.LAST_LAUNCH)
 
-        col += 1
-
-        self.ui_total_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
+        self.ui_total_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_total_label.variable.set(Strings.TOTAL_DURATION)
 
-        col += 1
-
-        self.ui_last_label = GhApp.createLabel(main_panel, row, col, width=15, anchor="center", justify='center')
+        self.ui_last_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
         if title_mode:
             self.ui_last_label.variable.set(Strings.LAST_DURATION)
 
-        col += 1
-
-        self.ui_name_label = GhApp.createLabel(main_panel, row, col)
+        self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next())
         if title_mode:
             self.ui_name_label.variable.set(Strings.GAME_NAME)
 
         # Actions column
+        self.row_col_reset(0, 1)
+
         GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
-        self.ui_launch_button = GhApp.createButton(action_panel, 0, 1, self.launchGame, text=">", anchor="e")
+        self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">", anchor="e")
         self.ui_launch_button.widget.grid_remove()
         self.default_bg = self.ui_launch_button.widget.cget('bg')
 
