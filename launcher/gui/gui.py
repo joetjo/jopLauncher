@@ -55,9 +55,12 @@ class DisplayMode:
     # refresh display according to current mode
     def refresh(self):
         if self.search_mode:
+            print("UI: refresh search result")
             self.app.applySearch()
         else:
+            print("UI: refresh last session list")
             self.app.reloadLastSessions()
+
 
 class procGui(EventListener):
     HEADER_LABEL_WIDTH = 40
@@ -180,13 +183,13 @@ class procGui(EventListener):
     # BACKEND Refresh
     # Restore last session mode and trigger manuel process refresh
     def applyRefresh(self):
+        print("UI: Cancle search mode if enabled and request process check ( backend )")
         self.applyResetSearch()
         self.procMgr.refresh()
 
     # Restore last session mode and trigger manuel process refresh
     def reloadLastSessions(self):
-        self.clearAllSessions()
-
+        print("UI: restore last sessions mode and reload")
         self.display_mode.enableLastSessionMode()
 
         idx = 0
@@ -196,8 +199,11 @@ class procGui(EventListener):
                     self.ui_sessions[idx].set(session)
                 idx += 1
 
-    def clearAllSessions(self):
-        for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
+        self.clearAllSessions(start_index=idx)
+
+    def clearAllSessions(self, start_index=0):
+        print("UI: clearing session list from {}".format(start_index))
+        for idx in range(start_index, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
@@ -205,17 +211,19 @@ class procGui(EventListener):
 
     def applySearch(self):
         token = self.ui_search_entry.variable.get()
-        print("Searching for {}".format(token))
         if len(token) > 0:
+            print("Searching for {}".format(token))
             self.display_mode.enableSearchMode()
-            self.clearAllSessions()
 
+            print("UI: display search result")
             idx = 0
             for session in self.procMgr.searchInStorage(token).list():
                 if self.display_mode.isVisible(session):
                     if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
                         self.ui_sessions[idx].set(session)
                     idx += 1
+
+            self.clearAllSessions(start_index=idx)
 
             if idx >= JopLauncher.MAX_LAST_SESSION_COUNT:
                 self.display_mode.searchResult(Strings.RESULT_SEARCH_EXCEED.format(idx, JopLauncher.MAX_LAST_SESSION_COUNT))
