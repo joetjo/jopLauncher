@@ -39,15 +39,18 @@ class procGui(EventListener):
         label_width = 8
 
         # 1st line
+        self.ui_menu_button = GhApp.createButton(header_col.left, app.row(), app.col_next(), text="::",
+                                                 width=1, padx=0,
+                                                 command=self.applyMenu)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAYING, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
-        self.ui_playing_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset())
+        self.ui_playing_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(1))
         self.ui_playing_label.variable.set(Strings.NO_GAME)
 
         # 2nd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAY_TIME, width=label_width)
         GhApp.createLabel(header_col.left, app.row_next(), app.col_next(), text=":")
-        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row(), app.col_reset(), anchor='e')
+        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row(), app.col_reset(1), anchor='e')
 
         # 3rd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.TIME_PLAYED, width=label_width)
@@ -116,6 +119,9 @@ class procGui(EventListener):
 
         self.ready = True
         self.app.start()
+
+    def applyMenu(self):
+        pass # TODO
 
     def applyRefresh(self):
         self.applyResetSearch()

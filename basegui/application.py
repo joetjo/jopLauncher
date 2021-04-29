@@ -70,7 +70,7 @@ class GhApp(GhGridBehaviour):
         self.window.minsize(GhAppSetup.min_width, GhAppSetup.min_height)
 
         # Build app skeleton ( header / content / footer )
-        self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=20)
+        self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=5)
         self.content = Frame(self.window, bg=GhAppSetup.bg_content, padx=5, pady=5)
         self.footer = Frame(self.window, bg=GhAppSetup.bg_header, pady=3, padx=5)
 
