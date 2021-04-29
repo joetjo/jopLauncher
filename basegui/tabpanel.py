@@ -1,9 +1,12 @@
 from tkinter import ttk
 
+from basegui.gridbehaviour import GhGridBehaviour
 
-class GhTab:
+
+class GhTab(GhGridBehaviour):
     # PRIVATE - Use GhTabPanel::addTab
     def __init__(self, parent, title):
+        super().__init__(0, 0)
         self.tab = ttk.Frame(parent)
         parent.add(self.tab, text=title)
 

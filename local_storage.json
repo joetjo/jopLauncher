@@ -17,24 +17,35 @@
             "last_session": "1619384020.6049063"
         },
         "Hoshizora No Memoria": {
-            "duration": "45234.660889",
-            "last_duration": "508.807285",
-            "last_session": "1619380756.134272"
+            "duration": "48346.960704",
+            "last_duration": "692.916679",
+            "last_session": "1619634306.722465",
+            "launcher": "LEGUI"
         },
         "A Summer's End - Hong Kong 1986": {
-            "duration": "9588.242858",
-            "last_duration": "1509.48729",
-            "last_session": "1619462392.3220496"
+            "duration": "19862.06572",
+            "last_duration": "60.583743",
+            "last_session": "1619630229.0681741"
+        },
+        "ActivationUI": {
+            "duration": "50.883698",
+            "last_duration": "50.883698",
+            "last_session": "1619464127.2696428"
         },
         "A Way Out (Willy)": {
-            "duration": "16388.768503",
-            "last_duration": "7.393593",
-            "last_session": "1619464444.19321"
+            "duration": "25211.628124",
+            "last_duration": "7103.874838",
+            "last_session": "1619557441.5802348"
+        },
+        "YureAfter": {
+            "duration": "119.65542",
+            "last_duration": "119.65542",
+            "last_session": "1619628715.141767"
         },
         "FakeGameName": {
-            "duration": "32.834562",
-            "last_duration": "31.799431",
-            "last_session": "1619469778.121407"
+            "duration": "3207.9264620000004",
+            "last_duration": "3204.638385",
+            "last_session": "1619645321.5249162"
         }
     },
     "last_sessions": [
@@ -44,14 +55,24 @@
             "FakeGameName"
         ],
         [
-            "A Way Out (Willy)",
-            "\\the\\path\\jeux\\AWayOutFolder\\AWayOut.exe",
-            "AWayOut"
+            "Hoshizora No Memoria",
+            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
+            "Memoria"
         ],
         [
             "A Summer's End - Hong Kong 1986",
             "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
             "HK1986"
+        ],
+        [
+            "YureAfter",
+            "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
+            "YureAfter"
+        ],
+        [
+            "A Way Out (Willy)",
+            "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
+            "AWayOut"
         ],
         [
             "Borderlands2",
@@ -62,11 +83,6 @@
             "MagiTrials",
             "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
             "MagiTrials"
-        ],
-        [
-            "Hoshizora No Memoria",
-            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
-            "Memoria"
         ],
         [
             "Perfect Gold",
@@ -82,5 +98,8 @@
     },
     "ignored": [
         "ActivationUI"
-    ]
+    ],
+    "launchers": {
+        "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"
+    }
 }

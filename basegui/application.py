@@ -1,5 +1,7 @@
 from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
 
+from basegui.gridbehaviour import GhGridBehaviour
+
 
 class GhAppSetup:
     bg_header = 'light blue'
@@ -31,9 +33,10 @@ With static method to create widget ( and make of common look and feel applicati
 '''
 
 
-class GhApp:
+class GhApp(GhGridBehaviour):
 
     def __init__(self, title):
+        super().__init__(0, 0)
         self.title = title
 
         self.window = Tk()

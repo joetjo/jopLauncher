@@ -58,19 +58,31 @@ Fixed:
 
 Enhancement:
 - playing : add current play time ( on each refresh ) and rework header panel
+- launch game button
+- partial ( launch game with a launcher but setup to be done manually in storage )
 
 # Known bugs
+- launcher setup cannot be done ( manual storage edit )
 - select several games ( buttons appear ), unselect one buttons disappear and there is still some game selected...
 - exclude do not remove last_session ( game is removed, and ignores, just last_session is kept )
 - mapping name may be identical to a real other process name when loading process - to check
  
 # Enhancement To be done
+- remove game mapping
+- add top / left menu button
+- filter installed game
+- packaging icons / images
 - ui preference ( use GHSetup )
-- separate storage in multiple files
-- add launcher button + a way to select a different launcher that running execution + a way to disable the running mode if not supported.
+- add launcher list 
+  - declare a new launcher
+  - exclude launcher from game detection
+  - associate launcher to a game
+- add a way to select a different launcher that running execution + a way to disable the running mode if not supported.
 - add a way to define a custom launcher
+- separate storage in multiple files
 - add a way to add a specific process that do not map the pattern
 - add a way to add Game platform, check if running and allow to start them if not started
+   detect running platform add show all gaming platform that is running
 - add a way to reference a local md file from a "common" folder
 - add a way to add a http link to store page
 - add a way to add a http link to external link ( tips soluce or whatever =

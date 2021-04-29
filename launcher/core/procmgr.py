@@ -37,6 +37,7 @@ class ProcMgr:
         self.sessions = SessionList(self.storage, self)
         self.game_mappings = self.storage.getOrCreate("mappings", {})
         self.game_ignored = self.storage.getOrCreate("ignored", [])
+        self.game_launchers = self.storage.getOrCreate("launchers", [])
 
         self.loadPList()
 
@@ -182,6 +183,9 @@ class ProcMgr:
             del self.games[current_name]
 
         self.storage.save()
+
+    def getLauncher(self, name):
+        return self.game_launchers[name]
 
     def stop(self):
         self.shutdown = True

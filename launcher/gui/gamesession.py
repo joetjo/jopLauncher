@@ -1,5 +1,9 @@
+import subprocess
+import threading
 from datetime import datetime
+from tkinter import DISABLED, NORMAL
 
+from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
 from basegui.application import GhApp
 from basegui.columnpanel import GhColumnPanel
@@ -9,11 +13,11 @@ from launcher.gui.strings import Strings
 
 class GameSession(GhSimplePanel):
 
-    def __init__(self, parent, app, title_mode=False):
-        super().__init__(parent)
+    def __init__(self, parent, app, row, col, title_mode=False, sticky="nsew"):
+        super().__init__(parent, row, col, sticky)
         self.app = app
         self.session = None
-        self.info = None
+        self.game = None
         self.selected = False
         self.title_mode = title_mode
 
@@ -64,6 +68,7 @@ class GameSession(GhSimplePanel):
         GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
         self.ui_launch_button = GhApp.createButton(action_panel, 0, 1, self.launchGame, text=">", anchor="e")
         self.ui_launch_button.widget.grid_remove()
+        self.default_bg = self.ui_launch_button.widget.cget('bg')
 
     @staticmethod
     def setOptionalDateInfo(ui_label, session, info_name):
@@ -106,6 +111,7 @@ class GameSession(GhSimplePanel):
             GameSession.setOptionalDurationInfo(self.ui_last_label.variable, self.session, 'last_duration')
             self.ui_name_label.variable.set(self.session.getName())
             self.ui_launch_button.widget.grid()
+            self.setButtonState(self.ui_launch_button.widget, GhFileUtil.fileExist(session.getPath()))
 
     def getName(self):
         if self.session is None:
@@ -146,12 +152,31 @@ class GameSession(GhSimplePanel):
         if self.session is not None:
             self.ui_name_label.variable.set(self.session.getName())
 
-    @staticmethod
-    def create(parent, app, row, col, title_mode=None):
-        result = GameSession(parent, app, title_mode=title_mode)
-        parent.grid(row=0, column=col)  # TODO FIX THIS ROW+0 ??????????????????
-        return result
+    def setButtonState(self, button, state):
+        if state:
+            button.config(state=NORMAL)
+            button.config(bg='white')
+        else:
+            button.config(bg=self.default_bg)
+            button.config(state=DISABLED)
 
     # ACTIONS !
     def launchGame(self):
-        pass
+        # To be sure no game is running, 1st do a refresh
+        self.app.applyRefresh()
+        if not self.app.isGameRunning():
+            game = self.app.procMgr.find(self.session.getName(), "Game launcher")
+            launcher = GhStorage.getValue(game, "launcher")
+            if launcher is None:
+                exe = [self.session.getPath()]
+            else:
+                exe = [self.app.procMgr.getLauncher(launcher), self.session.getPath()]
+            print("Launching game {} ({}) ".format(self.getName(), exe))
+            bg = threading.Thread(target=self.launchGameImpl, args=(exe,))
+            bg.start()
+        else:
+            print("A game is already running, cannot launch {} ".format(self.getName()))
+
+    @staticmethod
+    def launchGameImpl(exe):
+        subprocess.run(exe)

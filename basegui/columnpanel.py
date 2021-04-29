@@ -1,9 +1,12 @@
 from tkinter import Frame
 
+from basegui.gridbehaviour import GhGridBehaviour
 
-class GhColumnPanel:
+
+class GhColumnPanel(GhGridBehaviour):
 
     def __init__(self, parent):
+        super().__init__(0, 0)
         self.left = Frame(parent, bg=parent.cget('bg'), padx=0, pady=0)
         self.right = Frame(parent, bg=parent.cget('bg'), padx=0, pady=0)
         self.action = Frame(parent, bg=parent.cget('bg'), padx=0, pady=0)

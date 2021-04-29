@@ -8,6 +8,7 @@ from basegui.application import GhApp
 from basegui.columnpanel import GhColumnPanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
+from launcher.gui.gameselectedaction import GameActionPanel
 from launcher.gui.gamesession import GameSession
 from launcher.gui.strings import Strings
 
@@ -68,10 +69,10 @@ class procGui(EventListener):
         content_panel = content_col.left
 
         # CONTENT RIGHT
-        GameSession.create(content_panel, self, 2, 0, title_mode=True)
+        GameSession(content_panel, self, 0, 0, title_mode=True)
         self.ui_sessions = []
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
-            self.ui_sessions.append(GameSession.create(content_panel, self, 3 + idx, 0))
+            self.ui_sessions.append(GameSession(content_panel, self, 1 + idx, 0))
         self.reloadLastSessions()
 
         # FOOTER
@@ -89,15 +90,8 @@ class procGui(EventListener):
         GhApp.createButton(footer_col.left, 0, 3, self.applyRefresh,
                            Strings.REFRESH_ACTION, image=self.icons.REFRESH)
         GhApp.createLabel(footer_col.left, 0, 4, text=" ")
-        self.ui_ignore_button = GhApp.createButton(footer_col.left, 0, 5, self.applyIgnore, Strings.IGNORE_ACTION)
-        self.ui_remove_button = GhApp.createButton(footer_col.left, 0, 6, self.applyRemove, Strings.REMOVE_ACTION)
-        self.ui_mapping_button = GhApp.createButton(footer_col.left, 0, 7, self.applyMapping, Strings.MAPPING_ACTION)
-        self.ui_cancel_button = GhApp.createButton(footer_col.left, 0, 8, self.applyCancelMapping,
-                                                   Strings.MAPPING_CANCEL_ACTION)
-        self.ui_cancel_button.widget.grid_remove()
-        self.ui_ignore_button.widget.grid_remove()
-        self.ui_remove_button.widget.grid_remove()
-        self.ui_mapping_button.widget.grid_remove()
+        self.ui_game_action_panel = GameActionPanel(footer_col.left, self, 0, 5)
+        self.ui_game_action_panel.grid_remove()
 
         GhApp.createLabel(footer_col.right, 0, 0, text=JopLauncher.SHORT_ABOUT)
         GhApp.createButton(footer_col.right, 0, 2, self.applyAbout, Strings.ABOUT_ACTION)
@@ -204,13 +198,9 @@ class procGui(EventListener):
                     ui_session.setSelected(selected)
 
             if selected:
-                self.ui_ignore_button.widget.grid()
-                self.ui_remove_button.widget.grid()
-                self.ui_mapping_button.widget.grid()
+                self.ui_game_action_panel.grid()
             else:
-                self.ui_ignore_button.widget.grid_remove()
-                self.ui_remove_button.widget.grid_remove()
-                self.ui_mapping_button.widget.grid_remove()
+                self.ui_game_action_panel.grid_remove()
 
     # END GameSession listener
 
@@ -219,6 +209,9 @@ class procGui(EventListener):
             if ui_session.selected:
                 return True
         return False
+
+    def isGameRunning(self):
+        return self.last_start > 0
 
     def getGameSelected(self, message=None):
         selection = []
@@ -257,7 +250,7 @@ class procGui(EventListener):
         self.applyIgnoreOrRemove(Strings.CONFIRM_IGNORE_APPLY, self.procMgr.ignore)
 
     def applyMapping(self):
-        if self.ui_mapping_button.variable.get() == Strings.MAPPING_APPLY_ACTION:
+        if self.ui_game_action_panel.isMappingEnabled():
             error = False
             for ui_session in self.ui_sessions:
                 if ui_session.selected:
@@ -270,8 +263,7 @@ class procGui(EventListener):
                         ui_session.setSelected(False)
                         ui_session.disableMapping()
             if not error:
-                self.ui_mapping_button.variable.set(Strings.MAPPING_ACTION)
-                self.ui_cancel_button.widget.grid_remove()
+                self.ui_game_action_panel.grid_remove()
 
                 if self.searchInProgress():
                     self.applySearch()
@@ -283,13 +275,11 @@ class procGui(EventListener):
             if pair is not None:
                 for ui_session in pair.one:
                     ui_session.enableMapping()
-                self.ui_mapping_button.variable.set(Strings.MAPPING_APPLY_ACTION)
-                self.ui_cancel_button.widget.grid()
+                self.ui_game_action_panel.enableMapping()
                 self.ui_prev_session_label.variable.set(Strings.HELP_MAPPING)
 
     def applyCancelMapping(self):
-        self.ui_mapping_button.variable.set("map")
-        self.ui_cancel_button.widget.grid_remove()
+        self.ui_game_action_panel.disableMapping()
         self.ui_prev_session_label.variable.set(self.display_mode)
         for ui_session in self.ui_sessions:
             ui_session.setSelected(False)
