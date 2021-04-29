@@ -20,6 +20,7 @@ class JopLauncher:
     GAME_PATTERN = 'jeux'
     GAME_EXTENSION = '.exe'
 
+    GAME_NAME_WIDTH=30
 
 # TODO - setup using GhSetup
 

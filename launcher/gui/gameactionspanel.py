@@ -25,20 +25,20 @@ class GameActionPanel(GhSimplePanel):
 
     # Game selected mode
     def grid(self):
-        self.enableMapping()
-        self.ui_cancel_button.widget.grid_remove()
-
-    # Game selected mode + mapping in progress
-    def enableMapping(self):
         self.ui_ignore_button.widget.grid()
         self.ui_remove_button.widget.grid()
         self.ui_mapping_button.widget.grid()
+        self.ui_cancel_button.widget.grid_remove()
         self.ui_mapping_button.variable.set(Strings.MAPPING_ACTION)
+
+    # Game selected mode + mapping in progress
+    def enableMapping(self):
+        self.ui_mapping_button.variable.set(Strings.MAPPING_APPLY_ACTION)
         self.ui_cancel_button.widget.grid()
 
     # Just cancel mapping mode without impact on other button
     def disableMapping(self):
-        self.ui_mapping_button.variable.set(Strings.MAPPING_APPLY_ACTION)
+        self.ui_mapping_button.variable.set(Strings.MAPPING_ACTION)
         self.ui_cancel_button.widget.grid_remove()
 
     def isMappingEnabled(self):

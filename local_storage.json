@@ -37,12 +37,12 @@
             "last_duration": "7103.874838",
             "last_session": "1619557441.5802348"
         },
-        "YureAfter": {
+        "Yumeutsutsu ReAfter": {
             "duration": "119.65542",
             "last_duration": "119.65542",
             "last_session": "1619628715.141767"
         },
-        "FakeGameName": {
+        "FakeGameNameFolder": {
             "duration": "3207.9264620000004",
             "last_duration": "3204.638385",
             "last_session": "1619645321.5249162"
@@ -50,7 +50,7 @@
     },
     "last_sessions": [
         [
-            "FakeGameName",
+            "FakeGameNameFolder",
             "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
             "FakeGameName"
         ],
@@ -65,7 +65,7 @@
             "HK1986"
         ],
         [
-            "YureAfter",
+            "Yumeutsutsu ReAfter",
             "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
             "YureAfter"
         ],
@@ -94,7 +94,9 @@
         "Memoria": "Hoshizora No Memoria",
         "HK1986": "A Summer's End - Hong Kong 1986",
         "nw": "PARENT",
-        "AWayOut": "A Way Out (Willy)"
+        "AWayOut": "A Way Out (Willy)",
+        "YureAfter": "PARENT",
+        "FakeGameName": "PARENT"
     },
     "ignored": [
         "ActivationUI"

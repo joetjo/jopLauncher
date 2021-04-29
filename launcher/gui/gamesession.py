@@ -3,6 +3,7 @@ import threading
 from datetime import datetime
 from tkinter import DISABLED, NORMAL
 
+from JopLauncherConstant import JopLauncher
 from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
 from basegui.application import GhApp
@@ -47,9 +48,11 @@ class GameSession(GhSimplePanel):
         if title_mode:
             self.ui_last_label.variable.set(Strings.LAST_DURATION)
 
-        self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next())
         if title_mode:
+            self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=JopLauncher.GAME_NAME_WIDTH)
             self.ui_name_label.variable.set(Strings.GAME_NAME)
+        else:
+            self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next())
 
         # Actions column
         self.row_col_reset(0, 1)
