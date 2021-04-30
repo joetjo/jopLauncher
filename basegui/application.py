@@ -1,5 +1,6 @@
 from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
 
+from basegui.apphandle import GhAppHandle
 from basegui.gridbehaviour import GhGridBehaviour
 
 
@@ -18,12 +19,6 @@ class GhAppSetup:
     image_button = True
     # Must not be false if image_button is false
     image_text_button = True
-
-
-class GhAppHandle:
-    def __init__(self, variable, widget):
-        self.widget = widget
-        self.variable = variable
 
 
 '''
@@ -71,7 +66,7 @@ class GhApp(GhGridBehaviour):
 
         # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=5)
-        self.content = Frame(self.window, bg=GhAppSetup.bg_content, padx=5, pady=5)
+        self.content = Frame(self.window, bg=GhAppSetup.bg_content, padx=0, pady=0)
         self.footer = Frame(self.window, bg=GhAppSetup.bg_header, pady=3, padx=5)
 
         self.window.grid_rowconfigure(1, weight=1)
@@ -105,13 +100,16 @@ class GhApp(GhGridBehaviour):
                     anchor='w',
                     justify='left',
                     colspan=1,
-                    width=None):
+                    width=None,
+                    bg=None):
         text_variable = None
+        if bg is None:
+            bg = parent.cget('bg')
         if text is None:
             text_variable = StringVar()
         label = Label(parent,
                       text=text, textvariable=text_variable,
-                      bg=parent.cget('bg'), width=width,
+                      bg=bg, width=width,
                       anchor=anchor, justify=justify)
         if anchor == 'center':
             anchor = 'w'
@@ -123,7 +121,7 @@ class GhApp(GhGridBehaviour):
                      command,
                      text,
                      anchor='w',
-                     padx=5,
+                     padx=0,
                      width=None,
                      image=None):
         text_variable = StringVar()

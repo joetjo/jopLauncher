@@ -19,6 +19,9 @@ class DisplayMode:
         self.search_mode = False
         # RESULT FILTER: show or not show only installed game
         self.installed_mode = False
+        # OPTIONAL DISPLAY
+        self.excluded_mode = False
+        self.launcher_mode = False
 
     def enableLastSessionMode(self):
         self.search_mode = False
@@ -47,6 +50,23 @@ class DisplayMode:
     # check if game from session map the current filter mode
     def isVisible(self, session):
         return (self.installed_mode and GhFileUtil.fileExist(session.getPath())) or not self.installed_mode
+
+    def showExcluded(self):
+        self.app.ui_options.grid()
+        self.excluded_mode = True
+        self.launcher_mode = False
+        self.app.ui_options.set(self.procMgr.game_ignored)
+
+    def showLauncher(self):
+        self.app.ui_options.grid()
+        self.excluded_mode = False
+        self.launcher_mode = True
+        self.app.ui_options.set(self.procMgr.game_ignored)
+
+    def closeExtended(self):
+        self.excluded_mode = False
+        self.launcher_mode = False
+        self.app.ui_options.grid_remove()
 
     # refresh display according to current mode
     def refreshSessions(self):

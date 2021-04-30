@@ -37,29 +37,39 @@
             "last_duration": "7103.874838",
             "last_session": "1619557441.5802348"
         },
-        "Yumeutsutsu ReAfter": {
-            "duration": "119.65542",
-            "last_duration": "119.65542",
-            "last_session": "1619628715.141767"
-        },
-        "FakeGameNameFolder": {
-            "duration": "3207.9264620000004",
-            "last_duration": "3204.638385",
-            "last_session": "1619645321.5249162"
-        }
+      "Yumeutsutsu ReAfter": {
+        "duration": "119.65542",
+        "last_duration": "119.65542",
+        "last_session": "1619628715.141767"
+      },
+      "FakeGameNameFolder": {
+        "duration": "3207.9264620000004",
+        "last_duration": "3204.638385",
+        "last_session": "1619645321.5249162"
+      },
+      "LEGUI": {
+        "duration": "59.266962",
+        "last_duration": "59.266962",
+        "last_session": "1619798154.1603818"
+      }
     },
     "last_sessions": [
-        [
-            "FakeGameNameFolder",
-            "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
-            "FakeGameName"
-        ],
-        [
-            "Hoshizora No Memoria",
-            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
-            "Memoria"
-        ],
-        [
+      [
+        "LEGUI",
+        "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe",
+        "LEGUI"
+      ],
+      [
+        "FakeGameNameFolder",
+        "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
+        "FakeGameName"
+      ],
+      [
+        "Hoshizora No Memoria",
+        "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
+        "Memoria"
+      ],
+      [
             "A Summer's End - Hong Kong 1986",
             "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
             "HK1986"

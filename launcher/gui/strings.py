@@ -15,6 +15,8 @@ class Strings:
     LAST_DURATION = "Last play duration"
     TOTAL_DURATION = "Total play time"
     GAME_NAME = "Game"
+    EXCLUDED_GAME = "   ** Excluded games **  "
+    LAUNCHERS = "   ** Custom launchers **  "
 
     # Buttons
     SEARCH_ACTION = "  Go"

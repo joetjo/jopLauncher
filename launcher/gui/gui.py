@@ -4,8 +4,9 @@ from tkinter import messagebox
 
 from JopLauncherConstant import JopLauncher
 from base.pair import Pair
-from basegui.application import GhApp
+from basegui.application import GhApp, GhAppSetup
 from basegui.columnpanel import GhColumnPanel
+from basegui.listnameditempanel import GhListNamedItemPanel
 from basegui.simplepanel import GhSimplePanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
@@ -104,6 +105,13 @@ class procGui(EventListener):
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.ui_sessions.append(GameSession(content_panel, self, app.row_reset(2 + idx), app.col()))
         self.reloadLastSessions()
+
+        # CONTENT RIGHT
+        app.row_col_reset()
+        self.ui_options = GhListNamedItemPanel(content_col.right, Strings.EXCLUDED_GAME, app.row(), app.col(),
+                                               command=self.applyRemoveInOptionList,
+                                               border_color=GhAppSetup.bg_header, border_width=5)
+        self.ui_options.grid_remove()
 
         # FOOTER
         app.row_col_reset()
@@ -327,7 +335,6 @@ class procGui(EventListener):
         self.ui_game_action_panel.disableMapping()
         self.ui_prev_session_label.variable.set(self.display_mode.display_mode_string)
         for ui_session in self.ui_sessions:
-            ui_session.setSelected(False)
             ui_session.disableMapping()
         self.display_mode.refreshSessions()
 
@@ -352,6 +359,9 @@ class procGui(EventListener):
 
     def applyExit(self):
         self.app.close()
+
+    def applyRemoveInOptionList(self, name):
+        print("applyRemoveInOptionList {} not implemented".format(name))
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):

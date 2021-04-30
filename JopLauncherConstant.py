@@ -2,7 +2,6 @@ from basegui.application import GhAppSetup
 
 
 class JopLauncher:
-
     # To be updated on release
     TEST_MODE = False
     VERSION = '2021.1.04.29.beta'
@@ -20,11 +19,12 @@ class JopLauncher:
     GAME_PATTERN = 'jeux'
     GAME_EXTENSION = '.exe'
 
-    GAME_NAME_WIDTH=30
+    GAME_NAME_WIDTH = 30
+
 
 # TODO - setup using GhSetup
 
-GhAppSetup.width = 750
+GhAppSetup.width = 800
 GhAppSetup.height = 200 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'

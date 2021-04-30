@@ -36,20 +36,24 @@ class GameSession(GhSimplePanel):
         self.ui_mapping_entry.widget.grid_remove()
         self.ui_mapping_entry.variable.set('PARENT')
 
-        self.ui_date_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
+        self.ui_date_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
+                                               justify='center')
         if title_mode:
             self.ui_date_label.variable.set(Strings.LAST_LAUNCH)
 
-        self.ui_total_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
+        self.ui_total_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
+                                                justify='center')
         if title_mode:
             self.ui_total_label.variable.set(Strings.TOTAL_DURATION)
 
-        self.ui_last_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center", justify='center')
+        self.ui_last_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
+                                               justify='center')
         if title_mode:
             self.ui_last_label.variable.set(Strings.LAST_DURATION)
 
         if title_mode:
-            self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=JopLauncher.GAME_NAME_WIDTH)
+            self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next(),
+                                                   width=JopLauncher.GAME_NAME_WIDTH)
             self.ui_name_label.variable.set(Strings.GAME_NAME)
         else:
             self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next())
@@ -58,7 +62,8 @@ class GameSession(GhSimplePanel):
         self.row_col_reset(0, 1)
 
         GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
-        self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">", anchor="e")
+        self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">",
+                                                   padx=2, anchor="e")
         self.ui_launch_button.widget.grid_remove()
         self.default_bg = self.ui_launch_button.widget.cget('bg')
 

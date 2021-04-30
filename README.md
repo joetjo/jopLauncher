@@ -89,6 +89,7 @@ Enhancement:
 - add a way to add a http link to external link ( tips soluce or whatever =
 - how to check and cancel ignored file
 - ui preference editor ( use GHSetup )
+- on storage migration, save à backup of the file before
 
 # Major enhancement
 - merge different storage when playing on several laptop/desktop
