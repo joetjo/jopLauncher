@@ -1,7 +1,7 @@
-import time
 # psutil must no be imported --> all call inside ProcessUtil fpr easy test purpose
 import logging  # This module is thread safe.
 import threading
+import time
 
 from JopLauncherConstant import JopLauncher
 from base.jsonstore import GhStorage
@@ -160,10 +160,28 @@ class ProcMgr:
                 del self.game_mappings[name]
         self.storage.save()
 
+    def removeExcluded(self, name):
+        if self.isIgnore(name):
+            self.game_ignored.remove(name)
+            self.storage.save()
+
     def ignore(self, name):
         if not self.isIgnore(name):
             self.remove(name)
             self.game_ignored.append(name)
+            self.storage.save()
+
+    def isLauncher(self, name):
+        return name in self.game_launchers
+
+    def removeLauncher(self, name):
+        if self.isLauncher(name):
+            self.game_launchers.remove(name)
+            self.storage.save()
+
+    def addLauncher(self, name):
+        if not self.isIgnore(name):
+            self.game_launchers.append(name)
             self.storage.save()
 
     # set or overwrite mapping

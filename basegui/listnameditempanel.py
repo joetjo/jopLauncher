@@ -11,26 +11,31 @@ class GhListNamedItemPanel(GhSimplePanel):
     def __init__(self, parent, title, row=0, col=0, names=None, sticky="nsew",
                  border_color=None, border_width=0, command=None, on_close=None):
         super().__init__(parent, row, col, sticky, border_color=border_color, border_width=border_width)
-        self.parent = self.content
         self.command = command
-        self.title = GhApp.createLabel(self.parent, self.row_next(), self.col(), bg=border_color,
+        self.on_close = on_close
+        self.title = GhApp.createLabel(self.content, self.row_next(), self.col(), bg=border_color,
                                        text=title, colspan=2, width=20)
         self.ui_items = []
         if names is not None:
-            self.set(names)
-        self.close = GhApp.createButton(self.parent, self.row_next(), self.col_next(),
-                                        anchor='s', text="close", command=on_close)
+            self.set(title, names)
 
-    def set(self, names):
+        self.close = None
+        self.sep = None
+
+    def set(self, title, names):
         self.clear()
         self.row_col_reset(row=1)
         if names is not None:
             for name in names:
                 self.ui_items \
-                    .append(Pair(GhApp.createLabel(self.parent, self.row(), self.col_next(), text=name),
-                                 GhApp.createButton(self.parent, self.row_next(), self.col_reset(0),
-                                                    text="x",
+                    .append(Pair(GhApp.createLabel(self.content, self.row(), self.col_next(), text=name),
+                                 GhApp.createButton(self.content, self.row_next(), self.col_reset(0),
+                                                    text="x", anchor='s',
                                                     command=lambda current_name=name: self.command(current_name))))
+        self.col_reset()
+        self.sep = GhApp.createLabel(self.content, self.row_next(), self.col_reset(), colspan=2, width=20)
+        self.close = GhApp.createButton(self.content, self.row_next(), self.col_reset(),
+                                        anchor='s', text="close", command=self.on_close)
 
     def clear(self):
         for item in self.ui_items:
@@ -38,21 +43,29 @@ class GhListNamedItemPanel(GhSimplePanel):
                 item.one.widget.destroy()
             if item.two is not None:
                 item.two.widget.destroy()
+        if self.close is not None:
+            self.close.widget.destroy()
+            self.sep.widget.destroy()
+        self.ui_items = []
 
     def grid_remove(self):
         self.title.widget.grid_remove()
-        self.close.widget.grid_remove()
         for item in self.ui_items:
             if item.one is not None:
                 item.one.widget.grid_remove()
             if item.two is not None:
                 item.two.widget.grid_remove()
+        if self.close is not None:
+            self.close.widget.grid_remove()
+            self.sep.widget.grid_remove()
 
     def grid(self):
         self.title.widget.grid()
-        self.close.widget.grid()
         for item in self.ui_items:
             if item.one is not None:
                 item.one.widget.grid()
             if item.two is not None:
                 item.two.widget.grid()
+        if self.close is not None:
+            self.close.widget.grid()
+            self.sep.widget.grid()

@@ -121,13 +121,13 @@ class GhApp(GhGridBehaviour):
                      command,
                      text,
                      anchor='w',
-                     padx=0,
+                     padx=0, pady=0,
                      width=None,
                      image=None):
         text_variable = StringVar()
 
         button = Button(parent, command=command, textvariable=text_variable,
-                        anchor=anchor, padx=padx, width=width)
+                        anchor=anchor, padx=padx, pady=pady, width=width)
         button.grid(row=row, column=col, sticky=anchor)
 
         if not GhAppSetup.image_button \

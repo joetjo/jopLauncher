@@ -52,16 +52,20 @@ class DisplayMode:
         return (self.installed_mode and GhFileUtil.fileExist(session.getPath())) or not self.installed_mode
 
     def showExcluded(self):
+        if self.launcher_mode:
+            self.closeExtended()
         self.app.ui_options.grid()
         self.excluded_mode = True
         self.launcher_mode = False
-        self.app.ui_options.set(self.procMgr.game_ignored)
+        self.app.ui_options.set(Strings.EXCLUDED_GAME, self.app.procMgr.game_ignored)
 
     def showLauncher(self):
+        if self.excluded_mode:
+            self.closeExtended()
         self.app.ui_options.grid()
         self.excluded_mode = False
         self.launcher_mode = True
-        self.app.ui_options.set(self.procMgr.game_ignored)
+        self.app.ui_options.set(Strings.LAUNCHERS, self.app.procMgr.game_launchers)
 
     def closeExtended(self):
         self.excluded_mode = False
@@ -76,3 +80,9 @@ class DisplayMode:
         else:
             print("UI: refresh last session list")
             self.app.reloadLastSessions()
+
+    def refreshExtended(self):
+        if self.excluded_mode:
+            self.showExcluded()
+        elif self.launcher_mode:
+            self.showLauncher()

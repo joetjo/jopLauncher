@@ -1,21 +1,6 @@
 {
     "version": 1,
     "Games": {
-        "Borderlands2": {
-            "duration": "22357.116407",
-            "last_duration": "143.159733",
-            "last_session": "1619455441.2155347"
-        },
-        "Perfect Gold": {
-            "duration": "7518.786611",
-            "last_duration": "5.042497",
-            "last_session": "1619368044.4734485"
-        },
-        "MagiTrials": {
-            "duration": "11773.814225999999",
-            "last_duration": "2478.533695",
-            "last_session": "1619384020.6049063"
-        },
         "Hoshizora No Memoria": {
             "duration": "48346.960704",
             "last_duration": "692.916679",
@@ -27,38 +12,23 @@
             "last_duration": "60.583743",
             "last_session": "1619630229.0681741"
         },
-        "ActivationUI": {
-            "duration": "50.883698",
-            "last_duration": "50.883698",
-            "last_session": "1619464127.2696428"
-        },
-        "A Way Out (Willy)": {
-            "duration": "25211.628124",
-            "last_duration": "7103.874838",
-            "last_session": "1619557441.5802348"
-        },
-      "Yumeutsutsu ReAfter": {
-        "duration": "119.65542",
-        "last_duration": "119.65542",
-        "last_session": "1619628715.141767"
+      "ActivationUI": {
+        "duration": "50.883698",
+        "last_duration": "50.883698",
+        "last_session": "1619464127.2696428"
+      },
+      "A Way Out (Willy)": {
+        "duration": "25211.628124",
+        "last_duration": "7103.874838",
+        "last_session": "1619557441.5802348"
       },
       "FakeGameNameFolder": {
         "duration": "3207.9264620000004",
         "last_duration": "3204.638385",
         "last_session": "1619645321.5249162"
-      },
-      "LEGUI": {
-        "duration": "59.266962",
-        "last_duration": "59.266962",
-        "last_session": "1619798154.1603818"
       }
     },
     "last_sessions": [
-      [
-        "LEGUI",
-        "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe",
-        "LEGUI"
-      ],
       [
         "FakeGameNameFolder",
         "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
@@ -70,48 +40,26 @@
         "Memoria"
       ],
       [
-            "A Summer's End - Hong Kong 1986",
-            "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
-            "HK1986"
-        ],
-        [
-            "Yumeutsutsu ReAfter",
-            "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
-            "YureAfter"
-        ],
-        [
-            "A Way Out (Willy)",
-            "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
-            "AWayOut"
-        ],
-        [
-            "Borderlands2",
-            "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
-            "Borderlands2"
-        ],
-        [
-            "MagiTrials",
-            "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
-            "MagiTrials"
-        ],
-        [
-            "Perfect Gold",
-            "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
-            "Perfect Gold"
-        ]
+        "A Summer's End - Hong Kong 1986",
+        "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
+        "HK1986"
+      ],
+      [
+        "A Way Out (Willy)",
+        "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
+        "AWayOut"
+      ]
     ],
-    "mappings": {
-        "Memoria": "Hoshizora No Memoria",
-        "HK1986": "A Summer's End - Hong Kong 1986",
-        "nw": "PARENT",
-        "AWayOut": "A Way Out (Willy)",
-        "YureAfter": "PARENT",
-        "FakeGameName": "PARENT"
-    },
-    "ignored": [
-        "ActivationUI"
-    ],
-    "launchers": {
-        "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"
-    }
+  "mappings": {
+    "Memoria": "Hoshizora No Memoria",
+    "HK1986": "A Summer's End - Hong Kong 1986",
+    "nw": "PARENT",
+    "AWayOut": "A Way Out (Willy)",
+    "YureAfter": "PARENT",
+    "FakeGameName": "PARENT"
+  },
+  "ignored": [],
+  "launchers": {
+    "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"
+  }
 }

@@ -4,13 +4,13 @@ from tkinter import messagebox
 
 from JopLauncherConstant import JopLauncher
 from base.pair import Pair
-from basegui.application import GhApp, GhAppSetup
+from basegui.application import GhApp
+from basegui.appmenu import GhAppMenu
 from basegui.columnpanel import GhColumnPanel
 from basegui.listnameditempanel import GhListNamedItemPanel
 from basegui.simplepanel import GhSimplePanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
-from launcher.gui.appmenu import AppMenu
 from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
@@ -41,7 +41,11 @@ class procGui(EventListener):
 
         self.icons = GhIcons()
 
-        self.menu = AppMenu(app.window, self)
+        self.menu = GhAppMenu(app.window, app)
+        self.menu.add(Strings.MENU_EXCLUDED, self.applyShowExcluded)
+        self.menu.add(Strings.MENU_LAUNCHER, self.applyShowLauncher)
+        self.menu.addSep()
+        self.menu.add(Strings.EXIT, self.applyExit)
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
@@ -52,7 +56,7 @@ class procGui(EventListener):
         # 1st line
         self.ui_menu_button = GhApp.createButton(header_col.left, app.row(), app.col_next(), text="::",
                                                  width=1, padx=0,
-                                                 command=self.applyMenu)
+                                                 command=self.menu.pop)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAYING, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
         self.ui_playing_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(1))
@@ -109,8 +113,7 @@ class procGui(EventListener):
         # CONTENT RIGHT
         app.row_col_reset()
         self.ui_options = GhListNamedItemPanel(content_col.right, Strings.EXCLUDED_GAME, app.row(), app.col(),
-                                               command=self.applyRemoveInOptionList,
-                                               border_color=GhAppSetup.bg_header, border_width=5)
+                                               command=self.applyRemoveInOptionList, on_close=self.applyCloseExtended)
         self.ui_options.grid_remove()
 
         # FOOTER
@@ -147,10 +150,6 @@ class procGui(EventListener):
         self.ready = True
         self.app.start()
 
-    def applyMenu(self):
-        # TODO EXPERIMENTAL - show popup without bind event
-        self.menu.do_popup(self.app.getMouseX(), self.app.getMouseY())
-
     # BACKEND Refresh
     # Restore last session mode and trigger manuel process refresh
     def applyRefresh(self):
@@ -172,6 +171,8 @@ class procGui(EventListener):
                 idx += 1
 
         self.clearAllSessions(start_index=idx)
+        # refresh extended info if needed
+        self.display_mode.refreshExtended()
 
     def clearAllSessions(self, start_index=0):
         print("UI: clearing session list from {}".format(start_index))
@@ -301,6 +302,7 @@ class procGui(EventListener):
 
     def applyIgnore(self):
         self.applyIgnoreOrRemove(Strings.CONFIRM_IGNORE_APPLY, self.procMgr.ignore)
+        self.applyShowExcluded()
 
     def applyMapping(self):
         if self.ui_game_action_panel.isMappingEnabled():
@@ -361,7 +363,20 @@ class procGui(EventListener):
         self.app.close()
 
     def applyRemoveInOptionList(self, name):
-        print("applyRemoveInOptionList {} not implemented".format(name))
+        if self.display_mode.excluded_mode:
+            self.procMgr.removeExcluded(name)
+        else:
+            self.procMgr.removeLauncher(name)
+        self.display_mode.refreshExtended()
+
+    def applyShowExcluded(self):
+        self.display_mode.showExcluded()
+
+    def applyShowLauncher(self):
+        self.display_mode.showLauncher()
+
+    def applyCloseExtended(self):
+        self.display_mode.closeExtended()
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):
