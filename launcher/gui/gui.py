@@ -1,68 +1,28 @@
 import time
 from datetime import timedelta
-from tkinter import messagebox, PhotoImage, Image, LEFT, RIGHT
+from tkinter import messagebox
 
 from JopLauncherConstant import JopLauncher
-from base.fileutil import GhFileUtil
 from base.pair import Pair
 from basegui.application import GhApp
 from basegui.columnpanel import GhColumnPanel
 from basegui.simplepanel import GhSimplePanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
+from launcher.gui.appmenu import AppMenu
+from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
 from launcher.gui.strings import Strings
 
 
-class DisplayMode:
-
-    def __init__(self, app):
-        self.app = app
-
-        # PREVIOUS or SEARCH
-        self.display_mode_string = Strings.PREVIOUS
-        # DISPLAY MODE : search or last_session
-        self.search_mode = False
-        # RESULT FILTER: show or not show only installed game
-        self.installed_mode = False
-
-    def enableLastSessionMode(self):
-        self.search_mode = False
-        self.display_mode_string = Strings.PREVIOUS
-        self.app.ui_search_entry.variable.set("")
-        self.app.ui_prev_session_label.variable.set(self.display_mode_string)
-        self.app.ui_search_reset_button.widget.grid_remove()
-
-    def enableSearchMode(self):
-        self.search_mode = True
-        self.app.ui_prev_session_label.variable.set(Strings.SEARCHING)
-        self.app.ui_search_reset_button.widget.grid()
-
-    def searchResult(self, result):
-        self.display_mode_string = result
-        self.app.ui_prev_session_label.variable.set(self.display_mode_string)
-
-    def filterMode(self, installed_mode):
-        self.installed_mode = installed_mode
-        # reload in current mode
-        self.refresh()
-
-    # check if game from session map the current filter mode
-    def isVisible(self, session):
-        return (self.installed_mode and GhFileUtil.fileExist(session.getPath())) or not self.installed_mode
-
-    # refresh display according to current mode
-    def refresh(self):
-        if self.search_mode:
-            print("UI: refresh search result")
-            self.app.applySearch()
-        else:
-            print("UI: refresh last session list")
-            self.app.reloadLastSessions()
-
-
 class procGui(EventListener):
+    """ Main Application for JopLauncher
+
+    UI widget are called ui_... and GhAppHandle ( Pair Variable / Widget )
+    UI callback are called apply....
+    """
+
     HEADER_LABEL_WIDTH = 40
 
     def __init__(self, procmgr):
@@ -79,6 +39,8 @@ class procGui(EventListener):
         app = self.app
 
         self.icons = GhIcons()
+
+        self.menu = AppMenu(app.window, self)
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
@@ -120,7 +82,7 @@ class procGui(EventListener):
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), text=Strings.FILTER)
         self.filter_panel = GhSimplePanel(header_col.right, app.row_next(), app.col_reset())
         self.ui_installed_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 0,
-                                              text=Strings.INSTALLED_FILTER, command=self.applyFilter)
+                                                        text=Strings.INSTALLED_FILTER, command=self.applyFilter)
 
         # 3rd line
         self.ui_prev_session_label = GhApp.createLabel(header_col.right, app.row(), app.col_reset(3), colspan=3)
@@ -178,13 +140,15 @@ class procGui(EventListener):
         self.app.start()
 
     def applyMenu(self):
-        pass  # TODO
+        # TODO EXPERIMENTAL - show popup without bind event
+        self.menu.do_popup(self.app.getMouseX(), self.app.getMouseY())
 
     # BACKEND Refresh
     # Restore last session mode and trigger manuel process refresh
     def applyRefresh(self):
-        print("UI: Cancle search mode if enabled and request process check ( backend )")
-        self.applyResetSearch()
+        print("UI: cancel search mode if enabled and request process check ( backend )")
+        if self.searchInProgress():
+            self.reloadLastSessions()
         self.procMgr.refresh()
 
     # Restore last session mode and trigger manuel process refresh
@@ -226,12 +190,13 @@ class procGui(EventListener):
             self.clearAllSessions(start_index=idx)
 
             if idx >= JopLauncher.MAX_LAST_SESSION_COUNT:
-                self.display_mode.searchResult(Strings.RESULT_SEARCH_EXCEED.format(idx, JopLauncher.MAX_LAST_SESSION_COUNT))
+                self.display_mode.searchResult(
+                    Strings.RESULT_SEARCH_EXCEED.format(idx, JopLauncher.MAX_LAST_SESSION_COUNT))
             else:
                 self.display_mode.searchResult(Strings.RESULT_SEARCH.format(idx))
 
     def searchInProgress(self):
-        return self.search_mode
+        return self.display_mode.isSearchInProgress()
 
     def setPlaying(self, proc):
         if proc is None:
@@ -337,7 +302,7 @@ class procGui(EventListener):
                     map_name = ui_session.ui_mapping_entry.variable.get()
                     if len(map_name) == 0:
                         error = True
-                        messagebox.showerror(Strings.EMPTY_NAME.format(ui_session.name))
+                        messagebox.showerror(Strings.EMPTY_NAME.format(ui_session.getName()))
                     else:
                         self.procMgr.addMapping(ui_session.session, map_name)
                         ui_session.setSelected(False)
@@ -364,7 +329,7 @@ class procGui(EventListener):
         for ui_session in self.ui_sessions:
             ui_session.setSelected(False)
             ui_session.disableMapping()
-        self.doRefreshCurrentSessionDisplay()
+        self.display_mode.refreshSessions()
 
     def applyAbout(self):
         if self.procMgr.test_mode:
@@ -384,6 +349,9 @@ class procGui(EventListener):
                                                                               JopLauncher.DB_VERSION,
                                                                               JopLauncher.SHORT_ABOUT,
                                                                               JopLauncher.URL))
+
+    def applyExit(self):
+        self.app.close()
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):

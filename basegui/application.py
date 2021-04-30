@@ -81,9 +81,18 @@ class GhApp(GhGridBehaviour):
         self.content.grid(row=1, sticky="nsew")
         self.footer.grid(row=2, sticky="ew")
 
+    def getMouseX(self):
+        return self.window.winfo_pointerx()  # - self.window.winfo_rootx()
+
+    def getMouseY(self):
+        return self.window.winfo_pointery()  # - self.window.winfo_rooty()
+
     def start(self):
         self.window.mainloop()
         print("{} closed".format(self.title))
+
+    def close(self):
+        self.window.destroy()
 
     @staticmethod
     def setupImage(widget, image, align):

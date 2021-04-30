@@ -4,8 +4,8 @@ from basegui.application import GhAppSetup
 class JopLauncher:
 
     # To be updated on release
-    TEST_MODE = True
-    VERSION = '2021.1.wip'
+    TEST_MODE = False
+    VERSION = '2021.1.04.29.beta'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
