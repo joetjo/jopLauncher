@@ -19,6 +19,7 @@ class Strings:
     MENU_LAUNCHER = "Show launchers"
     EXCLUDED_GAME = "   ** Excluded games **  "
     LAUNCHERS = "   ** Custom launchers **  "
+    PLATFORMS = "Game Platforms"
     EXIT = "Quit"
 
     # Buttons

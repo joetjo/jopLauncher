@@ -4,7 +4,7 @@ from basegui.application import GhAppSetup
 class JopLauncher:
     # To be updated on release
     TEST_MODE = False
-    VERSION = '2021.1.04.29.beta'
+    VERSION = '2021.1.04.30.beta'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
@@ -21,8 +21,18 @@ class JopLauncher:
 
     GAME_NAME_WIDTH = 30
 
+    GAME_PLATFORMS = {
+        "steam.exe": "STEAM",
+        "GalaxyClient.exe": "GOG",
+        "EpicGamesLauncher.exe": "EPIC",
+        "upc.exe": "UBISOFT",
+        "itch.exe": "ITCHIO",
+        "Origin.exe": "ORIGIN"
+    }
+
 
 # TODO - setup using GhSetup
+
 
 GhAppSetup.width = 800
 GhAppSetup.height = 200 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT

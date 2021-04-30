@@ -15,6 +15,7 @@ class ProcessInfo:
         self.originName = self.name
 
         self.game = self.gameDetector(self.path)
+        self.game_platform = self.platformDetector(self.path)
         self.storeEntry = None
 
         self.started = None
@@ -58,6 +59,13 @@ class ProcessInfo:
 
     def gameDetector(self, path):
         return (self.path is not None) and re.search(JopLauncher.GAME_PATTERN, path, re.IGNORECASE)
+
+    def platformDetector(self, path):
+        if self.path is None:
+            return None
+        for key in JopLauncher.GAME_PLATFORMS:
+            if re.search(key, path, re.IGNORECASE):
+                return JopLauncher.GAME_PLATFORMS[key]
 
     def setStarted(self):
         if self.started is None:

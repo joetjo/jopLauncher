@@ -108,13 +108,11 @@ class procGui(EventListener):
         self.ui_sessions = []
         for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.ui_sessions.append(GameSession(content_panel, self, app.row_reset(2 + idx), app.col()))
-        self.reloadLastSessions()
 
         # CONTENT RIGHT
         app.row_col_reset()
-        self.ui_options = GhListNamedItemPanel(content_col.right, Strings.EXCLUDED_GAME, app.row(), app.col(),
+        self.ui_options = GhListNamedItemPanel(content_col.right, Strings.PLATFORMS, app.row(), app.col(),
                                                command=self.applyRemoveInOptionList, on_close=self.applyCloseExtended)
-        self.ui_options.grid_remove()
 
         # FOOTER
         app.row_col_reset()
@@ -142,6 +140,8 @@ class procGui(EventListener):
         app.row_col_reset()
         GhApp.createLabel(footer_col.right, app.row(), app.col_next(), text=JopLauncher.SHORT_ABOUT)
         GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION)
+
+        self.reloadLastSessions()
 
         proc = procmgr.getFirstMonitored()
         if proc is not None:
@@ -236,6 +236,7 @@ class procGui(EventListener):
         if self.last_start > 0:
             duration = int((time.time() - self.last_start) / 60)
             self.ui_play_time_label.variable.set("~{} minutes".format(duration))
+        self.display_mode.showPlatforms()
 
     def endGame(self, proc):
         print("End game detected {} ({})".format(proc.getName(), proc.getPath()))

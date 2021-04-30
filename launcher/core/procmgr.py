@@ -39,6 +39,8 @@ class ProcMgr:
         self.game_ignored = self.storage.getOrCreate("ignored", [])
         self.game_launchers = self.storage.getOrCreate("launchers", [])
 
+        self.platforms = []
+
         self.loadPList()
 
     def setListener(self, event_listener):
@@ -46,6 +48,7 @@ class ProcMgr:
 
     def loadPList(self):
         self.plist = dict()
+        platforms = []
         for process_name in self.process_util.process_iter():
             # Fetch process details as dict
             p = ProcessInfo(self.process_util.readProcessAttributes(process_name))
@@ -76,8 +79,12 @@ class ProcMgr:
                                 self.eventListener.newGame(p)
                     else:
                         print("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
+                elif p.game_platform is not None:
+                    if p.game_platform not in platforms:
+                        platforms.append(p.game_platform)
 
-        print("{} processes detected".format(len(self.plist)))
+        print("{} processes detected / {} game(s) platforms".format(len(self.plist), len(platforms)))
+        self.platforms = platforms
         if self.eventListener is not None:
             self.eventListener.refreshDone()
 
