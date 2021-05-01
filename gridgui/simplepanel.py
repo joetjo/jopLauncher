@@ -1,6 +1,6 @@
 from tkinter import Frame
 
-from basegui.gridbehaviour import GhGridBehaviour
+from gridgui.gridbehaviour import GhGridBehaviour
 
 
 class GhSimplePanel(GhGridBehaviour):

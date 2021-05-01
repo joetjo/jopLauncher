@@ -1,7 +1,7 @@
 from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
 
-from basegui.apphandle import GhAppHandle
-from basegui.gridbehaviour import GhGridBehaviour
+from gridgui.apphandle import GhAppHandle
+from gridgui.gridbehaviour import GhGridBehaviour
 
 
 class GhAppSetup:

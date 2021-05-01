@@ -40,7 +40,7 @@ class Strings:
     RESULT_SEARCH_EXCEED = ("Display mode: [Search result: {} games] - only {} displayed\n"
                             "refine the token to find your game !")
     RESULT_SEARCH = "Display mode: [Search result: {} games]"
-    CONFIRM_TITLE= "Please confirm !"
+    CONFIRM_TITLE = "Please confirm !"
     CONFIRM_IGNORE_SELECTION = "{}:\n- {}"
     CONFIRM_IGNORE_APPLY = "Do you really want to exclude theses executable \n(Future execution will be ignored): "
     CONFIRM_REMOVE_APPLY = "Do you really want to remove data for theses files\n(Reset data without excluding): "

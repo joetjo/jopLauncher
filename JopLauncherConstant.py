@@ -1,4 +1,4 @@
-from basegui.application import GhAppSetup
+from gridgui.application import GhAppSetup
 
 
 class JopLauncher:

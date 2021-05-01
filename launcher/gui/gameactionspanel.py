@@ -1,5 +1,5 @@
-from basegui.application import GhApp
-from basegui.simplepanel import GhSimplePanel
+from gridgui.application import GhApp
+from gridgui.simplepanel import GhSimplePanel
 from launcher.gui.strings import Strings
 
 

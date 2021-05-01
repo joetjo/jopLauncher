@@ -1,6 +1,6 @@
 from tkinter import ttk
 
-from basegui.gridbehaviour import GhGridBehaviour
+from gridgui.gridbehaviour import GhGridBehaviour
 
 
 class GhTab(GhGridBehaviour):

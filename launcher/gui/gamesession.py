@@ -6,9 +6,9 @@ from tkinter import DISABLED, NORMAL
 from JopLauncherConstant import JopLauncher
 from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
-from basegui.application import GhApp
-from basegui.columnpanel import GhColumnPanel
-from basegui.simplepanel import GhSimplePanel
+from gridgui.application import GhApp
+from gridgui.columnpanel import GhColumnPanel
+from gridgui.simplepanel import GhSimplePanel
 from launcher.gui.strings import Strings
 
 

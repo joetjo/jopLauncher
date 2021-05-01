@@ -4,11 +4,11 @@ from tkinter import messagebox
 
 from JopLauncherConstant import JopLauncher
 from base.pair import Pair
-from basegui.application import GhApp
-from basegui.appmenu import GhAppMenu
-from basegui.columnpanel import GhColumnPanel
-from basegui.listnameditempanel import GhListNamedItemPanel
-from basegui.simplepanel import GhSimplePanel
+from gridgui.application import GhApp
+from gridgui.appmenu import GhAppMenu
+from gridgui.columnpanel import GhColumnPanel
+from gridgui.listnameditempanel import GhListNamedItemPanel
+from gridgui.simplepanel import GhSimplePanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
 from launcher.gui.displaymode import DisplayMode
