@@ -4,7 +4,7 @@ from gridgui.application import GhAppSetup
 class JopLauncher:
     # To be updated on release
     TEST_MODE = False
-    VERSION = '2021.1.05.01'
+    VERSION = '2021.1.next'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
@@ -29,7 +29,6 @@ class JopLauncher:
         "itch.exe": "ITCHIO",
         "Origin.exe": "ORIGIN"
     }
-
 
 # TODO - setup using GhSetup
 

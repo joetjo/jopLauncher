@@ -51,23 +51,7 @@ Not available
 
 # What will be in next version ?
 
-Last version is 2021.1.0425
-
-Fixed:
-- when displaying search result, all stuff is shift to the right ( minor, but all should be attached to the left... )
-- select several games ( buttons appear ), unselect one buttons disappear and there is still some game selected... still
-  some buttons visible on empty line.
-
-Enhancement:
-
-- playing : add current play time ( on each refresh ) and rework header panel
-- launch game button
-- partial ( launch game with a launcher but setup to be done manually in storage )
-- excluded game display + remove from exclude list
-- launcher display ( and remove launcher declaration )
-- add top / left menu button
-- detect running platform add show all gaming platform that is running
-- when unselecting a game with mapping in progress, mapping is not cancelled
+Last version is 2021.1.0501
 
 # Known bugs
 
