@@ -1,6 +1,5 @@
-
-
 # Map Json storage for a session
+from base.jsonstore import GhStorage
 from launcher.core.private.process import ProcessInfo
 
 
@@ -22,6 +21,48 @@ class Session:
 
     def getOriginName(self):
         return self.json[2]
+
+    def getLauncher(self):
+        return self.json[3]
+
+    def setLauncher(self, value):
+        self.json[3] = value
+
+    def getPlatform(self):
+        return self.json[4]
+
+    def setPlatform(self, value):
+        self.json[4] = value
+
+    def getCustomCommand(self):
+        return self.json[5]
+
+    def setCustomCommand(self, value):
+        self.json[5] = value
+
+    def getParameters(self):
+        return self.json[6]
+
+    def setParameters(self, value):
+        self.json[6] = value
+
+    def getNote(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'note')
+
+    def setNote(self, value):
+        self.game_info['note'] = value
+
+    def getWWW(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'www')
+
+    def setWWW(self, value):
+        self.game_info['www'] = value
+
+    def getTips(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'tips')
+
+    def setTips(self, value):
+        self.game_info['tips'] = value
 
     # Only on search result ( not available for session from storage )
     def getGameInfo(self):

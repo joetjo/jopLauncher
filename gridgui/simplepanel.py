@@ -16,7 +16,7 @@ class GhSimplePanel(GhGridBehaviour):
             content_parent.grid(row=row, column=col, columnspan=colspan, sticky=sticky)
 
         self.content = Frame(content_parent, bg=parent.cget('bg'), padx=0, pady=0)
-        self.content.grid(row=row, column=col, sticky=sticky)
+        self.content.grid(row=row, column=col, columnspan=colspan, sticky=sticky)
 
     """
             highlightbackground="black" and highlightthickness=1

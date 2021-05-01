@@ -1,4 +1,5 @@
 from tkinter import Tk, Frame, Label, StringVar, Button, Entry, Checkbutton, Radiobutton, IntVar
+from tkinter.ttk import Combobox
 
 from gridgui.apphandle import GhAppHandle
 from gridgui.gridbehaviour import GhGridBehaviour
@@ -162,20 +163,38 @@ class GhApp(GhGridBehaviour):
                        anchor='w',
                        padx=5,
                        debug_name=None):
-        checkvar = IntVar()
+        check_var = IntVar()
         check = Checkbutton(parent, bg=parent.cget('bg'), text=text,
-                            command=command, variable=checkvar,
+                            command=command, variable=check_var,
                             onvalue=1,
                             anchor=anchor, padx=padx)
         check.grid(row=row, column=col, sticky=anchor)
-        return GhAppHandle(checkvar, check, debug_name=debug_name)
+        return GhAppHandle(check_var, check, debug_name=debug_name)
+
+    @staticmethod
+    def createCombobox(parent, row, col, command, values,
+                       text=None,
+                       anchor='w',
+                       width=None,
+                       colspan=1,
+                       read_only=True,
+                       debug_name=None):
+        combo_var = StringVar()
+        combo = Combobox(parent, text=text, width=width, textvariable=combo_var)
+        combo.grid(row=row, column=col, columnspan=colspan, sticky=anchor)
+        combo['values'] = values
+        combo.bind('<<ComboboxSelected>>', command)
+        if read_only:
+            combo['state'] = 'readonly'
+        return GhAppHandle(combo_var, combo, debug_name=debug_name)
 
     @staticmethod
     def createEntry(parent, row, col, width, defaultvalue,
                     padx=5, command=None,
+                    colspan=1, sticky="w",
                     debug_name=None):
-        entryvar = StringVar()
-        entryvar.set(defaultvalue)
-        entry = Entry(parent, textvariable=entryvar, width=width, validatecommand=command)
-        entry.grid(row=row, column=col, padx=padx)
-        return GhAppHandle(entryvar, entry, debug_name=debug_name)
+        entry_var = StringVar()
+        entry_var.set(defaultvalue)
+        entry = Entry(parent, textvariable=entry_var, width=width, validatecommand=command)
+        entry.grid(row=row, column=col, columnspan=colspan, padx=padx, sticky=sticky)
+        return GhAppHandle(entry_var, entry, debug_name=debug_name)

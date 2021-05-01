@@ -10,7 +10,7 @@ class GhListNamedItemPanel(GhSimplePanel):
 
     def __init__(self, parent, title, row=0, col=0, names=None, sticky="nsew",
                  border_color=None, border_width=0, command=None, on_close=None):
-        super().__init__(parent, row, col, sticky, border_color=border_color, border_width=border_width)
+        super().__init__(parent, row=row, col=col, sticky=sticky, border_color=border_color, border_width=border_width)
         self.command = command
         self.on_close = on_close
         self.border_color = border_color

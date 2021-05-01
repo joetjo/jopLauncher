@@ -81,4 +81,9 @@ class GhStorage:
         except:
             return None
 
-
+    @staticmethod
+    def getValueOrEmptyString(data, key):
+        try:
+            return data[key]
+        except:
+            return ""

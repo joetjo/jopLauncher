@@ -38,9 +38,13 @@ class ProcMgr:
         self.sessions = SessionList(self.storage, self)
         self.game_mappings = self.storage.getOrCreate("mappings", {})
         self.game_ignored = self.storage.getOrCreate("ignored", [])
-        self.game_launchers = self.storage.getOrCreate("launchers", [])
+        self.game_launchers = self.storage.getOrCreate("launchers", {})
 
+        # Running platforms
         self.platforms = []
+        self.games_platforms = [""]
+        for key in JopLauncher.GAME_PLATFORMS:
+            self.games_platforms.append(JopLauncher.GAME_PLATFORMS[key])
 
         self.loadPList()
 
@@ -180,16 +184,16 @@ class ProcMgr:
             self.storage.save()
 
     def isLauncher(self, name):
-        return name in self.game_launchers
+        return GhStorage(self.game_launchers, name) is not None
 
     def removeLauncher(self, name):
         if self.isLauncher(name):
-            self.game_launchers.remove(name)
+            del self.game_launchers[name]
             self.storage.save()
 
-    def addLauncher(self, name):
+    def addLauncher(self, name, path):
         if not self.isIgnore(name):
-            self.game_launchers.append(name)
+            self.game_launchers[name] = path
             self.storage.save()
 
     # set or overwrite mapping
@@ -211,7 +215,19 @@ class ProcMgr:
         self.storage.save()
 
     def getLauncher(self, name):
-        return self.game_launchers[name]
+        return GhStorage.getValue(self.game_launchers, name)
+
+    def getLaunchers(self):
+        result = [""]
+        for key in self.game_launchers:
+            result.append(key)
+        return result
+
+    def getRunningPlatforms(self):
+        return self.platforms
+
+    def getPossiblePlatforms(self):
+        return self.games_platforms
 
     def stop(self):
         self.shutdown = True

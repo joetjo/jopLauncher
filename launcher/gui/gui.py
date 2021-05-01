@@ -151,6 +151,9 @@ class procGui(EventListener):
         self.ready = True
         self.app.start()
 
+    def getWindow(self):
+        return self.app.window
+
     # BACKEND Refresh
     # Restore last session mode and trigger manuel process refresh
     def applyRefresh(self):
@@ -318,22 +321,17 @@ class procGui(EventListener):
         self.applyIgnoreOrRemove(Strings.CONFIRM_IGNORE_APPLY, self.procMgr.ignore)
         self.applyShowExcluded()
 
+    def isEditInProgress(self):
+        return self.ui_game_action_panel.isEditEnabled()
+
     def applyEdit(self):
-        if self.ui_game_action_panel.isEditEnabled():
-            error = False
+        if self.isEditInProgress():
             for ui_session in self.ui_sessions:
                 if ui_session.selected:
-                    if True:
-                        error = True
-                        GhMessageBox(self.app.window,
-                                     Strings.ERROR_INPUT,
-                                     "NOT IMPLEMENTED",
-                                     message_type=GhMessageBox.WARNING).show()
-                    else:
-                        # TODO Save change
-                        ui_session.setSelected(False)
-                        ui_session.disableEdit()
-            if not error:
+                    ui_session.saveEdit()
+                    ui_session.setSelected(False)
+
+                self.procMgr.storage.save()
                 self.ui_game_action_panel.grid_remove()
 
                 if self.searchInProgress():
@@ -344,6 +342,8 @@ class procGui(EventListener):
         elif self.isGameSelected():
             pair = self.getGameSelected()
             if pair is not None:
+                if self.isMappingInProgress():
+                    self.applyCancelMapping()
                 for ui_session in pair.one:
                     ui_session.enableEdit()
                 self.ui_game_action_panel.enableEdit()
@@ -354,8 +354,11 @@ class procGui(EventListener):
             ui_session.disableEdit()
         self.display_mode.refreshSessions()
 
+    def isMappingInProgress(self):
+        return self.ui_game_action_panel.isMappingEnabled()
+
     def applyMapping(self):
-        if self.ui_game_action_panel.isMappingEnabled():
+        if self.isMappingInProgress():
             error = False
             for ui_session in self.ui_sessions:
                 if ui_session.selected:
@@ -381,10 +384,13 @@ class procGui(EventListener):
         elif self.isGameSelected():
             pair = self.getGameSelected()
             if pair is not None:
+                if self.isEditInProgress():
+                    self.applyCancelEdit()
                 for ui_session in pair.one:
                     ui_session.enableMapping()
                 self.ui_game_action_panel.enableMapping()
                 self.ui_prev_session_label.set(Strings.HELP_MAPPING)
+                self.ui_game_action_panel.disableEdit()
 
     def applyCancelMapping(self):
         self.ui_game_action_panel.disableMapping()

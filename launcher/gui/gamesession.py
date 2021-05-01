@@ -17,7 +17,7 @@ from launcher.log import Log
 class GameSession(GhSimplePanel):
 
     def __init__(self, parent, app, row, col, title_mode=False, sticky="nsew"):
-        super().__init__(parent, row, col, sticky)
+        super().__init__(parent, row=row, col=col, sticky=sticky)
         self.app = app
         self.session = None
         self.game = None
@@ -62,7 +62,9 @@ class GameSession(GhSimplePanel):
             self.ui_name_label = GhApp.createLabel(main_panel, self.row_next(), self.col_reset(0))
 
         # EDIT MODE - LINE 2
-        self.ui_panel = GameEditPanel(main_panel, self.row(), self.col_reset(0), colspan=10)
+        if not self.title_mode:
+            self.ui_panel = GameEditPanel(main_panel, self.app, self.row(), self.col_reset(0), colspan=10)
+            self.ui_panel.grid_remove()
 
         # Actions column
         self.row_col_reset(0, 1)
@@ -126,6 +128,8 @@ class GameSession(GhSimplePanel):
         self.selected = self.ui_selection_check.get() == 1
         if not self.selected and self.isMappingInProgress():
             self.disableMapping()
+        if not self.selected and self.isEditInProgress():
+            self.disableEdit()
         self.app.notifyEntrySelectionUpdate(self.selected, self.title_mode)
 
     def setSelected(self, mode):
@@ -162,12 +166,22 @@ class GameSession(GhSimplePanel):
         if self.session is not None:
             self.ui_name_label.set(self.session.getName())
 
+    def isEditInProgress(self):
+        return self.edit_mode
+
+    def saveEdit(self):
+        self.ui_panel.updateStorage()
+        self.disableEdit()
+
     def enableEdit(self):
         self.edit_mode = True
+        self.ui_panel.set(self.session)
+        self.ui_panel.grid()
         Log.debug("Enable edit mode for {}".format(self.getName()))
 
     def disableEdit(self):
         self.edit_mode = False
+        self.ui_panel.grid_remove()
         Log.debug("Disable edit mode for {}".format(self.getName()))
 
     def setButtonState(self, button, state):

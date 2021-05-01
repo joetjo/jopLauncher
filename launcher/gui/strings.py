@@ -1,5 +1,4 @@
 
-
 class Strings:
     # Labels
     NO_GAME = "-"
@@ -23,6 +22,18 @@ class Strings:
     PLATFORMS = "Game Platforms"
     EXIT = "Quit"
     ERROR_INPUT = "Invalid input"
+    LAUNCHER = "Launcher: "
+    CUSTOM_LAUNCHER = "Custom command: "
+    GAME_PLATFORM = "Platform: "
+    CUSTOM_PARAMS = "Command parameters: "
+    NEW_LAUNCHER = "+"
+    SELECT_EXE_BUTTON = "..."
+    SELECT_NOTE_BUTTON = "..."
+    SELECT_EXE = "Select executable"
+    SELECT_NOTE = "Select associated document"
+    LOCAL_LINK = "Local notes: "
+    WWW_LINK = "Game page: "
+    TIPS_LINK = "Tips or whatever: "
 
     # Buttons
     SEARCH_ACTION = "  Go"
@@ -49,3 +60,4 @@ class Strings:
     CONFIRM_IGNORE_APPLY = "Do you really want to exclude theses executable \n(Future execution will be ignored): "
     CONFIRM_REMOVE_APPLY = "Do you really want to remove data for theses files\n(Reset data without excluding): "
     EMPTY_NAME = "set a name for {}"
+    CONFIRM_NEW_LAUNCHER = "Create a new launcher named:\n{}"

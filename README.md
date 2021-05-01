@@ -17,6 +17,7 @@ configurable prerequisite on where to install game ).
 - Detect common game platform and display which one is running
 - shows last 10 gaming sessions and allows starting a new session of the corresponding game
 - | -> or to search an already played game and allow to restart it
+- | -> and applying a filter to see on installed game
 - allows excluding process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange
   things ).
 - allows to map a custom name for an executable or to use the parent folder name instead of the executable name.
@@ -67,6 +68,11 @@ Last version is 2021.1.0501
 
 Enhancement:
 
+- game launch properties edition : platform, launcher, custom command, custom parameters
+- add a way to reference a local md file from a "common" folder
+- add a way to add a http link to store page
+- add a way to add a http link to external link ( tips soluce or whatever =
+- launcher can be created while editing a game
 - message dialog on top of application, not in the middle of the screen
 
 # Known bugs
@@ -79,22 +85,14 @@ Enhancement:
 
 # Enhancement To be done
 
+- add a way to disable the running mode if not supported.
+- add a way to add a specific process that do not map the pattern
 - python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
-- filter installed game
 - packaging icons / images
 - ui preference ( use GHSetup )
-- add launcher list
-  - declare a new launcher
-  - exclude launcher from game detection
-  - associate launcher to a game
-- add a way to select a different launcher that running execution + a way to disable the running mode if not supported.
-- add a way to define a custom launcher
 - separate storage in multiple files
-- add a way to add a specific process that do not map the pattern
-- add a way to reference a local md file from a "common" folder
-- add a way to add a http link to store page
-- add a way to add a http link to external link ( tips soluce or whatever =
 - on storage migration, save à backup of the file before
+- menu to start companion app
 
 # Potential Enhancement
 

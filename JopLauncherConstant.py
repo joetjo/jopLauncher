@@ -12,7 +12,7 @@ class JopLauncher:
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
 
-    DB_VERSION = 1
+    DB_VERSION = 2
 
     # delay between refresh 5s * REFRESH_DELAY
     REFRESH_DELAY = 10
@@ -22,6 +22,8 @@ class JopLauncher:
     GAME_EXTENSION = '.exe'
 
     GAME_NAME_WIDTH = 30
+    URL_WIDTH = 70
+    PARAMS_WIDTH = 45
 
     GAME_PLATFORMS = {
         "steam.exe": "STEAM",
@@ -32,11 +34,22 @@ class JopLauncher:
         "Origin.exe": "ORIGIN"
     }
 
+    EXEC_FILE = [("Executable", "*.exe"),
+                 ("Batch file", "*.bat")]
+
+    NOTE_FILE = [("Markdown", "*.md"),
+                 ("Text", "*.txt"),
+                 ("whatever you want", "*.*")]
+
+    LOCAL_FILE_FOLDER = "C:/Users/nicol/Documents/GitHub/gList/notes"
+    COMPANION_APP = "C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"
+
+
 # TODO - setup using GhSetup
 
 
-GhAppSetup.width = 800
-GhAppSetup.height = 200 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT
+GhAppSetup.width = 850
+GhAppSetup.height = 300 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT
 GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
 GhAppSetup.icon = 'icons/joystick.ico'
