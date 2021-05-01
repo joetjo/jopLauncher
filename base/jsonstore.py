@@ -34,7 +34,7 @@ class GhStorage:
 
     def create(self):
         if self.json_file is not None:
-            print("Creating local storage")
+            print("Creating local storage {}".format(self.json_file))
             with open(self.json_file, "w") as file:
                 file.write("{"
                            "    version = 0"

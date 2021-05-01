@@ -9,6 +9,7 @@ from launcher.core.migrations.migrate import StorageVersion
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
 from launcher.core.private.session import SessionList, Session
+from launcher.log import Log
 
 LOCAL_STORAGE = 'local_storage.json'
 LOCK = threading.Lock()
@@ -65,7 +66,7 @@ class ProcMgr:
                             store_entry = self.find(p.getName(), "loading plist: process discovery")
                             if store_entry is None:
                                 # TODO mapping name may be identical to a real other process name - to check
-                                print("Creating game {} within storage".format(p.getName()))
+                                Log.info("New game discovered : creating game {} within storage".format(p.getName()))
                                 self.games[p.getName()] = {"duration": "0"}
                                 p.setStoreEntry(self.games[p.getName()])
                                 self.storage.save()
@@ -78,12 +79,12 @@ class ProcMgr:
                             if self.eventListener is not None:
                                 self.eventListener.newGame(p)
                     else:
-                        print("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
+                        Log.debug("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
                 elif p.game_platform is not None:
                     if p.game_platform not in platforms:
                         platforms.append(p.game_platform)
 
-        print("{} processes detected / {} game(s) platforms".format(len(self.plist), len(platforms)))
+        Log.debug("{} processes detected / {} game(s) platforms".format(len(self.plist), len(platforms)))
         self.platforms = platforms
         if self.eventListener is not None:
             self.eventListener.refreshDone()
@@ -116,7 +117,7 @@ class ProcMgr:
 
     def refresh(self):
         if LOCK.acquire(False):  # Non-blocking -- return whether we got it
-            print('Refreshing...')
+            Log.debug('Refreshing...')
             self.loadPList()
             LOCK.release()
         else:
@@ -133,7 +134,7 @@ class ProcMgr:
         try:
             return self.games[name]
         except KeyError:
-            print("{} - Warning : Game {} not found (ok if 1st run only)".format(context, name))
+            Log.debug("{} - Warning : Game {} not found (ok if 1st run only)".format(context, name))
             return None
 
     # Returns all games with the token in their name within the storage

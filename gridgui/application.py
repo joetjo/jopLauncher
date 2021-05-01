@@ -102,7 +102,8 @@ class GhApp(GhGridBehaviour):
                     justify='left',
                     colspan=1,
                     width=None,
-                    bg=None):
+                    bg=None,
+                    debug_name=None):
         text_variable = None
         if bg is None:
             bg = parent.cget('bg')
@@ -115,7 +116,7 @@ class GhApp(GhGridBehaviour):
         if anchor == 'center':
             anchor = 'w'
         label.grid(row=row, column=col, sticky=anchor, columnspan=colspan)
-        return GhAppHandle(text_variable, label)
+        return GhAppHandle(text_variable, label, debug_name=debug_name)
 
     @staticmethod
     def createButton(parent, row, col,
@@ -124,7 +125,8 @@ class GhApp(GhGridBehaviour):
                      anchor='w',
                      padx=0, pady=0,
                      width=None,
-                     image=None):
+                     image=None,
+                     debug_name=None):
         text_variable = StringVar()
 
         button = Button(parent, command=command, textvariable=text_variable,
@@ -138,39 +140,42 @@ class GhApp(GhGridBehaviour):
 
         if GhAppSetup.image_button:
             GhApp.setupImage(button, image, "left")
-        return GhAppHandle(text_variable, button)
+        return GhAppHandle(text_variable, button, debug_name=debug_name)
 
     @staticmethod
     def createRadio(parent, row, col, command,
                     text=None,
                     anchor='w',
-                    padx=5):
+                    padx=5,
+                    debug_name=None):
         radiovar = IntVar()
         radio = Radiobutton(parent, bg=parent.cget('bg'), text=text,
                             command=command, variable=radiovar,
                             onvalue=1,
                             anchor=anchor, padx=padx)
         radio.grid(row=row, column=col, sticky=anchor)
-        return GhAppHandle(radiovar, radio)
+        return GhAppHandle(radiovar, radio, debug_name=debug_name)
 
     @staticmethod
     def createCheckbox(parent, row, col, command,
                        text=None,
                        anchor='w',
-                       padx=5):
+                       padx=5,
+                       debug_name=None):
         checkvar = IntVar()
         check = Checkbutton(parent, bg=parent.cget('bg'), text=text,
                             command=command, variable=checkvar,
                             onvalue=1,
                             anchor=anchor, padx=padx)
         check.grid(row=row, column=col, sticky=anchor)
-        return GhAppHandle(checkvar, check)
+        return GhAppHandle(checkvar, check, debug_name=debug_name)
 
     @staticmethod
     def createEntry(parent, row, col, width, defaultvalue,
-                    padx=5, command=None):
+                    padx=5, command=None,
+                    debug_name=None):
         entryvar = StringVar()
         entryvar.set(defaultvalue)
         entry = Entry(parent, textvariable=entryvar, width=width, validatecommand=command)
         entry.grid(row=row, column=col, padx=padx)
-        return GhAppHandle(entryvar, entry)
+        return GhAppHandle(entryvar, entry, debug_name=debug_name)

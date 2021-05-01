@@ -1,13 +1,14 @@
-import time
 import threading
+import time
 
 from JopLauncherConstant import JopLauncher
 from launcher.core.procmgr import ProcMgr
 from launcher.gui.gui import procGui
+from launcher.log import Log
 
 
 def background(procmgr):
-    print("Starting auto refresh thread - sleeping delay: {}s".format(JopLauncher.REFRESH_DELAY * 5))
+    Log.info("Starting auto refresh thread - sleeping delay: {}s".format(JopLauncher.REFRESH_DELAY * 5))
     count = JopLauncher.REFRESH_DELAY
     while not procmgr.shutdown:
         time.sleep(5)

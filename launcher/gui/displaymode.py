@@ -1,5 +1,6 @@
 from base.fileutil import GhFileUtil
 from launcher.gui.strings import Strings
+from launcher.log import Log
 
 
 class DisplayMode:
@@ -27,18 +28,18 @@ class DisplayMode:
     def enableLastSessionMode(self):
         self.search_mode = False
         self.display_mode_string = Strings.PREVIOUS
-        self.app.ui_search_entry.variable.set("")
-        self.app.ui_prev_session_label.variable.set(self.display_mode_string)
-        self.app.ui_search_reset_button.widget.grid_remove()
+        self.app.ui_search_entry.set("")
+        self.app.ui_prev_session_label.set(self.display_mode_string)
+        self.app.ui_search_reset_button.grid_remove()
 
     def enableSearchMode(self):
         self.search_mode = True
-        self.app.ui_prev_session_label.variable.set(Strings.SEARCHING)
-        self.app.ui_search_reset_button.widget.grid()
+        self.app.ui_prev_session_label.set(Strings.SEARCHING)
+        self.app.ui_search_reset_button.grid()
 
     def searchResult(self, result):
         self.display_mode_string = result
-        self.app.ui_prev_session_label.variable.set(self.display_mode_string)
+        self.app.ui_prev_session_label.set(self.display_mode_string)
 
     def filterMode(self, installed_mode):
         self.installed_mode = installed_mode
@@ -77,10 +78,10 @@ class DisplayMode:
     # refresh display according to current mode
     def refreshSessions(self):
         if self.search_mode:
-            print("UI: refresh search result")
+            Log.debug("UI: refresh search result")
             self.app.applySearch()
         else:
-            print("UI: refresh last session list")
+            Log.debug("UI: refresh last session list")
             self.app.reloadLastSessions()
 
     def refreshExtended(self):

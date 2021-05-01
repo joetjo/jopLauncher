@@ -98,7 +98,7 @@ Enhancement:
 
 # Potential Enhancement
 
-- ui preference editor ( generic over GHSetup )
+- ui preference editor ( generic over GHSetup ) - top level panel with a generic property editor
 
 # Major enhancement
 

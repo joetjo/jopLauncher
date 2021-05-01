@@ -15,6 +15,7 @@ from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
 from launcher.gui.strings import Strings
+from launcher.log import Log
 
 
 class procGui(EventListener):
@@ -60,7 +61,7 @@ class procGui(EventListener):
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAYING, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
         self.ui_playing_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(1))
-        self.ui_playing_label.variable.set(Strings.NO_GAME)
+        self.ui_playing_label.set(Strings.NO_GAME)
 
         # 2nd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAY_TIME, width=label_width)
@@ -91,12 +92,12 @@ class procGui(EventListener):
 
         # 3rd line
         self.ui_prev_session_label = GhApp.createLabel(header_col.right, app.row(), app.col_reset(3), colspan=3)
-        self.ui_prev_session_label.variable.set(self.display_mode.display_mode_string)
+        self.ui_prev_session_label.set(self.display_mode.display_mode_string)
         self.ui_search_reset_button = GhApp.createButton(header_col.right,
                                                          app.row(), app.col_next(),
                                                          self.reloadLastSessions,
                                                          text=Strings.RESET_SEARCH_ACTION, width=5)
-        self.ui_search_reset_button.widget.grid_remove()
+        self.ui_search_reset_button.grid_remove()
 
         # CONTENT
         content_col = GhColumnPanel(self.app.content)
@@ -120,14 +121,14 @@ class procGui(EventListener):
 
         # FOOTER LEFT
         if self.procMgr.test_mode:
-            print(" ******** TEST MODE DETECTED ********************  USE ABOUT BUTTON !!! ")
+            Log.info(" ******** TEST MODE DETECTED ********************  USE ABOUT BUTTON !!! ")
             self.test_visible = True
             self.ui_test_game_label = GhApp.createLabel(footer_col.left, app.row(), app.col_next(),
                                                         text="**TEST** ( no extension )")
             self.ui_test_game_entry = GhApp.createEntry(footer_col.left, app.row(), app.col_next(), 20, "FakeGameName")
             self.ui_test_game_button = GhApp.createButton(footer_col.left, app.row(), app.col_next(),
                                                           self.test_startStop, "Start")
-            self.ui_test_game_button.variable.set("Start")
+            self.ui_test_game_button.set("Start")
             self.applyAbout()
 
         GhApp.createButton(footer_col.left, app.row(), app.col_next(), self.applyRefresh,
@@ -153,18 +154,20 @@ class procGui(EventListener):
     # BACKEND Refresh
     # Restore last session mode and trigger manuel process refresh
     def applyRefresh(self):
-        print("UI: cancel search mode if enabled and request process check ( backend )")
+        Log.debug("UI: cancel search mode if enabled and request process check ( backend )")
         if self.searchInProgress():
             self.reloadLastSessions()
         self.procMgr.refresh()
 
     # Restore last session mode and trigger manuel process refresh
     def reloadLastSessions(self):
-        print("UI: restore last sessions mode and reload")
+        Log.debug("UI: restore last sessions mode and reload")
         self.display_mode.enableLastSessionMode()
 
         idx = 0
+        Log.debug("Loading sessions :")
         for session in self.procMgr.getSessions():
+            Log.debug(" | {:02d} | {}".format(idx, session.getName()))
             if self.display_mode.isVisible(session):
                 if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
                     self.ui_sessions[idx].set(session)
@@ -176,20 +179,20 @@ class procGui(EventListener):
         self.refreshGameCount()
 
     def clearAllSessions(self, start_index=0):
-        print("UI: clearing session list from {}".format(start_index))
+        Log.debug("UI: clearing session list from {}".format(start_index))
         for idx in range(start_index, JopLauncher.MAX_LAST_SESSION_COUNT):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
-        self.display_mode.filterMode(self.ui_installed_filter.variable.get() == 1)
+        self.display_mode.filterMode(self.ui_installed_filter.get() == 1)
 
     def applySearch(self):
-        token = self.ui_search_entry.variable.get()
+        token = self.ui_search_entry.get()
         if len(token) > 0:
-            print("Searching for {}".format(token))
+            Log.debug("Searching for {}".format(token))
             self.display_mode.enableSearchMode()
 
-            print("UI: display search result")
+            Log.debug("UI: display search result")
             idx = 0
             for session in self.procMgr.searchInStorage(token).list():
                 if self.display_mode.isVisible(session):
@@ -211,13 +214,13 @@ class procGui(EventListener):
     def setPlaying(self, proc):
         if proc is None:
             self.last_start = -1
-            self.ui_play_time_label.variable.set("")
-            self.ui_playing_label.variable.set(Strings.NO_GAME)
-            self.ui_played_duration_label.variable.set("")
+            self.ui_play_time_label.set("")
+            self.ui_playing_label.set(Strings.NO_GAME)
+            self.ui_played_duration_label.set("")
         else:
             self.last_start = time.time()
-            self.ui_playing_label.variable.set(proc.getName())
-            self.ui_play_time_label.variable.set("just launch !")
+            self.ui_playing_label.set(proc.getName())
+            self.ui_play_time_label.set("just launch !")
             if proc.hasData():
                 self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
             else:
@@ -225,25 +228,25 @@ class procGui(EventListener):
 
     def setPlayedDuration(self, duration):
         delta = timedelta(seconds=duration)
-        self.ui_played_duration_label.variable.set(str(delta))
+        self.ui_played_duration_label.set(str(delta))
 
     # BEGIN Proc listener implementations
 
     def newGame(self, proc):
-        print("New game detected {} ({})".format(proc.getName(), proc.getPath()))
+        Log.debug("New game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(proc)
 
     def refreshDone(self):
         if self.last_start > 0:
             duration = int((time.time() - self.last_start) / 60)
-            self.ui_play_time_label.variable.set("~{} minutes".format(duration))
+            self.ui_play_time_label.set("~{} minutes".format(duration))
         self.display_mode.showPlatforms()
 
     def refreshGameCount(self):
-        self.ui_game_stat.variable.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
+        self.ui_game_stat.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
 
     def endGame(self, proc):
-        print("End game detected {} ({})".format(proc.getName(), proc.getPath()))
+        Log.debug("End game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(None)
         self.reloadLastSessions()
 
@@ -315,12 +318,48 @@ class procGui(EventListener):
         self.applyIgnoreOrRemove(Strings.CONFIRM_IGNORE_APPLY, self.procMgr.ignore)
         self.applyShowExcluded()
 
+    def applyEdit(self):
+        if self.ui_game_action_panel.isEditEnabled():
+            error = False
+            for ui_session in self.ui_sessions:
+                if ui_session.selected:
+                    if True:
+                        error = True
+                        GhMessageBox(self.app.window,
+                                     Strings.ERROR_INPUT,
+                                     "NOT IMPLEMENTED",
+                                     message_type=GhMessageBox.WARNING).show()
+                    else:
+                        # TODO Save change
+                        ui_session.setSelected(False)
+                        ui_session.disableEdit()
+            if not error:
+                self.ui_game_action_panel.grid_remove()
+
+                if self.searchInProgress():
+                    self.applySearch()
+                else:
+                    self.reloadLastSessions()
+
+        elif self.isGameSelected():
+            pair = self.getGameSelected()
+            if pair is not None:
+                for ui_session in pair.one:
+                    ui_session.enableEdit()
+                self.ui_game_action_panel.enableEdit()
+
+    def applyCancelEdit(self):
+        self.ui_game_action_panel.disableEdit()
+        for ui_session in self.ui_sessions:
+            ui_session.disableEdit()
+        self.display_mode.refreshSessions()
+
     def applyMapping(self):
         if self.ui_game_action_panel.isMappingEnabled():
             error = False
             for ui_session in self.ui_sessions:
                 if ui_session.selected:
-                    map_name = ui_session.ui_mapping_entry.variable.get()
+                    map_name = ui_session.ui_mapping_entry.get()
                     if len(map_name) == 0:
                         error = True
                         GhMessageBox(self.app.window,
@@ -345,11 +384,11 @@ class procGui(EventListener):
                 for ui_session in pair.one:
                     ui_session.enableMapping()
                 self.ui_game_action_panel.enableMapping()
-                self.ui_prev_session_label.variable.set(Strings.HELP_MAPPING)
+                self.ui_prev_session_label.set(Strings.HELP_MAPPING)
 
     def applyCancelMapping(self):
         self.ui_game_action_panel.disableMapping()
-        self.ui_prev_session_label.variable.set(self.display_mode.display_mode_string)
+        self.ui_prev_session_label.set(self.display_mode.display_mode_string)
         for ui_session in self.ui_sessions:
             ui_session.disableMapping()
         self.display_mode.refreshSessions()
@@ -358,14 +397,14 @@ class procGui(EventListener):
         if self.procMgr.test_mode:
             if self.test_visible:
                 self.test_visible = False
-                self.ui_test_game_label.widget.grid_remove()
-                self.ui_test_game_entry.widget.grid_remove()
-                self.ui_test_game_button.widget.grid_remove()
+                self.ui_test_game_label.grid_remove()
+                self.ui_test_game_entry.grid_remove()
+                self.ui_test_game_button.grid_remove()
             else:
                 self.test_visible = True
-                self.ui_test_game_label.widget.grid()
-                self.ui_test_game_entry.widget.grid()
-                self.ui_test_game_button.widget.grid()
+                self.ui_test_game_label.grid()
+                self.ui_test_game_entry.grid()
+                self.ui_test_game_button.grid()
         else:
             message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.ABOUT,
                                                                           JopLauncher.VERSION,
@@ -395,9 +434,9 @@ class procGui(EventListener):
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):
-        if self.ui_playing_label.variable.get() == Strings.NO_GAME:
-            self.procMgr.test_setGame(self.ui_test_game_entry.variable.get())
-            self.ui_test_game_button.variable.set("Stop")
+        if self.ui_playing_label.get() == Strings.NO_GAME:
+            self.procMgr.test_setGame(self.ui_test_game_entry.get())
+            self.ui_test_game_button.set("Stop")
         else:
             self.procMgr.test_setGame(None)
-            self.ui_test_game_button.variable.set("Start")
+            self.ui_test_game_button.set("Start")

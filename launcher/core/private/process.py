@@ -3,6 +3,7 @@ import re
 from datetime import datetime
 
 from JopLauncherConstant import JopLauncher
+from launcher.log import Log
 
 
 class ProcessInfo:
@@ -71,15 +72,15 @@ class ProcessInfo:
         if self.started is None:
             self.started = datetime.now()
         else:
-            print("/!\\ Start/Stop error: {} was already known to be started".format(self.name))
+            Log.info("/!\\ Start/Stop error: {} was already known to be started".format(self.name))
 
     def setStopped(self):
         if self.started is None:
-            print("/!\\ Start/Stop error: {} was not known to be started".format(self.name))
+            Log.info("/!\\ Start/Stop error: {} was not known to be started".format(self.name))
         else:
             self.duration = datetime.now() - self.started
             self.started = None
-            print("{} has run for {}".format(self.name, self.duration))
+            Log.info("{} has run for {}".format(self.name, self.duration))
 
         return self.duration
 

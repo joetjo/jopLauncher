@@ -1,12 +1,14 @@
 from abc import ABC, abstractmethod
 
+from launcher.log import Log
+
 
 class EventListener(ABC):
     pass
 
     @abstractmethod
     def newGame(self, proc):
-        print("[ABC Impl] New game detected {} ({})".format(proc.getName(), proc.getPath()))
+        Log.debug("[ABC Impl] New game detected {} ({})".format(proc.getName(), proc.getPath()))
 
     @abstractmethod
     def refreshDone(self):
@@ -14,4 +16,4 @@ class EventListener(ABC):
 
     @abstractmethod
     def endGame(self, proc):
-        print("[ABC Impl] End game detected {} ({})".format(proc.getName(), proc.getPath()))
+        Log.debug("[ABC Impl] End game detected {} ({})".format(proc.getName(), proc.getPath()))

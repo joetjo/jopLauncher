@@ -1,8 +1,9 @@
 from JopLauncherConstant import JopLauncher
+from launcher.log import Log
 
 
 def nop(storage, version):
-    print("| no data migration needed to upgrade to version {}".format(version))
+    Log.debug("| no data migration needed to upgrade to version {}".format(version))
 
 
 class StorageVersion:
@@ -16,7 +17,7 @@ class StorageVersion:
     def check_migration(storage, to):
         if storage.getVersion() != to:
             current = storage.getVersion()
-            print("Storage migration from {} to {}".format(current, to))
+            Log.info("Storage migration from {} to {}".format(current, to))
             for idx in range(0,len(StorageVersion.VERSION_LIST)):
                 v = StorageVersion.VERSION_LIST[idx]
                 if current < v:

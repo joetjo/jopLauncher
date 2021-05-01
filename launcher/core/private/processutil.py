@@ -2,9 +2,9 @@ import os
 
 import psutil
 
-
 # All call to psutil is done here in order to be able to test without a real call
 from JopLauncherConstant import JopLauncher
+from launcher.log import Log
 
 
 class ProcessUtil:
@@ -27,7 +27,7 @@ class ProcessUtil:
         try:
             return process.as_dict(attrs=['pid', 'name', 'exe'])
         except (psutil.NoSuchProcess, psutil.AccessDenied, psutil.ZombieProcess) as e:
-            print("--- unable to access process ---" + e)
+            Log.info("--- unable to access process ---" + e)
             return None
 
     def test_setGame(self, game):

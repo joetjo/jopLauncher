@@ -9,7 +9,9 @@ from base.jsonstore import GhStorage
 from gridgui.application import GhApp
 from gridgui.columnpanel import GhColumnPanel
 from gridgui.simplepanel import GhSimplePanel
+from launcher.gui.gameeditpanel import GameEditPanel
 from launcher.gui.strings import Strings
+from launcher.log import Log
 
 
 class GameSession(GhSimplePanel):
@@ -22,42 +24,45 @@ class GameSession(GhSimplePanel):
         self.selected = False
         self.mappingEnabled = False
         self.title_mode = title_mode
+        self.edit_mode = False
 
         col_panel = GhColumnPanel(self.content)
         main_panel = col_panel.left
         action_panel = col_panel.right
 
-        if not title_mode:
-            self.ui_selection_check = GhApp.createCheckbox(main_panel, self.row(), self.col_next(), self.applySelection)
-            self.ui_selection_check.widget.grid_remove()
-        else:
-            self.ui_selection_check = GhApp.createCheckbox(main_panel, self.row(), self.col_next(), self.applySelection)
+        self.row_col_reset(row, col)
+
+        self.ui_selection_check = GhApp.createCheckbox(main_panel, self.row(),
+                                                       self.col_next(), self.applySelection)
 
         self.ui_mapping_entry = GhApp.createEntry(main_panel, self.row(), self.col_next(), 20, "")
-        self.ui_mapping_entry.widget.grid_remove()
-        self.ui_mapping_entry.variable.set('PARENT')
+        self.ui_mapping_entry.grid_remove()
+        self.ui_mapping_entry.set('PARENT')
 
         self.ui_date_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
                                                justify='center')
         if title_mode:
-            self.ui_date_label.variable.set(Strings.LAST_LAUNCH)
+            self.ui_date_label.set(Strings.LAST_LAUNCH)
 
         self.ui_total_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
                                                 justify='center')
         if title_mode:
-            self.ui_total_label.variable.set(Strings.TOTAL_DURATION)
+            self.ui_total_label.set(Strings.TOTAL_DURATION)
 
         self.ui_last_label = GhApp.createLabel(main_panel, self.row(), self.col_next(), width=15, anchor="center",
                                                justify='center')
         if title_mode:
-            self.ui_last_label.variable.set(Strings.LAST_DURATION)
+            self.ui_last_label.set(Strings.LAST_DURATION)
 
         if title_mode:
             self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next(),
                                                    width=JopLauncher.GAME_NAME_WIDTH)
-            self.ui_name_label.variable.set(Strings.GAME_NAME)
+            self.ui_name_label.set(Strings.GAME_NAME)
         else:
-            self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next())
+            self.ui_name_label = GhApp.createLabel(main_panel, self.row_next(), self.col_reset(0))
+
+        # EDIT MODE - LINE 2
+        self.ui_panel = GameEditPanel(main_panel, self.row(), self.col_reset(0), colspan=10)
 
         # Actions column
         self.row_col_reset(0, 1)
@@ -65,8 +70,8 @@ class GameSession(GhSimplePanel):
         GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
         self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">",
                                                    padx=2, anchor="e")
-        self.ui_launch_button.widget.grid_remove()
-        self.default_bg = self.ui_launch_button.widget.cget('bg')
+        self.ui_launch_button.grid_remove()
+        self.default_bg = self.ui_launch_button.cget('bg')
 
     @staticmethod
     def setOptionalDateInfo(ui_label, session, info_name):
@@ -96,20 +101,20 @@ class GameSession(GhSimplePanel):
     def set(self, session=None):
         self.session = session
         if self.session is None:
-            self.ui_date_label.variable.set("")
-            self.ui_total_label.variable.set("")
-            self.ui_last_label.variable.set("")
-            self.ui_name_label.variable.set("")
-            self.ui_selection_check.widget.grid_remove()
-            self.ui_launch_button.widget.grid_remove()
+            self.ui_date_label.set("")
+            self.ui_total_label.set("")
+            self.ui_last_label.set("")
+            self.ui_name_label.set("")
+            self.ui_selection_check.grid_remove()
+            self.ui_launch_button.grid_remove()
         else:
-            self.ui_selection_check.widget.grid()
-            GameSession.setOptionalDateInfo(self.ui_date_label.variable, self.session, 'last_session')
-            GameSession.setOptionalDurationInfo(self.ui_total_label.variable, self.session, 'duration')
-            GameSession.setOptionalDurationInfo(self.ui_last_label.variable, self.session, 'last_duration')
-            self.ui_name_label.variable.set(self.session.getName())
-            self.ui_launch_button.widget.grid()
-            self.setButtonState(self.ui_launch_button.widget, GhFileUtil.fileExist(session.getPath()))
+            self.ui_selection_check.grid()
+            GameSession.setOptionalDateInfo(self.ui_date_label, self.session, 'last_session')
+            GameSession.setOptionalDurationInfo(self.ui_total_label, self.session, 'duration')
+            GameSession.setOptionalDurationInfo(self.ui_last_label, self.session, 'last_duration')
+            self.ui_name_label.set(self.session.getName())
+            self.ui_launch_button.grid()
+            self.setButtonState(self.ui_launch_button, GhFileUtil.fileExist(session.getPath()))
 
     def getName(self):
         if self.session is None:
@@ -118,7 +123,7 @@ class GameSession(GhSimplePanel):
             return self.session.getName()
 
     def applySelection(self):
-        self.selected = self.ui_selection_check.variable.get() == 1
+        self.selected = self.ui_selection_check.get() == 1
         if not self.selected and self.isMappingInProgress():
             self.disableMapping()
         self.app.notifyEntrySelectionUpdate(self.selected, self.title_mode)
@@ -126,44 +131,52 @@ class GameSession(GhSimplePanel):
     def setSelected(self, mode):
         self.selected = mode
         if mode:
-            self.ui_selection_check.variable.set(1)
+            self.ui_selection_check.set(1)
         else:
-            self.ui_selection_check.variable.set(0)
+            self.ui_selection_check.set(0)
 
     def isMappingInProgress(self):
-        return self.mappingEnabled;
+        return self.mappingEnabled
 
     def enableMapping(self):
         self.mappingEnabled = True
-        self.ui_mapping_entry.widget.grid()
-        self.ui_date_label.widget.grid_remove()
-        self.ui_total_label.widget.grid_remove()
-        self.ui_last_label.widget.grid_remove()
-        self.ui_launch_button.widget.grid_remove()
+        self.ui_mapping_entry.grid()
+        self.ui_date_label.grid_remove()
+        self.ui_total_label.grid_remove()
+        self.ui_last_label.grid_remove()
+        self.ui_launch_button.grid_remove()
         name = self.session.getName()
         original_name = self.session.getOriginName()
         if name == original_name:
-            self.ui_name_label.variable.set(name)
+            self.ui_name_label.set(name)
         else:
-            self.ui_name_label.variable.set("{} ( real name : {} )".format(name, original_name))
+            self.ui_name_label.set("{} ( real name : {} )".format(name, original_name))
 
     def disableMapping(self):
         self.mappingEnabled = False
-        self.ui_mapping_entry.widget.grid_remove()
-        self.ui_date_label.widget.grid()
-        self.ui_total_label.widget.grid()
-        self.ui_last_label.widget.grid()
-        self.ui_launch_button.widget.grid()
+        self.ui_mapping_entry.grid_remove()
+        self.ui_date_label.grid()
+        self.ui_total_label.grid()
+        self.ui_last_label.grid()
+        self.ui_launch_button.grid()
         if self.session is not None:
-            self.ui_name_label.variable.set(self.session.getName())
+            self.ui_name_label.set(self.session.getName())
+
+    def enableEdit(self):
+        self.edit_mode = True
+        Log.debug("Enable edit mode for {}".format(self.getName()))
+
+    def disableEdit(self):
+        self.edit_mode = False
+        Log.debug("Disable edit mode for {}".format(self.getName()))
 
     def setButtonState(self, button, state):
         if state:
-            button.config(state=NORMAL)
-            button.config(bg='white')
+            button.widget.config(state=NORMAL)
+            button.widget.config(bg='white')
         else:
-            button.config(bg=self.default_bg)
-            button.config(state=DISABLED)
+            button.widget.config(bg=self.default_bg)
+            button.widget.config(state=DISABLED)
 
     # ACTIONS !
     def launchGame(self):
@@ -176,11 +189,11 @@ class GameSession(GhSimplePanel):
                 exe = [self.session.getPath()]
             else:
                 exe = [self.app.procMgr.getLauncher(launcher), self.session.getPath()]
-            print("Launching game {} ({}) ".format(self.getName(), exe))
+            Log.info("Launching game {} ({}) ".format(self.getName(), exe))
             bg = threading.Thread(target=self.launchGameImpl, args=(exe,))
             bg.start()
         else:
-            print("A game is already running, cannot launch {} ".format(self.getName()))
+            Log.info("A game is already running, cannot launch {} ".format(self.getName()))
 
     @staticmethod
     def launchGameImpl(exe):

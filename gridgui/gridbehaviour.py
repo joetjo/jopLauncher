@@ -38,3 +38,6 @@ class GhGridBehaviour:
     def col_next(self):
         self.current_col += 1
         return self.current_col - 1
+
+    def debug(self, ctx):
+        print("{} : {}, {}".format(ctx, self.row(), self.col()))

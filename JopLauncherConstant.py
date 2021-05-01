@@ -5,6 +5,7 @@ class JopLauncher:
     # To be updated on release
     TEST_MODE = False
     VERSION = '2021.1.next'
+    DEBUG = True
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
