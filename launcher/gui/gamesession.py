@@ -198,11 +198,18 @@ class GameSession(GhSimplePanel):
         self.app.applyRefresh()
         if not self.app.isGameRunning():
             game = self.app.procMgr.find(self.session.getName(), "Game launcher")
-            launcher = GhStorage.getValue(game, "launcher")
-            if launcher is None:
-                exe = [self.session.getPath()]
-            else:
+            launcher = self.session.getLauncher()
+            custom = self.session.getCustomCommand()
+            if launcher is not None and len(launcher) > 0:
                 exe = [self.app.procMgr.getLauncher(launcher), self.session.getPath()]
+            elif custom is not None and len(custom) > 0:
+                exe = [custom]
+            else:
+                exe = [self.session.getPath()]
+            params = self.session.getParameters()
+            if params is not None:
+                for p in params.strip():
+                    exe.append(p)
             Log.info("Launching game {} ({}) ".format(self.getName(), exe))
             bg = threading.Thread(target=self.launchGameImpl, args=(exe,))
             bg.start()
