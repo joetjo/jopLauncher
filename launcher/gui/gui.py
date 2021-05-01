@@ -138,7 +138,7 @@ class procGui(EventListener):
 
         # FOOTER RIGHT
         app.row_col_reset()
-        GhApp.createLabel(footer_col.right, app.row(), app.col_next(), text=JopLauncher.SHORT_ABOUT)
+        self.ui_game_stat = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
         GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION)
 
         self.reloadLastSessions()
@@ -173,6 +173,7 @@ class procGui(EventListener):
         self.clearAllSessions(start_index=idx)
         # refresh extended info if needed
         self.display_mode.refreshExtended()
+        self.refreshGameCount()
 
     def clearAllSessions(self, start_index=0):
         print("UI: clearing session list from {}".format(start_index))
@@ -237,6 +238,9 @@ class procGui(EventListener):
             duration = int((time.time() - self.last_start) / 60)
             self.ui_play_time_label.variable.set("~{} minutes".format(duration))
         self.display_mode.showPlatforms()
+
+    def refreshGameCount(self):
+        self.ui_game_stat.variable.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
 
     def endGame(self, proc):
         print("End game detected {} ({})".format(proc.getName(), proc.getPath()))

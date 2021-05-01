@@ -70,17 +70,21 @@ Enhancement:
 
 # Known bugs
 
-- missing scrollbar on extended display for excluded game platform and launchers
-- launcher setup cannot be done ( manual storage edit )
-- exclude do not remove last_session ( game is removed, and ignores, just last_session is kept )
 - mapping name may be identical to a real other process name when loading process - to check
- 
+- when unselecting a game with mapping in progress, mapping is not cancelled
+
+# Known limitations
+
+- missing scrollbar or pagination on extended display for excluded game platform and launchers
+- launcher setup cannot be done ( manual storage edit )
+
 # Enhancement To be done
+
 - python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
 - filter installed game
 - packaging icons / images
 - ui preference ( use GHSetup )
-- add launcher list 
+- add launcher list
   - declare a new launcher
   - exclude launcher from game detection
   - associate launcher to a game
@@ -103,6 +107,7 @@ Enhancement:
 - header in file
 - screenshots in readme
 - reset local storage to no publish my data
+- finalize packaging ( app icon, resources, ... )
 
 # Note:
 - info about scrollbar : https://www.geeksforgeeks.org/scrollable-frames-in-tkinter/

@@ -3,6 +3,7 @@
 class Strings:
     # Labels
     NO_GAME = "-"
+    GAME_COUNT = "{} games (total) "
     PLAYING = "Playing"
     PREVIOUS = "Display mode [last sessions]"
     SEARCH = "| Search:"

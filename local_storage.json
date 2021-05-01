@@ -1,17 +1,32 @@
 {
     "version": 1,
     "Games": {
-        "Hoshizora No Memoria": {
-            "duration": "48346.960704",
-            "last_duration": "692.916679",
-            "last_session": "1619634306.722465",
-            "launcher": "LEGUI"
-        },
-        "A Summer's End - Hong Kong 1986": {
-            "duration": "19862.06572",
-            "last_duration": "60.583743",
-            "last_session": "1619630229.0681741"
-        },
+      "Borderlands2": {
+        "duration": "27665.283151000003",
+        "last_duration": "2017.63894",
+        "last_session": "1619726401.8518171"
+      },
+      "Perfect Gold": {
+        "duration": "7518.786611",
+        "last_duration": "5.042497",
+        "last_session": "1619368044.4734485"
+      },
+      "MagiTrials": {
+        "duration": "11773.814225999999",
+        "last_duration": "2478.533695",
+        "last_session": "1619384020.6049063"
+      },
+      "Hoshizora No Memoria": {
+        "duration": "51086.97417",
+        "last_duration": "2376.973335",
+        "last_session": "1619640503.5689523",
+        "launcher": "LEGUI"
+      },
+      "A Summer's End - Hong Kong 1986": {
+        "duration": "19862.06572",
+        "last_duration": "60.583743",
+        "last_session": "1619630229.0681741"
+      },
       "ActivationUI": {
         "duration": "50.883698",
         "last_duration": "50.883698",
@@ -22,17 +37,42 @@
         "last_duration": "7103.874838",
         "last_session": "1619557441.5802348"
       },
-      "FakeGameNameFolder": {
-        "duration": "3207.9264620000004",
-        "last_duration": "3204.638385",
-        "last_session": "1619645321.5249162"
+      "Yumeutsutsu Re:After": {
+        "duration": "2988.384897",
+        "last_duration": "1044.404113",
+        "last_session": "1619815914.701959"
+      },
+      "RoomieRomance": {
+        "duration": "30.963892",
+        "last_duration": "30.963892",
+        "last_session": "1619808488.6042156"
+      },
+      "Aokana": {
+        "duration": "1306.624526",
+        "last_duration": "1306.624526",
+        "last_session": "1619810611.237529"
       }
     },
     "last_sessions": [
       [
-        "FakeGameNameFolder",
-        "\\the\\path\\jeux\\FakeGameNameFolder\\FakeGameName.exe",
-        "FakeGameName"
+        "Yumeutsutsu Re:After",
+        "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
+        "YureAfter"
+      ],
+      [
+        "Aokana",
+        "E:\\Jeux\\Aokana\\Aokana.exe",
+        "Aokana"
+      ],
+      [
+        "RoomieRomance",
+        "E:\\Jeux\\Roomie Romance Deluxe\\lib\\windows-i686\\RoomieRomance.exe",
+        "RoomieRomance"
+      ],
+      [
+        "Borderlands2",
+        "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
+        "Borderlands2"
       ],
       [
         "Hoshizora No Memoria",
@@ -48,6 +88,16 @@
         "A Way Out (Willy)",
         "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
         "AWayOut"
+      ],
+      [
+        "MagiTrials",
+        "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
+        "MagiTrials"
+      ],
+      [
+        "Perfect Gold",
+        "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
+        "Perfect Gold"
       ]
     ],
   "mappings": {
@@ -55,10 +105,13 @@
     "HK1986": "A Summer's End - Hong Kong 1986",
     "nw": "PARENT",
     "AWayOut": "A Way Out (Willy)",
-    "YureAfter": "PARENT",
-    "FakeGameName": "PARENT"
+    "YureAfter": "Yumeutsutsu Re:After"
   },
-  "ignored": [],
+  "ignored": [
+    "ActivationUI",
+    "LEGUI",
+    "UnityCrashHandler32"
+  ],
   "launchers": {
     "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"
   }
