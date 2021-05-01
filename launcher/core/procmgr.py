@@ -110,8 +110,10 @@ class ProcMgr:
                 store["duration"] = str(duration + new_duration.total_seconds())
                 store["last_duration"] = str(new_duration.total_seconds())
                 store["last_session"] = str(time.time())
-                session = Session([proc.getName(), proc.path, proc.getOriginName()],
-                                  self.find(proc.getName(), "loading plist: processing end process"))
+                session = self.sessions.findSessionByName(proc.getName())
+                if session is None:
+                    session = Session([proc.getName(), proc.path, proc.getOriginName()],
+                                      self.find(proc.getName(), "loading plist: processing end process"))
                 self.sessions.addSession(session)
 
                 self.storage.save()

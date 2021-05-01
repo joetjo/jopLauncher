@@ -18,9 +18,9 @@
             "tips": "https://steamcommunity.com/sharedfiles/filedetails/?id=802061572"
         },
         "Hoshizora No Memoria": {
-            "duration": "51148.066163",
-            "last_duration": "61.091993",
-            "last_session": "1619886917.1845634",
+            "duration": "51159.465365000004",
+            "last_duration": "11.399202",
+            "last_session": "1619890910.341253",
             "note": "",
             "www": "",
             "tips": ""
@@ -76,7 +76,7 @@
             "Hoshizora No Memoria",
             "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
             "Memoria",
-            "",
+            "LEGUI",
             "",
             "",
             ""

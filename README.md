@@ -74,9 +74,9 @@ Enhancement:
 - add a way to add a http link to external link ( tips soluce or whatever =
 - launcher can be created while editing a game
 - message dialog on top of application, not in the middle of the screen
+- fix save last session lost extended information
 
 # Known bugs
-- save last session lost extended information
 
 # Known limitations
 
