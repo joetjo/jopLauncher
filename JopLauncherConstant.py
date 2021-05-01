@@ -4,7 +4,7 @@ from gridgui.application import GhAppSetup
 class JopLauncher:
     # To be updated on release
     TEST_MODE = False
-    VERSION = '2021.1.04.30.beta'
+    VERSION = '2021.1.05.01'
     ###########################
     APP_NAME = 'Jop Game Launcher'
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"

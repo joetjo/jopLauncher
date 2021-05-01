@@ -67,14 +67,14 @@ Enhancement:
 - launcher display ( and remove launcher declaration )
 - add top / left menu button
 - detect running platform add show all gaming platform that is running
+- when unselecting a game with mapping in progress, mapping is not cancelled
 
 # Known bugs
 
-- mapping name may be identical to a real other process name when loading process - to check
-- when unselecting a game with mapping in progress, mapping is not cancelled
 
 # Known limitations
 
+- mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
 - launcher setup cannot be done ( manual storage edit )
 
@@ -92,17 +92,21 @@ Enhancement:
 - add a way to define a custom launcher
 - separate storage in multiple files
 - add a way to add a specific process that do not map the pattern
-- add a way to add Game platform, check if running and allow to start them if not started
 - add a way to reference a local md file from a "common" folder
 - add a way to add a http link to store page
 - add a way to add a http link to external link ( tips soluce or whatever =
-- ui preference editor ( use GHSetup )
 - on storage migration, save à backup of the file before
 
+# Potential Enhancement
+
+- ui preference editor ( generic over GHSetup )
+
 # Major enhancement
+
 - merge different storage when playing on several laptop/desktop
 
 # Step to switch to public
+
 - license decision
 - header in file
 - screenshots in readme

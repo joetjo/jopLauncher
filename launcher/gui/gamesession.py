@@ -20,6 +20,7 @@ class GameSession(GhSimplePanel):
         self.session = None
         self.game = None
         self.selected = False
+        self.mappingEnabled = False
         self.title_mode = title_mode
 
         col_panel = GhColumnPanel(self.content)
@@ -118,6 +119,8 @@ class GameSession(GhSimplePanel):
 
     def applySelection(self):
         self.selected = self.ui_selection_check.variable.get() == 1
+        if not self.selected and self.isMappingInProgress():
+            self.disableMapping()
         self.app.notifyEntrySelectionUpdate(self.selected, self.title_mode)
 
     def setSelected(self, mode):
@@ -127,7 +130,11 @@ class GameSession(GhSimplePanel):
         else:
             self.ui_selection_check.variable.set(0)
 
+    def isMappingInProgress(self):
+        return self.mappingEnabled;
+
     def enableMapping(self):
+        self.mappingEnabled = True
         self.ui_mapping_entry.widget.grid()
         self.ui_date_label.widget.grid_remove()
         self.ui_total_label.widget.grid_remove()
@@ -141,6 +148,7 @@ class GameSession(GhSimplePanel):
             self.ui_name_label.variable.set("{} ( real name : {} )".format(name, original_name))
 
     def disableMapping(self):
+        self.mappingEnabled = False
         self.ui_mapping_entry.widget.grid_remove()
         self.ui_date_label.widget.grid()
         self.ui_total_label.widget.grid()
