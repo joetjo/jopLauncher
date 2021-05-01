@@ -69,11 +69,26 @@ class GameSession(GhSimplePanel):
         # Actions column
         self.row_col_reset(0, 1)
 
-        GhApp.createLabel(action_panel, 0, 0, text="  ", anchor="e")
+        GhApp.createLabel(action_panel, 0, 0, text=" ", anchor="e")
         self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">",
                                                    padx=2, anchor="e")
         self.ui_launch_button.grid_remove()
         self.default_bg = self.ui_launch_button.cget('bg')
+
+        self.ui_note_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchNote, text="n",
+                                                 padx=2, anchor="e")
+        self.ui_note_button.grid_remove()
+
+        self.ui_store_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchWWW, text="s",
+                                                  padx=2, anchor="e")
+        self.ui_store_button.grid_remove()
+
+        self.ui_tips_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchTips, text="t",
+                                                 padx=2, anchor="e")
+        self.ui_tips_button.grid_remove()
+
+        self.ui_platform_label = GhApp.createLabel(action_panel, self.row(), self.col_next(),
+                                                   width=JopLauncher.PLATFORM_WIDTH, anchor="e")
 
     @staticmethod
     def setOptionalDateInfo(ui_label, session, info_name):
@@ -107,8 +122,12 @@ class GameSession(GhSimplePanel):
             self.ui_total_label.set("")
             self.ui_last_label.set("")
             self.ui_name_label.set("")
+            self.ui_platform_label.set("")
             self.ui_selection_check.grid_remove()
             self.ui_launch_button.grid_remove()
+            self.ui_note_button.grid_remove()
+            self.ui_store_button.grid_remove()
+            self.ui_tips_button.grid_remove()
         else:
             self.ui_selection_check.grid()
             GameSession.setOptionalDateInfo(self.ui_date_label, self.session, 'last_session')
@@ -116,7 +135,14 @@ class GameSession(GhSimplePanel):
             GameSession.setOptionalDurationInfo(self.ui_last_label, self.session, 'last_duration')
             self.ui_name_label.set(self.session.getName())
             self.ui_launch_button.grid()
-            self.setButtonState(self.ui_launch_button, GhFileUtil.fileExist(session.getPath()))
+            self.setButtonState(self.ui_launch_button, GhFileUtil.fileExist(self.session.getPath()))
+            self.ui_note_button.grid()
+            self.setButtonState(self.ui_note_button, GhFileUtil.fileExist(self.session.getNote()))
+            self.ui_store_button.grid()
+            self.setButtonState(self.ui_store_button, len(self.session.getWWW()) > 0)
+            self.ui_tips_button.grid()
+            self.setButtonState(self.ui_tips_button, len(self.session.getWWW()) > 0)
+            self.ui_platform_label.set(self.session.getPlatform())
 
     def getName(self):
         if self.session is None:
@@ -197,7 +223,6 @@ class GameSession(GhSimplePanel):
         # To be sure no game is running, 1st do a refresh
         self.app.applyRefresh()
         if not self.app.isGameRunning():
-            game = self.app.procMgr.find(self.session.getName(), "Game launcher")
             launcher = self.session.getLauncher()
             custom = self.session.getCustomCommand()
             if launcher is not None and len(launcher) > 0:
@@ -210,12 +235,31 @@ class GameSession(GhSimplePanel):
             if params is not None:
                 for p in params.strip():
                     exe.append(p)
-            Log.info("Launching game {} ({}) ".format(self.getName(), exe))
-            bg = threading.Thread(target=self.launchGameImpl, args=(exe,))
-            bg.start()
+            GameSession.launch(self.getName(), exe)
         else:
             Log.info("A game is already running, cannot launch {} ".format(self.getName()))
 
+    def launchNote(self):
+        note = self.session.getNote()
+        if note is not None and len(note) > 0:
+            GameSession.launch("note", [JopLauncher.NOTE_EXE, note])
+
+    def launchWWW(self):
+        page = self.session.getWWW()
+        if page is not None and len(page) > 0:
+            GameSession.launch("Store", [JopLauncher.URL_EXE, page])
+
+    def launchTips(self):
+        page = self.session.getTips()
+        if page is not None and len(page) > 0:
+            GameSession.launch("Tips", [JopLauncher.URL_EXE, page])
+
     @staticmethod
-    def launchGameImpl(exe):
+    def launch(label, exe):
+        Log.info("Launching {} ({}) ".format(label, exe))
+        bg = threading.Thread(target=GameSession.launchImpl, args=(exe,))
+        bg.start()
+
+    @staticmethod
+    def launchImpl(exe):
         subprocess.run(exe)

@@ -21,6 +21,7 @@ class JopLauncher:
     GAME_PATTERN = 'jeux'
     GAME_EXTENSION = '.exe'
 
+    PLATFORM_WIDTH = 5
     GAME_NAME_WIDTH = 30
     URL_WIDTH = 70
     PARAMS_WIDTH = 45
@@ -41,6 +42,8 @@ class JopLauncher:
                  ("Text", "*.txt"),
                  ("whatever you want", "*.*")]
 
+    NOTE_EXE = "C:/Program Files (x86)/Notepad++/notepad++.exe"
+    URL_EXE = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
     LOCAL_FILE_FOLDER = "C:/Users/nicol/Documents/GitHub/gList/notes"
     COMPANION_APP = "C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"
 

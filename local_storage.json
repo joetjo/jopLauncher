@@ -4,7 +4,10 @@
         "Borderlands2": {
             "duration": "27665.283151000003",
             "last_duration": "2017.63894",
-            "last_session": "1619726401.8518171"
+            "last_session": "1619726401.8518171",
+            "note": "",
+            "www": "",
+            "tips": ""
         },
         "MagiTrials": {
             "duration": "11773.814225999999",
@@ -15,9 +18,9 @@
             "tips": "https://steamcommunity.com/sharedfiles/filedetails/?id=802061572"
         },
         "Hoshizora No Memoria": {
-            "duration": "51086.97417",
-            "last_duration": "2376.973335",
-            "last_session": "1619640503.5689523",
+            "duration": "51148.066163",
+            "last_duration": "61.091993",
+            "last_session": "1619886917.1845634",
             "note": "",
             "www": "",
             "tips": ""
@@ -25,7 +28,10 @@
         "A Summer's End - Hong Kong 1986": {
             "duration": "19862.06572",
             "last_duration": "60.583743",
-            "last_session": "1619630229.0681741"
+            "last_session": "1619630229.0681741",
+            "note": "",
+            "www": "",
+            "tips": ""
         },
         "ActivationUI": {
             "duration": "50.883698",
@@ -35,31 +41,52 @@
         "A Way Out (Willy)": {
             "duration": "25211.628124",
             "last_duration": "7103.874838",
-            "last_session": "1619557441.5802348"
+            "last_session": "1619557441.5802348",
+            "note": "",
+            "www": "",
+            "tips": ""
         },
         "Yumeutsutsu Re:After": {
             "duration": "2988.384897",
             "last_duration": "1044.404113",
-            "last_session": "1619815914.701959"
+            "last_session": "1619815914.701959",
+            "note": "C:/Users/nicol/Documents/GitHub/gList/notes/YumeutsutsuReAfter.md",
+            "www": "",
+            "tips": ""
         },
         "Aokana": {
             "duration": "1306.624526",
             "last_duration": "1306.624526",
-            "last_session": "1619810611.237529"
+            "last_session": "1619810611.237529",
+            "note": "",
+            "www": "",
+            "tips": ""
         },
         "Roomie Romance V2": {
             "duration": "30.963892",
             "last_duration": "30.963892",
-            "last_session": "1619808488.6042156"
+            "last_session": "1619808488.6042156",
+            "note": "",
+            "www": "",
+            "tips": ""
         }
     },
     "last_sessions": [
+        [
+            "Hoshizora No Memoria",
+            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
+            "Memoria",
+            "",
+            "",
+            "",
+            ""
+        ],
         [
             "Yumeutsutsu Re:After",
             "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
             "YureAfter",
             "",
-            "",
+            "STEAM",
             "",
             ""
         ],
@@ -77,8 +104,8 @@
             "E:\\Jeux\\Roomie Romance Deluxe\\lib\\windows-i686\\RoomieRomance.exe",
             "RoomieRomance",
             "",
-            "",
-            "",
+            "STEAM",
+            "C:/pyTools/zikRandomizer/ZikRandomizer.exe",
             ""
         ],
         [
@@ -86,16 +113,7 @@
             "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
             "Borderlands2",
             "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "Hoshizora No Memoria",
-            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
-            "Memoria",
-            "LEGUI",
-            "",
+            "EPIC",
             "",
             ""
         ],
@@ -104,7 +122,7 @@
             "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
             "HK1986",
             "",
-            "",
+            "STEAM",
             "",
             ""
         ],
@@ -113,7 +131,7 @@
             "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
             "AWayOut",
             "",
-            "",
+            "ORIGIN",
             "",
             ""
         ],
@@ -138,13 +156,10 @@
     "ignored": [
         "ActivationUI",
         "LEGUI",
-        "UnityCrashHandler32",
-        "Perfect Gold"
+        "UnityCrashHandler32"
     ],
     "launchers": {
         "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe",
-        "TEST": "C:/Users/nicol/PycharmProjects/ZikRandomizer/dist/ZikRandomizer.exe",
-        "ZikRandomizer": "C:/Users/nicol/PycharmProjects/ZikRandomizer/dist/ZikRandomizer.exe",
         "": ""
     }
 }

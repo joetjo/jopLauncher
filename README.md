@@ -76,12 +76,12 @@ Enhancement:
 - message dialog on top of application, not in the middle of the screen
 
 # Known bugs
+- save last session lost extended information
 
 # Known limitations
 
 - mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
-- launcher setup cannot be done ( manual storage edit )
 
 # Enhancement To be done
 
