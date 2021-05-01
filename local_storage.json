@@ -6,11 +6,6 @@
         "last_duration": "2017.63894",
         "last_session": "1619726401.8518171"
       },
-      "Perfect Gold": {
-        "duration": "7518.786611",
-        "last_duration": "5.042497",
-        "last_session": "1619368044.4734485"
-      },
       "MagiTrials": {
         "duration": "11773.814225999999",
         "last_duration": "2478.533695",
@@ -42,15 +37,15 @@
         "last_duration": "1044.404113",
         "last_session": "1619815914.701959"
       },
-      "RoomieRomance": {
-        "duration": "30.963892",
-        "last_duration": "30.963892",
-        "last_session": "1619808488.6042156"
-      },
       "Aokana": {
         "duration": "1306.624526",
         "last_duration": "1306.624526",
         "last_session": "1619810611.237529"
+      },
+      "Roomie Romance V2": {
+        "duration": "30.963892",
+        "last_duration": "30.963892",
+        "last_session": "1619808488.6042156"
       }
     },
     "last_sessions": [
@@ -65,7 +60,7 @@
         "Aokana"
       ],
       [
-        "RoomieRomance",
+        "Roomie Romance V2",
         "E:\\Jeux\\Roomie Romance Deluxe\\lib\\windows-i686\\RoomieRomance.exe",
         "RoomieRomance"
       ],
@@ -93,11 +88,6 @@
         "MagiTrials",
         "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
         "MagiTrials"
-      ],
-      [
-        "Perfect Gold",
-        "\\the\\path\\jeux\\Perfect GoldFolder\\Perfect Gold.exe",
-        "Perfect Gold"
       ]
     ],
   "mappings": {
@@ -105,12 +95,14 @@
     "HK1986": "A Summer's End - Hong Kong 1986",
     "nw": "PARENT",
     "AWayOut": "A Way Out (Willy)",
-    "YureAfter": "Yumeutsutsu Re:After"
+    "YureAfter": "Yumeutsutsu Re:After",
+    "RoomieRomance": "Roomie Romance V2"
   },
   "ignored": [
     "ActivationUI",
     "LEGUI",
-    "UnityCrashHandler32"
+    "UnityCrashHandler32",
+    "Perfect Gold"
   ],
   "launchers": {
     "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"

@@ -30,7 +30,7 @@ With static method to create widget ( and make of common look and feel applicati
 
 class GhApp(GhGridBehaviour):
 
-    def __init__(self, title):
+    def __init__(self, title, exit_command):
         super().__init__(0, 0)
         self.title = title
 
@@ -63,6 +63,7 @@ class GhApp(GhGridBehaviour):
 
         self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
         self.window.minsize(GhAppSetup.min_width, GhAppSetup.min_height)
+        self.window.protocol("WM_DELETE_WINDOW", exit_command)
 
         # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=5)
@@ -87,7 +88,7 @@ class GhApp(GhGridBehaviour):
         print("{} closed".format(self.title))
 
     def close(self):
-        self.window.destroy()
+        self.window.quit()
 
     @staticmethod
     def setupImage(widget, image, align):

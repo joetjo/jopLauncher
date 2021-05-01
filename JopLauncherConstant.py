@@ -7,6 +7,7 @@ class JopLauncher:
     VERSION = '2021.1.next'
     ###########################
     APP_NAME = 'Jop Game Launcher'
+    ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
 

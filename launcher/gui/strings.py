@@ -22,6 +22,7 @@ class Strings:
     LAUNCHERS = "   ** Custom launchers **  "
     PLATFORMS = "Game Platforms"
     EXIT = "Quit"
+    ERROR_INPUT = "Invalid input"
 
     # Buttons
     SEARCH_ACTION = "  Go"
@@ -44,4 +45,4 @@ class Strings:
     CONFIRM_IGNORE_SELECTION = "{}:\n- {}"
     CONFIRM_IGNORE_APPLY = "Do you really want to exclude theses executable \n(Future execution will be ignored): "
     CONFIRM_REMOVE_APPLY = "Do you really want to remove data for theses files\n(Reset data without excluding): "
-    EMPTY_NAME = "Empty name !", "set a name for {}"
+    EMPTY_NAME = "set a name for {}"

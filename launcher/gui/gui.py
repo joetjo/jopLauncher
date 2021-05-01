@@ -1,9 +1,9 @@
 import time
 from datetime import timedelta
-from tkinter import messagebox
 
 from JopLauncherConstant import JopLauncher
 from base.pair import Pair
+from basegui.messagebox import GhMessageBox
 from gridgui.application import GhApp
 from gridgui.appmenu import GhAppMenu
 from gridgui.columnpanel import GhColumnPanel
@@ -36,7 +36,7 @@ class procGui(EventListener):
         test_mode = ""
         if procmgr.test_mode:
             test_mode = "- test mode"
-        self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, test_mode))
+        self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, test_mode), self.applyExit)
         app = self.app
 
         self.icons = GhIcons()
@@ -272,7 +272,7 @@ class procGui(EventListener):
     def isGameRunning(self):
         return self.last_start > 0
 
-    def getGameSelected(self, message=None):
+    def getGameSelected(self):
         selection = []
         names = None
         for ui_session in self.ui_sessions:
@@ -283,15 +283,21 @@ class procGui(EventListener):
                 else:
                     names = "{}\n- {}".format(names, ui_session.getName())
 
-        if message is None or \
-                (len(selection) > 0 and
-                 messagebox.askyesno(Strings.CONFIRM_TITLE,
-                                     Strings.CONFIRM_IGNORE_SELECTION.format(message, names))):
+        if len(selection) > 0:
             return Pair(selection, names)
         return None
 
     def applyIgnoreOrRemove(self, message, action):
-        pair = self.getGameSelected(message)
+        pair = self.getGameSelected()
+        if pair is not None:
+            height = 100 + ((len(pair.two) - 1) * 1)
+            GhMessageBox(self.app.window,
+                         Strings.CONFIRM_TITLE,
+                         Strings.CONFIRM_IGNORE_SELECTION.format(message, pair.two),
+                         message_type=GhMessageBox.QUESTION, height=height,
+                         on_ok=lambda: self.applyConfirmIgnoreOrRemoveCallback(pair, action)).show()
+
+    def applyConfirmIgnoreOrRemoveCallback(self, pair, action):
         if pair is not None:
             for ui_session in pair.one:
                 ui_session.setSelected(False)
@@ -317,7 +323,10 @@ class procGui(EventListener):
                     map_name = ui_session.ui_mapping_entry.variable.get()
                     if len(map_name) == 0:
                         error = True
-                        messagebox.showerror(Strings.EMPTY_NAME.format(ui_session.getName()))
+                        GhMessageBox(self.app.window,
+                                     Strings.ERROR_INPUT,
+                                     Strings.EMPTY_NAME.format(ui_session.getName()),
+                                     message_type=GhMessageBox.WARNING).show()
                     else:
                         self.procMgr.addMapping(ui_session.session, map_name)
                         ui_session.setSelected(False)
@@ -358,11 +367,12 @@ class procGui(EventListener):
                 self.ui_test_game_entry.widget.grid()
                 self.ui_test_game_button.widget.grid()
         else:
-            messagebox.showinfo(JopLauncher.APP_NAME,
-                                "Version {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.VERSION,
-                                                                              JopLauncher.DB_VERSION,
-                                                                              JopLauncher.SHORT_ABOUT,
-                                                                              JopLauncher.URL))
+            message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.ABOUT,
+                                                                          JopLauncher.VERSION,
+                                                                          JopLauncher.DB_VERSION,
+                                                                          JopLauncher.SHORT_ABOUT,
+                                                                          JopLauncher.URL)
+            GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=210).show()
 
     def applyExit(self):
         self.app.close()

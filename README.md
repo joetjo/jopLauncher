@@ -1,18 +1,30 @@
 # jop Game Launcher
 
-Global game management platform that do not need internet, do not need any registering, do no store data into the cloud, do not need access to your game account....
-and discover automatically which game is running ( with a prerequisite on where to install game ). 
+> **SbSGL**
+
+> [No login/No internet access]
+> The Simple but Smart Game Launcher"
+> Old School GUI
+
+Global game management platform that do not need internet, do not need any registering, do no store data into the cloud,
+do not need access to your game account.... and discover automatically which game is running ( with a light and
+configurable prerequisite on where to install game ).
 
 > All the recorded data are local and nothing is published. Local data are not protected ( protection rely on your local account on your laptop/desktop )
 
-- Detect running game and record running time ( game has to be installed in a path that contains "jeux" , game process name will be used by default )
-- show last 10 gaming sessions and allow to restart corresponding game
-- | -> or to search an already played game and allow to restart it 
-- allow to exclude process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange things ).
-- allow to map a custom name for an executable or to use the parent folder name instead of the executable name.
+- Detects running game and record running time ( game has to be installed in a path that contains "jeux" , game process
+  name will be used by default )
+- Detect common game platform and display which one is running
+- shows last 10 gaming sessions and allows starting a new session of the corresponding game
+- | -> or to search an already played game and allow to restart it
+- allows excluding process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange
+  things ).
+- allows to map a custom name for an executable or to use the parent folder name instead of the executable name.
+- allows customization on how to start a game ( launcher, alternative command line, parameters )
+- allows linking on HTML page and a local document about each game
 
 **Platform :** Windows ( python )
-Note: the project is fully compatible to other platforms but tested only on windows and packaged only for windows.
+Note: the project is fully compatible to other platforms but tested only on Windows 10 and packaged only for Windows.
 
 **Suggested Companion app**
 
@@ -53,8 +65,11 @@ Not available
 
 Last version is 2021.1.0501
 
-# Known bugs
+Enhancement:
 
+- message dialog on top of application, not in the middle of the screen
+
+# Known bugs
 
 # Known limitations
 
