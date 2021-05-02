@@ -1,3 +1,6 @@
+from tkinter import LEFT
+
+
 class GhAppHandle:
     def __init__(self, variable, widget, debug_name=None):
         self.widget = widget
@@ -20,3 +23,7 @@ class GhAppHandle:
 
     def cget(self, val):
         return self.widget.cget(val)
+
+    def setImage(self, image, compound=LEFT):
+        self.widget.configure(image=image)
+        self.widget.configure(compound=compound)

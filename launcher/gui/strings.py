@@ -17,6 +17,7 @@ class Strings:
     GAME_NAME = "Game"
     MENU_EXCLUDED = "Show excluded games"
     MENU_LAUNCHER = "Show launchers"
+    MENU_COMP_APP = "Companion App"
     EXCLUDED_GAME = "   ** Excluded games **  "
     LAUNCHERS = "   ** Custom launchers **  "
     PLATFORMS = "Game Platforms"

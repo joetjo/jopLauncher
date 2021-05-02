@@ -1,11 +1,10 @@
-import subprocess
-import threading
 from datetime import datetime
-from tkinter import DISABLED, NORMAL
+from tkinter import DISABLED, NORMAL, RIGHT, LEFT
 
 from JopLauncherConstant import JopLauncher
 from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
+from base.launcher import GhLauncher
 from gridgui.application import GhApp
 from gridgui.columnpanel import GhColumnPanel
 from gridgui.simplepanel import GhSimplePanel
@@ -87,7 +86,7 @@ class GameSession(GhSimplePanel):
                                                  padx=2, anchor="e")
         self.ui_tips_button.grid_remove()
 
-        self.ui_platform_label = GhApp.createLabel(action_panel, self.row(), self.col_next(),
+        self.ui_platform_label = GhApp.createLabel(action_panel, self.row(), self.col_next(), justify=LEFT,
                                                    width=JopLauncher.PLATFORM_WIDTH, anchor="e")
 
     @staticmethod
@@ -123,6 +122,7 @@ class GameSession(GhSimplePanel):
             self.ui_last_label.set("")
             self.ui_name_label.set("")
             self.ui_platform_label.set("")
+            self.ui_platform_label.setImage(None)
             self.ui_selection_check.grid_remove()
             self.ui_launch_button.grid_remove()
             self.ui_note_button.grid_remove()
@@ -143,6 +143,10 @@ class GameSession(GhSimplePanel):
             self.ui_tips_button.grid()
             self.setButtonState(self.ui_tips_button, len(self.session.getWWW()) > 0)
             self.ui_platform_label.set(self.session.getPlatform())
+            platform = self.session.getPlatform()
+            if False and platform is not None and len(platform) > 0:
+                image = self.app.icons.PLATFORMS[platform]
+                self.ui_platform_label.setImage(image, compound=RIGHT)
 
     def getName(self):
         if self.session is None:
@@ -235,31 +239,21 @@ class GameSession(GhSimplePanel):
             if params is not None:
                 for p in params.strip():
                     exe.append(p)
-            GameSession.launch(self.getName(), exe)
+            GhLauncher.launch(self.getName(), exe)
         else:
             Log.info("A game is already running, cannot launch {} ".format(self.getName()))
 
     def launchNote(self):
         note = self.session.getNote()
         if note is not None and len(note) > 0:
-            GameSession.launch("note", [JopLauncher.NOTE_EXE, note])
+            GhLauncher.launch("note", [JopLauncher.NOTE_EXE, note])
 
     def launchWWW(self):
         page = self.session.getWWW()
         if page is not None and len(page) > 0:
-            GameSession.launch("Store", [JopLauncher.URL_EXE, page])
+            GhLauncher.launch("Store", [JopLauncher.URL_EXE, page])
 
     def launchTips(self):
         page = self.session.getTips()
         if page is not None and len(page) > 0:
-            GameSession.launch("Tips", [JopLauncher.URL_EXE, page])
-
-    @staticmethod
-    def launch(label, exe):
-        Log.info("Launching {} ({}) ".format(label, exe))
-        bg = threading.Thread(target=GameSession.launchImpl, args=(exe,))
-        bg.start()
-
-    @staticmethod
-    def launchImpl(exe):
-        subprocess.run(exe)
+            GhLauncher.launch("Tips", [JopLauncher.URL_EXE, page])

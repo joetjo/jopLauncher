@@ -2,10 +2,10 @@ import time
 from datetime import timedelta
 
 from JopLauncherConstant import JopLauncher
+from base.launcher import GhLauncher
 from base.pair import Pair
 from basegui.messagebox import GhMessageBox
 from gridgui.application import GhApp
-from gridgui.appmenu import GhAppMenu
 from gridgui.columnpanel import GhColumnPanel
 from gridgui.listnameditempanel import GhListNamedItemPanel
 from gridgui.simplepanel import GhSimplePanel
@@ -14,6 +14,7 @@ from launcher.core.procevent import EventListener
 from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
+from launcher.gui.menu import MainMenu
 from launcher.gui.strings import Strings
 from launcher.log import Log
 
@@ -40,13 +41,9 @@ class procGui(EventListener):
         self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, test_mode), self.applyExit)
         app = self.app
 
-        self.icons = GhIcons()
+        self.icons = GhIcons(JopLauncher.GAME_PLATFORMS)
 
-        self.menu = GhAppMenu(app.window, app)
-        self.menu.add(Strings.MENU_EXCLUDED, self.applyShowExcluded)
-        self.menu.add(Strings.MENU_LAUNCHER, self.applyShowLauncher)
-        self.menu.addSep()
-        self.menu.add(Strings.EXIT, self.applyExit)
+        self.menu = MainMenu(app.window, app, self)
 
         # HEADER
         header_col = GhColumnPanel(self.app.header)
@@ -113,7 +110,8 @@ class procGui(EventListener):
         # CONTENT RIGHT
         app.row_col_reset()
         self.ui_options = GhListNamedItemPanel(content_col.right, Strings.PLATFORMS, app.row(), app.col(),
-                                               command=self.applyRemoveInOptionList, on_close=self.applyCloseExtended)
+                                               command=self.applyRemoveInOptionList, on_close=self.applyCloseExtended,
+                                               images=self.icons.PLATFORMS)
 
         # FOOTER
         app.row_col_reset()
@@ -437,6 +435,9 @@ class procGui(EventListener):
 
     def applyCloseExtended(self):
         self.display_mode.closeExtended()
+
+    def applyLaunchCompApp(self):
+        GhLauncher.launch("note", [JopLauncher.COMPANION_APP])
 
     # TEST MODE PURPOSE ONLY
     def test_startStop(self):

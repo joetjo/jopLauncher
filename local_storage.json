@@ -18,12 +18,12 @@
             "tips": "https://steamcommunity.com/sharedfiles/filedetails/?id=802061572"
         },
         "Hoshizora No Memoria": {
-            "duration": "51159.465365000004",
-            "last_duration": "11.399202",
-            "last_session": "1619890910.341253",
-            "note": "",
-            "www": "",
-            "tips": ""
+          "duration": "51173.972458000004",
+          "last_duration": "14.507093",
+          "last_session": "1619892141.2330272",
+          "note": "",
+          "www": "",
+          "tips": ""
         },
         "A Summer's End - Hong Kong 1986": {
             "duration": "19862.06572",
@@ -38,14 +38,6 @@
             "last_duration": "50.883698",
             "last_session": "1619464127.2696428"
         },
-        "A Way Out (Willy)": {
-            "duration": "25211.628124",
-            "last_duration": "7103.874838",
-            "last_session": "1619557441.5802348",
-            "note": "",
-            "www": "",
-            "tips": ""
-        },
         "Yumeutsutsu Re:After": {
             "duration": "2988.384897",
             "last_duration": "1044.404113",
@@ -59,17 +51,25 @@
             "last_duration": "1306.624526",
             "last_session": "1619810611.237529",
             "note": "",
-            "www": "",
-            "tips": ""
+          "www": "",
+          "tips": ""
         },
-        "Roomie Romance V2": {
-            "duration": "30.963892",
-            "last_duration": "30.963892",
-            "last_session": "1619808488.6042156",
-            "note": "",
-            "www": "",
-            "tips": ""
-        }
+      "Roomie Romance V2": {
+        "duration": "30.963892",
+        "last_duration": "30.963892",
+        "last_session": "1619808488.6042156",
+        "note": "",
+        "www": "",
+        "tips": ""
+      },
+      "A way out": {
+        "duration": "25211.628124",
+        "last_duration": "7103.874838",
+        "last_session": "1619557441.5802348",
+        "note": "",
+        "www": "",
+        "tips": ""
+      }
     },
     "last_sessions": [
         [
@@ -126,15 +126,15 @@
             "",
             ""
         ],
-        [
-            "A Way Out (Willy)",
-            "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
-            "AWayOut",
-            "",
-            "ORIGIN",
-            "",
-            ""
-        ],
+      [
+        "A way out",
+        "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
+        "AWayOut",
+        "",
+        "ORIGIN",
+        "",
+        ""
+      ],
         [
             "MagiTrials",
             "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
@@ -146,12 +146,12 @@
         ]
     ],
     "mappings": {
-        "Memoria": "Hoshizora No Memoria",
-        "HK1986": "A Summer's End - Hong Kong 1986",
-        "nw": "PARENT",
-        "AWayOut": "A Way Out (Willy)",
-        "YureAfter": "Yumeutsutsu Re:After",
-        "RoomieRomance": "Roomie Romance V2"
+      "Memoria": "Hoshizora No Memoria",
+      "HK1986": "A Summer's End - Hong Kong 1986",
+      "nw": "PARENT",
+      "AWayOut": "A way out",
+      "YureAfter": "Yumeutsutsu Re:After",
+      "RoomieRomance": "Roomie Romance V2"
     },
     "ignored": [
         "ActivationUI",

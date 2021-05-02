@@ -9,12 +9,14 @@ class GhListNamedItemPanel(GhSimplePanel):
     """
 
     def __init__(self, parent, title, row=0, col=0, names=None, sticky="nsew",
-                 border_color=None, border_width=0, command=None, on_close=None):
+                 border_color=None, border_width=0, command=None, on_close=None,
+                 images=None):
         super().__init__(parent, row=row, col=col, sticky=sticky, border_color=border_color, border_width=border_width)
         self.command = command
         self.on_close = on_close
         self.border_color = border_color
         self.title = None
+        self.images = images
         self.ui_items = []
         if names is not None:
             self.set(title, names)
@@ -30,6 +32,11 @@ class GhListNamedItemPanel(GhSimplePanel):
                                            text=title, colspan=2, width=20)
             for name in names:
                 label = GhApp.createLabel(self.content, self.row(), self.col_next(), text=name)
+                if self.images is not None:
+                    try:
+                        label.setImage(self.images[name])
+                    except KeyError:
+                        pass
                 button = None
                 if action_mode:
                     button = GhApp.createButton(self.content, self.row_next(), self.col_reset(0),

@@ -101,6 +101,7 @@ class GhApp(GhGridBehaviour):
                     text=None,
                     anchor='w',
                     justify='left',
+                    image=None,
                     colspan=1,
                     width=None,
                     bg=None,
@@ -112,7 +113,7 @@ class GhApp(GhGridBehaviour):
             text_variable = StringVar()
         label = Label(parent,
                       text=text, textvariable=text_variable,
-                      bg=bg, width=width,
+                      bg=bg, width=width, image=image,
                       anchor=anchor, justify=justify)
         if anchor == 'center':
             anchor = 'w'

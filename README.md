@@ -77,6 +77,8 @@ Enhancement:
 - fix save last session lost extended information
 
 # Known bugs
+- on edition same is done 10 times ( one by session ) -> A single one is enough
+- playtime not displayed any more
 
 # Known limitations
 
@@ -87,6 +89,8 @@ Enhancement:
 
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
+- platform starter
+- use icons for platform
 - python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
 - packaging icons / images
 - ui preference ( use GHSetup )
