@@ -66,6 +66,9 @@ Not available
 
 Last version is 2021.1.0501
 
+- playtime not displayed anymore --> fixed
+- fix save last session lost extended information
+
 Enhancement:
 
 - game launch properties edition : platform, launcher, custom command, custom parameters
@@ -74,24 +77,26 @@ Enhancement:
 - add a way to add a http link to external link ( tips soluce or whatever =
 - launcher can be created while editing a game
 - message dialog on top of application, not in the middle of the screen
-- fix save last session lost extended information
 - on edition same is not anymore done 10 times ( one by session ) -> A single one is enough
 - use icons for platform
 
 # Known bugs
-- playtime not displayed any more
+- select all and start mapping --> CLASH GUI !
 
 # Known limitations
 
 - mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
+- refresh notif close launchers or excluded game
 
 # Enhancement To be done
-
+- game associated to platform should not start if platform is not started based on a flag by platform ( steam start
+  automatically for example )
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
 - platform starter
 - python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
+- add pagination for all sessions
 - packaging icons / images
 - ui preference ( use GHSetup )
 - separate storage in multiple files
@@ -113,6 +118,109 @@ Enhancement:
 - screenshots in readme
 - reset local storage to no publish my data
 - finalize packaging ( app icon, resources, ... )
+
+# Minimal testing STABLE release
+
+- delete storage and restart from empty stuff
+- generates fake test executable ( bat files in `tests` folder ) and use fake exe to test
+  - borderland 2 ( EPIC ) : Game that use natively a launcher to start the game
+    - start Borderland 2 from folder
+      `wait for detection`
+    - stop
+      `wait for detection`
+    - edit game:
+      - declare EPIC
+      - select a custom path ( launcher.exe next to Borderland2.exe ) for Borderland2
+      - set patch to Borderland2 in custom parameter
+    - start borderland2 from SbSGL --> launcher and then fake borderland 2
+      `wait for detection`
+    - stop borderland2
+    - exclude launcher from game detection ( check if visible in exclude gage )
+      `wait for detection`
+
+    `CAPTURE`
+
+  - start AssassinsCreeds42 ( UBISOFT )  - mapping on a custom name
+    `wait for detection`
+    - stop
+      `wait for detection`
+    - edit game:
+      - declare UBISOFT
+    - map game to Assassins Creed - JoProd Arrival
+    - start game from SbSGL --> game name should be ok
+      `wait for detection`
+    - stop game
+
+  - start Control ( STEAM )  - default behavior
+    `wait for detection`
+    - stop
+      `wait for detection`
+    - edit game:
+      - declare STEAM
+    - start game from SbSGL
+      `wait for detection`
+    - stop game
+
+  - start RoseOfSegunda\renpy.exe ( ITCHIO )  - name from parent folder ( generic executable common tu multiple game )
+    `wait for detection`
+    - stop
+      `wait for detection`
+    - edit game:
+      - declare ITCHIO
+    - map game to PARENT
+    - start game from SbSGL
+      `wait for detection`
+    - stop game
+
+``BROKEN`` --> tw3 visible twice in sessions storage
+
+- start The Witcher 3 ( GOG )  - Modding case, setup a generic launcher to start it
+  `wait for detection`
+  - stop
+    `wait for detection`
+  - edit game:
+    - declare GOG
+    - setup mapping to PARENT
+    - add a new launcher ( use aLauncher.exe from game folder
+    - assign it to the witcher
+  - start game from SbSGL --> Launcher will start game ( similar to Borderland case )
+    `wait for detection`
+  - stop game
+
+- start The Witcher 2 - no store
+  `wait for detection`
+  - stop
+    `wait for detection`
+  - start game from SbSGL
+    `wait for detection`
+  - stop game
+
+- start Mass Effect ...  ( ORIGIN ) - long name behaviour
+  `wait for detection`
+  - stop
+    `wait for detection`
+  - edit game:
+    - declare ORIGIN
+    - setup mapping to PARENT
+  - start game from SbSGL
+    `wait for detection`
+  - stop game
+
+Choose your favorote game and assign:
+
+- a local mardown
+- a store URL
+- a Tips/Walktrough URL
+
+Start Companion APP
+
+Check launcher list
+
+Check excluded game
+
+Search game
+
+Remove some Exe and filter with installed game
 
 # Note:
 

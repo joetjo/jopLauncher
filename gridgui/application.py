@@ -64,7 +64,8 @@ class GhApp(GhGridBehaviour):
 
         self.window.geometry('{}x{}+{}+{}'.format(GhAppSetup.width, GhAppSetup.height, x, y))
         self.window.minsize(GhAppSetup.min_width, GhAppSetup.min_height)
-        self.window.protocol("WM_DELETE_WINDOW", exit_command)
+        if exit_command is not None:
+            self.window.protocol("WM_DELETE_WINDOW", exit_command)
 
         # Build app skeleton ( header / content / footer )
         self.header = Frame(self.window, bg=GhAppSetup.bg_header, pady=5, padx=5)

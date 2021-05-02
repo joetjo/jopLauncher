@@ -1,5 +1,5 @@
 import time
-from datetime import timedelta
+from datetime import timedelta, datetime
 
 from JopLauncherConstant import JopLauncher
 from base.launcher import GhLauncher
@@ -33,12 +33,10 @@ class procGui(EventListener):
         self.procMgr = procmgr
         self.procMgr.setListener(self)
         self.last_start = -1
+        self.last_start_time = None
         self.display_mode = DisplayMode(self)
 
-        test_mode = ""
-        if procmgr.test_mode:
-            test_mode = "- test mode"
-        self.app = GhApp("{} - {} {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION, test_mode), self.applyExit)
+        self.app = GhApp("{} - {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION), self.applyExit)
         app = self.app
 
         self.icons = GhIcons(JopLauncher.GAME_PLATFORMS)
@@ -62,8 +60,8 @@ class procGui(EventListener):
 
         # 2nd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAY_TIME, width=label_width)
-        GhApp.createLabel(header_col.left, app.row_next(), app.col_next(), text=":")
-        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row(), app.col_reset(1), anchor='e')
+        GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
+        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(1), anchor='e')
 
         # 3rd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.TIME_PLAYED, width=label_width)
@@ -120,17 +118,6 @@ class procGui(EventListener):
         footer_col = GhColumnPanel(self.app.footer)
 
         # FOOTER LEFT
-        if self.procMgr.test_mode:
-            Log.info(" ******** TEST MODE DETECTED ********************  USE ABOUT BUTTON !!! ")
-            self.test_visible = True
-            self.ui_test_game_label = GhApp.createLabel(footer_col.left, app.row(), app.col_next(),
-                                                        text="**TEST** ( no extension )")
-            self.ui_test_game_entry = GhApp.createEntry(footer_col.left, app.row(), app.col_next(), 20, "FakeGameName")
-            self.ui_test_game_button = GhApp.createButton(footer_col.left, app.row(), app.col_next(),
-                                                          self.test_startStop, "Start")
-            self.ui_test_game_button.set("Start")
-            self.applyAbout()
-
         GhApp.createButton(footer_col.left, app.row(), app.col_next(), self.applyRefresh,
                            Strings.REFRESH_ACTION, image=self.icons.REFRESH)
         GhApp.createLabel(footer_col.left, app.row(), app.col_next(), text=" ")
@@ -139,6 +126,7 @@ class procGui(EventListener):
 
         # FOOTER RIGHT
         app.row_col_reset()
+        self.ui_status = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
         self.ui_game_stat = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
         GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION,
                            image=self.icons.ABOUT)
@@ -218,13 +206,16 @@ class procGui(EventListener):
     def setPlaying(self, proc):
         if proc is None:
             self.last_start = -1
+            self.last_start_time = None
             self.ui_play_time_label.set("")
             self.ui_playing_label.set(Strings.NO_GAME)
             self.ui_played_duration_label.set("")
         else:
+            now = datetime.now()
             self.last_start = time.time()
+            self.last_start_time = now.strftime("%H:%M:%S")
             self.ui_playing_label.set(proc.getName())
-            self.ui_play_time_label.set("just launch !")
+            self.ui_play_time_label.set("just launch ! ({})".format(self.last_start_time))
             if proc.hasData():
                 self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
             else:
@@ -241,10 +232,11 @@ class procGui(EventListener):
         self.setPlaying(proc)
 
     def refreshDone(self):
-        if self.last_start > 0:
+        if self.last_start_time is not None:
             duration = int((time.time() - self.last_start) / 60)
-            self.ui_play_time_label.set("~{} minutes".format(duration))
-        self.display_mode.showPlatforms()
+            self.ui_play_time_label.set("{} | ~{} minutes".format(self.last_start_time, duration))
+        now = datetime.now()
+        self.ui_status.set("process check @ {}  | ".format(now.strftime("%H:%M:%S")))
 
     def refreshGameCount(self):
         self.ui_game_stat.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
@@ -401,25 +393,13 @@ class procGui(EventListener):
         self.display_mode.refreshSessions()
 
     def applyAbout(self):
-        if self.procMgr.test_mode:
-            if self.test_visible:
-                self.test_visible = False
-                self.ui_test_game_label.grid_remove()
-                self.ui_test_game_entry.grid_remove()
-                self.ui_test_game_button.grid_remove()
-            else:
-                self.test_visible = True
-                self.ui_test_game_label.grid()
-                self.ui_test_game_entry.grid()
-                self.ui_test_game_button.grid()
-        else:
-            message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}\nIcons: {}".format(JopLauncher.ABOUT,
-                                                                                     JopLauncher.VERSION,
-                                                                                     JopLauncher.DB_VERSION,
-                                                                                     JopLauncher.SHORT_ABOUT,
-                                                                                     JopLauncher.URL,
-                                                                                     JopLauncher.ICON_URL)
-            GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=210).show()
+        message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}\nIcons: {}".format(JopLauncher.ABOUT,
+                                                                                 JopLauncher.VERSION,
+                                                                                 JopLauncher.DB_VERSION,
+                                                                                 JopLauncher.SHORT_ABOUT,
+                                                                                 JopLauncher.URL,
+                                                                                 JopLauncher.ICON_URL)
+        GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=210).show()
 
     def applyExit(self):
         self.app.close()

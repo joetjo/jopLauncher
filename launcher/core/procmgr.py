@@ -17,16 +17,15 @@ LOCK = threading.Lock()
 
 class ProcMgr:
 
-    def __init__(self, test_mode=False):
-        self.test_mode = test_mode
-        self.process_util = ProcessUtil(test_mode)
+    def __init__(self):
+        self.process_util = ProcessUtil()
         self.shutdown = False
         self.plist = dict()
         self.pMonitored = dict()
         self.pStopped = dict()
         self.eventListener = None
 
-        self.storage = GhStorage(LOCAL_STORAGE)
+        self.storage = GhStorage(LOCAL_STORAGE, version=JopLauncher.DB_VERSION)
         StorageVersion.check_migration(self.storage, JopLauncher.DB_VERSION)
 
         try:
@@ -66,22 +65,28 @@ class ProcMgr:
                         mapping = GhStorage.getValue(self.game_mappings, p.getName())
                         if mapping is not None:
                             p.forceName(mapping)
-                        if self.pMonitored.get(p.getPid()) is None:
-                            store_entry = self.find(p.getName(), "loading plist: process discovery")
-                            if store_entry is None:
-                                # TODO mapping name may be identical to a real other process name - to check
-                                Log.info("New game discovered : creating game {} within storage".format(p.getName()))
-                                self.games[p.getName()] = {"duration": "0"}
-                                p.setStoreEntry(self.games[p.getName()])
-                                self.storage.save()
-                            else:
-                                p.setStoreEntry(store_entry)
 
-                            p.setStarted()
-                            self.pMonitored[p.getPid()] = p
+                        if not self.isLauncher(p.getName()) and \
+                                not self.isIgnore(p.getName()):
+                            if self.pMonitored.get(p.getPid()) is None:
+                                store_entry = self.find(p.getName(), "loading plist: process discovery")
+                                if store_entry is None:
+                                    # TODO mapping name may be identical to a real other process name - to check
+                                    Log.info(
+                                        "New game discovered : creating game {} within storage".format(p.getName()))
+                                    self.games[p.getName()] = {"duration": "0"}
+                                    p.setStoreEntry(self.games[p.getName()])
+                                    self.storage.save()
+                                else:
+                                    p.setStoreEntry(store_entry)
 
-                            if self.eventListener is not None:
-                                self.eventListener.newGame(p)
+                                p.setStarted()
+                                self.pMonitored[p.getPid()] = p
+
+                                if self.eventListener is not None:
+                                    self.eventListener.newGame(p)
+                        else:
+                            Log.debug("Process {} exclude".format(p.getName()))
                     else:
                         Log.debug("Process {} with game pattern is ignored {}".format(p.getName(), p.getPath()))
                 elif p.game_platform is not None:
@@ -112,7 +117,7 @@ class ProcMgr:
                 store["last_session"] = str(time.time())
                 session = self.sessions.findSessionByName(proc.getName())
                 if session is None:
-                    session = Session([proc.getName(), proc.path, proc.getOriginName()],
+                    session = Session([proc.getName(), proc.path, proc.getOriginName(), "", "", "", ""],
                                       self.find(proc.getName(), "loading plist: processing end process"))
                 self.sessions.addSession(session)
 
@@ -186,7 +191,7 @@ class ProcMgr:
             self.storage.save()
 
     def isLauncher(self, name):
-        return GhStorage(self.game_launchers, name) is not None
+        return GhStorage.getValue(self.game_launchers, name) is not None
 
     def removeLauncher(self, name):
         if self.isLauncher(name):
@@ -233,7 +238,3 @@ class ProcMgr:
 
     def stop(self):
         self.shutdown = True
-
-    # FOR TEST PURPOSE ONLY
-    def test_setGame(self, game):
-        self.process_util.test_setGame(game)

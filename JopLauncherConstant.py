@@ -3,8 +3,7 @@ from gridgui.application import GhAppSetup
 
 class JopLauncher:
     # To be updated on release
-    TEST_MODE = False
-    VERSION = '2021.1.05.01.2'
+    VERSION = '2021.1.05.02'
     DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'
@@ -16,7 +15,7 @@ class JopLauncher:
     DB_VERSION = 2
 
     # delay between refresh 5s * REFRESH_DELAY
-    REFRESH_DELAY = 10
+    REFRESH_DELAY = 5
     MAX_LAST_SESSION_COUNT = 10
 
     GAME_PATTERN = 'jeux'

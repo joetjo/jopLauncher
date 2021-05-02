@@ -98,7 +98,10 @@ class GameSession(GhSimplePanel):
 
     @staticmethod
     def setOptionalDurationInfo(ui_label, session, info_name):
-        val = int(float(GhStorage.getValue(session.getGameInfo(), info_name)))
+        try:
+            val = int(float(GhStorage.getValue(session.getGameInfo(), info_name)))
+        except TypeError:
+            val = None
         if val is not None:
             if val < 60:
                 ui_label.set("{}s".format(str(val)))
@@ -242,7 +245,7 @@ class GameSession(GhSimplePanel):
                 exe = [self.session.getPath()]
             params = self.session.getParameters()
             if params is not None:
-                for p in params.strip():
+                for p in params.split(" "):
                     exe.append(p)
             GhLauncher.launch(self.getName(), exe)
         else:

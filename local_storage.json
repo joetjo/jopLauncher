@@ -1,159 +1,136 @@
 {
-    "version": 2,
-    "Games": {
-        "Borderlands2": {
-            "duration": "27665.283151000003",
-            "last_duration": "2017.63894",
-            "last_session": "1619726401.8518171",
-            "note": "",
-            "www": "",
-            "tips": ""
-        },
-        "MagiTrials": {
-            "duration": "11773.814225999999",
-            "last_duration": "2478.533695",
-            "last_session": "1619384020.6049063",
-            "note": "C:/Users/nicol/Documents/GitHub/gList/notes/ Deliver Me.md",
-            "www": "https://store.steampowered.com/app/446600/Magi_Trials/",
-            "tips": "https://steamcommunity.com/sharedfiles/filedetails/?id=802061572"
-        },
-        "Hoshizora No Memoria": {
-          "duration": "51173.972458000004",
-          "last_duration": "14.507093",
-          "last_session": "1619892141.2330272",
-          "note": "",
-          "www": "",
-          "tips": ""
-        },
-        "A Summer's End - Hong Kong 1986": {
-            "duration": "19862.06572",
-            "last_duration": "60.583743",
-            "last_session": "1619630229.0681741",
-            "note": "",
-            "www": "",
-            "tips": ""
-        },
-        "Yumeutsutsu Re:After": {
-            "duration": "2988.384897",
-            "last_duration": "1044.404113",
-            "last_session": "1619815914.701959",
-            "note": "C:/Users/nicol/Documents/GitHub/gList/notes/YumeutsutsuReAfter.md",
-            "www": "",
-          "tips": ""
-        },
-      "Aokana": {
-        "duration": "1306.624526",
-        "last_duration": "1306.624526",
-        "last_session": "1619810611.237529",
-        "note": "",
-        "www": "",
-        "tips": ""
-      },
-      "Roomie Romance V2": {
-        "duration": "30.963892",
-        "last_duration": "30.963892",
-        "last_session": "1619808488.6042156",
-        "note": "",
-        "www": "",
-        "tips": ""
-      },
-      "A way out": {
-        "duration": "25211.628124",
-        "last_duration": "7103.874838",
-        "last_session": "1619557441.5802348",
-        "note": "",
-        "www": "",
-        "tips": ""
-      }
+  "Games": {
+    "BorderLand2": {
+      "duration": "620.124688",
+      "last_duration": "15.445938",
+      "last_session": "1619961792.8183603",
+      "note": "",
+      "www": "",
+      "tips": ""
     },
-    "last_sessions": [
-        [
-            "Hoshizora No Memoria",
-            "E:\\Jeux\\HoshizoraNoMemoriaAdult\\system\\Memoria.exe",
-            "Memoria",
-            "LEGUI",
-            "",
-            "",
-            ""
-        ],
-        [
-            "Yumeutsutsu Re:After",
-            "E:\\Jeux\\steamapps\\common\\Yumeutsutsu ReAfter\\YureAfter.exe",
-            "YureAfter",
-            "",
-            "STEAM",
-            "",
-            ""
-        ],
-        [
-            "Aokana",
-            "E:\\Jeux\\Aokana\\Aokana.exe",
-            "Aokana",
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "Roomie Romance V2",
-            "E:\\Jeux\\Roomie Romance Deluxe\\lib\\windows-i686\\RoomieRomance.exe",
-            "RoomieRomance",
-            "",
-            "STEAM",
-            "C:/pyTools/zikRandomizer/ZikRandomizer.exe",
-            ""
-        ],
-        [
-            "Borderlands2",
-            "E:\\Jeux\\Borderlands2\\Binaries\\Win32\\Borderlands2.exe",
-            "Borderlands2",
-            "",
-            "EPIC",
-            "",
-            ""
-        ],
-      [
-        "A Summer's End - Hong Kong 1986",
-        "E:\\Jeux\\steamapps\\common\\A Summer's End - Hong Kong 1986\\lib\\windows-i686\\HK1986.exe",
-        "HK1986",
-        "",
-        "STEAM",
-        "",
-        ""
-      ],
-      [
-        "A way out",
-        "E:\\Jeux\\steamapps\\common\\AWayOut\\Haze1\\Binaries\\Win64\\AWayOut.exe",
-        "AWayOut",
-        "",
-        "ORIGIN",
-        "",
-        ""
-      ],
-      [
-        "MagiTrials",
-        "E:\\Jeux\\steamapps\\common\\HSR Magi Trials\\lib\\windows-i686\\MagiTrials.exe",
-        "MagiTrials",
-        "ZikRandomizer",
-        "STEAM",
-        "C:/Users/nicol/PycharmProjects/ZikRandomizer/dist/main.exe",
-        "-test"
-      ]
-    ],
-    "mappings": {
-      "Memoria": "Hoshizora No Memoria",
-      "HK1986": "A Summer's End - Hong Kong 1986",
-      "nw": "PARENT",
-      "AWayOut": "A way out",
-      "YureAfter": "Yumeutsutsu Re:After",
-      "RoomieRomance": "Roomie Romance V2"
+    "Assassins Creed - JoProd Arrival": {
+      "duration": "102.399681",
+      "last_duration": "5.458645",
+      "last_session": "1619962160.7327209",
+      "note": "",
+      "www": "",
+      "tips": ""
     },
-    "ignored": [
-        "ActivationUI",
-        "LEGUI",
-        "UnityCrashHandler32"
-    ],
-    "launchers": {
-      "LEGUI": "E:\\Jeux\\TOOLS\\Locale.Emulator.2.4.1.0\\LEGUI.exe"
+    "Control": {
+      "duration": "32.906745",
+      "last_duration": "16.452102",
+      "last_session": "1619962254.2609823",
+      "note": "",
+      "www": "",
+      "tips": ""
+    },
+    "RoseOfSegunda": {
+      "duration": "168.21524599999998",
+      "last_duration": "83.94111",
+      "last_session": "1619962380.99815",
+      "note": "C:/Users/nicol/Documents/GitHub/gList/notes/The rose of Segunda.md",
+      "www": "https://blackcrosstaylor.itch.io/tros",
+      "tips": "blackcross-taylor.com/index.php/guides"
+    },
+    "TheWitcher3": {
+      "duration": "338.96378400000003",
+      "last_duration": "117.525684",
+      "last_session": "1619962773.5391526",
+      "note": "",
+      "www": "",
+      "tips": ""
+    },
+    "TheWitcher2": {
+      "duration": "27.40482",
+      "last_duration": "13.702908",
+      "last_session": "1619962886.8820276"
+    },
+    "MassEffectDefinitiveAndLastEdition": {
+      "duration": "55.286666",
+      "last_duration": "27.640335",
+      "last_session": "1619963186.0556378",
+      "note": "",
+      "www": "",
+      "tips": ""
     }
+  },
+  "last_sessions": [
+    [
+      "MassEffectDefinitiveAndLastEdition",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\MassEffectDefinitiveAndLastEdition\\ME123.exe",
+      "ME123",
+      "",
+      "ORIGIN",
+      "",
+      ""
+    ],
+    [
+      "TheWitcher2",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2\\tw2.exe",
+      "tw2",
+      "",
+      "",
+      "",
+      ""
+    ],
+    [
+      "TheWitcher3",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher3\\tw3.exe",
+      "tw3",
+      "ALauncher",
+      "GOG",
+      "",
+      ""
+    ],
+    [
+      "RoseOfSegunda",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\RoseOfSegunda\\renpy.exe",
+      "renpy",
+      "",
+      "ITCHIO",
+      "",
+      ""
+    ],
+    [
+      "Control",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Control\\Control.exe",
+      "Control",
+      "",
+      "STEAM",
+      "",
+      ""
+    ],
+    [
+      "Assassins Creed - JoProd Arrival",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\AssassinsCreed42\\AssassinsCreeds42.exe",
+      "AssassinsCreeds42",
+      "",
+      "UBISOFT",
+      "",
+      ""
+    ],
+    [
+      "BorderLand2",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
+      "BorderLand2",
+      "",
+      "EPIC",
+      "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
+      "tests\\jeux\\games\\Borderland2\\borderland2.exe"
+    ]
+  ],
+  "mappings": {
+    "AssassinsCreeds42": "Assassins Creed - JoProd Arrival",
+    "renpy": "PARENT",
+    "tw3": "PARENT",
+    "tw2": "PARENT",
+    "ME123": "PARENT"
+  },
+  "launchers": {
+    "ALauncher": "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/ALauncher.exe"
+  },
+  "version": 2,
+  "ignored": [
+    "Launcher"
+  ]
 }

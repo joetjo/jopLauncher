@@ -20,7 +20,7 @@ class Strings:
     MENU_COMP_APP = "Companion App"
     EXCLUDED_GAME = "   ** Excluded games **  "
     LAUNCHERS = "   ** Custom launchers **  "
-    PLATFORMS = "Game Platforms"
+    PLATFORMS = "Actives Platforms"
     EXIT = "Quit"
     ERROR_INPUT = "Invalid input"
     LAUNCHER = "Launcher: "
