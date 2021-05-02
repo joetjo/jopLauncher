@@ -11,6 +11,7 @@ class JopLauncher:
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
     SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
+    ICON_URL = "https://icons8.com"
 
     DB_VERSION = 2
 
@@ -57,9 +58,9 @@ GhAppSetup.vertical = 'top'
 GhAppSetup.horizontal = 'right'
 GhAppSetup.icon = 'icons/joystick.ico'
 
-GhAppSetup.image_button = False
+GhAppSetup.image_button = True
 # Must not be false if image_button is false
-GhAppSetup.image_text_button = True
+GhAppSetup.image_text_button = False
 
 # GhAppSetup.vertical = 10
 # GhAppSetup.horizontal = 10

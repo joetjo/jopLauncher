@@ -10,13 +10,15 @@ class GhListNamedItemPanel(GhSimplePanel):
 
     def __init__(self, parent, title, row=0, col=0, names=None, sticky="nsew",
                  border_color=None, border_width=0, command=None, on_close=None,
-                 images=None):
+                 images=None, close_image=None, remove_image=None):
         super().__init__(parent, row=row, col=col, sticky=sticky, border_color=border_color, border_width=border_width)
         self.command = command
         self.on_close = on_close
         self.border_color = border_color
         self.title = None
         self.images = images
+        self.close_image = close_image
+        self.remove_image = remove_image
         self.ui_items = []
         if names is not None:
             self.set(title, names)
@@ -42,6 +44,9 @@ class GhListNamedItemPanel(GhSimplePanel):
                     button = GhApp.createButton(self.content, self.row_next(), self.col_reset(0),
                                                 text="x", anchor='s',
                                                 command=lambda current_name=name: self.command(current_name))
+                    if self.remove_image is not None:
+                        button.setImage(self.remove_image)
+                        button.set("")
                 else:
                     self.row_next()
                     self.col_reset(0)
@@ -51,7 +56,9 @@ class GhListNamedItemPanel(GhSimplePanel):
         if action_mode:
             self.sep = GhApp.createLabel(self.content, self.row_next(), self.col_reset(), colspan=2, width=20)
             self.close = GhApp.createButton(self.content, self.row_next(), self.col_reset(),
-                                            anchor='s', text="close", command=self.on_close)
+                                            anchor='s', text=" close ", command=self.on_close)
+            if self.close_image is not None:
+                self.close.setImage(self.close_image)
 
     def clear(self):
         if self.title is not None:

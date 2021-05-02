@@ -12,17 +12,23 @@ class GameActionPanel(GhSimplePanel):
         self.app = app
 
         self.ui_edit_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                 app.applyEdit, Strings.EDIT_ACTION)
+                                                 app.applyEdit, Strings.EDIT_ACTION, image=self.app.icons.EDIT,
+                                                 text_visible=True)
         self.ui_edit_end_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                     app.applyCancelEdit, Strings.EDIT_CANCEL_ACTION)
+                                                     app.applyCancelEdit, Strings.EDIT_CANCEL_ACTION,
+                                                     image=self.app.icons.CANCEL_EDIT, text_visible=True)
         self.ui_ignore_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                   app.applyIgnore, Strings.IGNORE_ACTION)
+                                                   app.applyIgnore, Strings.IGNORE_ACTION,
+                                                   image=self.app.icons.NA, text_visible=True)
         self.ui_remove_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                   app.applyRemove, Strings.REMOVE_ACTION)
+                                                   app.applyRemove, Strings.REMOVE_ACTION,
+                                                   image=self.app.icons.REMOVE, text_visible=True)
         self.ui_mapping_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                    app.applyMapping, Strings.MAPPING_ACTION)
+                                                    app.applyMapping, Strings.MAPPING_ACTION,
+                                                    image=self.app.icons.SWITCH, text_visible=True)
         self.ui_cancel_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                   app.applyCancelMapping, Strings.MAPPING_CANCEL_ACTION)
+                                                   app.applyCancelMapping, Strings.MAPPING_CANCEL_ACTION,
+                                                   image=self.app.icons.ESCAPE, text_visible=True)
 
     # No game selected mode
     def grid_remove(self):

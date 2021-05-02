@@ -128,6 +128,7 @@ class GhApp(GhGridBehaviour):
                      padx=0, pady=0,
                      width=None,
                      image=None,
+                     text_visible=None,
                      debug_name=None):
         text_variable = StringVar()
 
@@ -135,7 +136,8 @@ class GhApp(GhGridBehaviour):
                         anchor=anchor, padx=padx, pady=pady, width=width)
         button.grid(row=row, column=col, sticky=anchor)
 
-        if not GhAppSetup.image_button \
+        if text_visible or \
+                not GhAppSetup.image_button \
                 or GhAppSetup.image_text_button \
                 or image is None:
             text_variable.set(text)

@@ -22,7 +22,7 @@ class GameEditPanel(GhSimplePanel):
                                                       self.applyLauncher, self.app.procMgr.getLaunchers(),
                                                       width=8)
         self.ui_launcher_button = GhApp.createButton(content, self.row(), self.col_next(), text=Strings.NEW_LAUNCHER,
-                                                     command=self.applyNewLauncher)
+                                                     command=self.applyNewLauncher, image=self.app.icons.PLUS)
         self.ui_params_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_PARAMS)
         self.ui_params = GhApp.createEntry(content, self.row(), self.col_next(), JopLauncher.PARAMS_WIDTH,
                                            "", colspan=2)
@@ -37,7 +37,8 @@ class GameEditPanel(GhSimplePanel):
         self.ui_custom_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_LAUNCHER)
         self.ui_custom_path = GhApp.createLabel(content, self.row(), self.col_next(), width=JopLauncher.PARAMS_WIDTH)
         self.ui_custom_button = GhApp.createButton(content, self.row(), self.col_next(), text=Strings.SELECT_EXE_BUTTON,
-                                                   command=self.applySelectExe, anchor="e")
+                                                   command=self.applySelectExe, anchor="e",
+                                                   image=self.app.icons.FILE_SELECTION)
 
         self.row_col_reset(2, 0)
 
@@ -46,7 +47,7 @@ class GameEditPanel(GhSimplePanel):
                                                      text=Strings.LOCAL_LINK)
         self.ui_local_link = GhApp.createLabel(content, self.row(), self.col_reset(5), colspan=4)
         self.ui_local_button = GhApp.createButton(content, self.row_next(), self.col_reset(0),
-                                                  text=Strings.SELECT_NOTE_BUTTON,
+                                                  text=Strings.SELECT_NOTE_BUTTON, image=self.app.icons.FILE_SELECTION,
                                                   command=self.applySelectLocal, anchor="e")
 
         # Line 4

@@ -70,24 +70,23 @@ class GameSession(GhSimplePanel):
 
         GhApp.createLabel(action_panel, 0, 0, text=" ", anchor="e")
         self.ui_launch_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchGame, text=">",
-                                                   padx=2, anchor="e")
+                                                   padx=2, anchor="e", image=self.app.icons.PLAY)
         self.ui_launch_button.grid_remove()
         self.default_bg = self.ui_launch_button.cget('bg')
 
         self.ui_note_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchNote, text="n",
-                                                 padx=2, anchor="e")
+                                                 padx=2, anchor="e", image=self.app.icons.DOCUMENT)
         self.ui_note_button.grid_remove()
 
         self.ui_store_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchWWW, text="s",
-                                                  padx=2, anchor="e")
+                                                  padx=2, anchor="e", image=self.app.icons.SHOP)
         self.ui_store_button.grid_remove()
 
         self.ui_tips_button = GhApp.createButton(action_panel, self.row(), self.col_next(), self.launchTips, text="t",
-                                                 padx=2, anchor="e")
+                                                 padx=2, anchor="e", image=self.app.icons.TIPS)
         self.ui_tips_button.grid_remove()
 
-        self.ui_platform_label = GhApp.createLabel(action_panel, self.row(), self.col_next(), justify=LEFT,
-                                                   width=JopLauncher.PLATFORM_WIDTH, anchor="e")
+        self.ui_platform_label = GhApp.createLabel(action_panel, self.row(), self.col_next(), justify=LEFT, anchor="e")
 
     @staticmethod
     def setOptionalDateInfo(ui_label, session, info_name):
@@ -122,7 +121,7 @@ class GameSession(GhSimplePanel):
             self.ui_last_label.set("")
             self.ui_name_label.set("")
             self.ui_platform_label.set("")
-            self.ui_platform_label.setImage(None)
+            self.ui_platform_label.setImage(self.app.icons.VOID, compound=RIGHT)
             self.ui_selection_check.grid_remove()
             self.ui_launch_button.grid_remove()
             self.ui_note_button.grid_remove()
@@ -135,18 +134,24 @@ class GameSession(GhSimplePanel):
             GameSession.setOptionalDurationInfo(self.ui_last_label, self.session, 'last_duration')
             self.ui_name_label.set(self.session.getName())
             self.ui_launch_button.grid()
-            self.setButtonState(self.ui_launch_button, GhFileUtil.fileExist(self.session.getPath()))
+            if GhFileUtil.fileExist(self.session.getPath()):
+                self.setButtonState(self.ui_launch_button, True)
+                self.ui_launch_button.setImage(self.app.icons.PLAY)
+            else:
+                self.setButtonState(self.ui_launch_button, False)
+                self.ui_launch_button.setImage(self.app.icons.PLAY_OFF)
             self.ui_note_button.grid()
             self.setButtonState(self.ui_note_button, GhFileUtil.fileExist(self.session.getNote()))
             self.ui_store_button.grid()
             self.setButtonState(self.ui_store_button, len(self.session.getWWW()) > 0)
             self.ui_tips_button.grid()
             self.setButtonState(self.ui_tips_button, len(self.session.getWWW()) > 0)
-            self.ui_platform_label.set(self.session.getPlatform())
             platform = self.session.getPlatform()
-            if False and platform is not None and len(platform) > 0:
+            if platform is not None and len(platform) > 0:
                 image = self.app.icons.PLATFORMS[platform]
                 self.ui_platform_label.setImage(image, compound=RIGHT)
+            else:
+                self.ui_platform_label.setImage(self.app.icons.NO_PLATFORM, compound=RIGHT)
 
     def getName(self):
         if self.session is None:

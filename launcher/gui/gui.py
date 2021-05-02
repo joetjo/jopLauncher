@@ -9,7 +9,7 @@ from gridgui.application import GhApp
 from gridgui.columnpanel import GhColumnPanel
 from gridgui.listnameditempanel import GhListNamedItemPanel
 from gridgui.simplepanel import GhSimplePanel
-from icons.icons import GhIcons
+from icons.black.icons import GhIcons
 from launcher.core.procevent import EventListener
 from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
@@ -53,7 +53,7 @@ class procGui(EventListener):
 
         # 1st line
         self.ui_menu_button = GhApp.createButton(header_col.left, app.row(), app.col_next(), text="::",
-                                                 width=1, padx=0,
+                                                 padx=0, image=self.icons.MENU,
                                                  command=self.menu.pop)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAYING, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
@@ -78,7 +78,8 @@ class procGui(EventListener):
         self.ui_search_entry = GhApp.createEntry(header_col.right, app.row(), app.col_next(), 20, "",
                                                  command=self.applySearch)
         self.ui_search_button = GhApp.createButton(header_col.right, app.row_next(), app.col_reset(),
-                                                   self.applySearch, text=Strings.SEARCH_ACTION, width=5)
+                                                   self.applySearch, text=Strings.SEARCH_ACTION,
+                                                   image=self.icons.SEARCH)
 
         # 2nd line
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), width=15)
@@ -92,8 +93,8 @@ class procGui(EventListener):
         self.ui_prev_session_label.set(self.display_mode.display_mode_string)
         self.ui_search_reset_button = GhApp.createButton(header_col.right,
                                                          app.row(), app.col_next(),
-                                                         self.reloadLastSessions,
-                                                         text=Strings.RESET_SEARCH_ACTION, width=5)
+                                                         self.reloadLastSessions, image=self.icons.SEARCH_RESET,
+                                                         text=Strings.RESET_SEARCH_ACTION)
         self.ui_search_reset_button.grid_remove()
 
         # CONTENT
@@ -111,7 +112,8 @@ class procGui(EventListener):
         app.row_col_reset()
         self.ui_options = GhListNamedItemPanel(content_col.right, Strings.PLATFORMS, app.row(), app.col(),
                                                command=self.applyRemoveInOptionList, on_close=self.applyCloseExtended,
-                                               images=self.icons.PLATFORMS)
+                                               images=self.icons.PLATFORMS, close_image=self.icons.CLOSE,
+                                               remove_image=self.icons.REMOVE)
 
         # FOOTER
         app.row_col_reset()
@@ -138,7 +140,8 @@ class procGui(EventListener):
         # FOOTER RIGHT
         app.row_col_reset()
         self.ui_game_stat = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
-        GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION)
+        GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION,
+                           image=self.icons.ABOUT)
 
         self.reloadLastSessions()
 
@@ -329,13 +332,13 @@ class procGui(EventListener):
                     ui_session.saveEdit()
                     ui_session.setSelected(False)
 
-                self.procMgr.storage.save()
                 self.ui_game_action_panel.grid_remove()
 
-                if self.searchInProgress():
-                    self.applySearch()
-                else:
-                    self.reloadLastSessions()
+            self.procMgr.storage.save()
+            if self.searchInProgress():
+                self.applySearch()
+            else:
+                self.reloadLastSessions()
 
         elif self.isGameSelected():
             pair = self.getGameSelected()
@@ -410,11 +413,12 @@ class procGui(EventListener):
                 self.ui_test_game_entry.grid()
                 self.ui_test_game_button.grid()
         else:
-            message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}".format(JopLauncher.ABOUT,
-                                                                          JopLauncher.VERSION,
-                                                                          JopLauncher.DB_VERSION,
-                                                                          JopLauncher.SHORT_ABOUT,
-                                                                          JopLauncher.URL)
+            message = "{}\n\nVersion {}\nDB Version {}\n\n{} \n{}\nIcons: {}".format(JopLauncher.ABOUT,
+                                                                                     JopLauncher.VERSION,
+                                                                                     JopLauncher.DB_VERSION,
+                                                                                     JopLauncher.SHORT_ABOUT,
+                                                                                     JopLauncher.URL,
+                                                                                     JopLauncher.ICON_URL)
             GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=210).show()
 
     def applyExit(self):
