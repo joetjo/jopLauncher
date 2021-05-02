@@ -3,7 +3,7 @@ from gridgui.application import GhAppSetup
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2021.1.05.02'
+    VERSION = '2021.1.05.next'
     DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'

@@ -64,21 +64,7 @@ Not available
 
 # What will be in next version ?
 
-Last version is 2021.1.0501
-
-- playtime not displayed anymore --> fixed
-- fix save last session lost extended information
-
-Enhancement:
-
-- game launch properties edition : platform, launcher, custom command, custom parameters
-- add a way to reference a local md file from a "common" folder
-- add a way to add a http link to store page
-- add a way to add a http link to external link ( tips soluce or whatever =
-- launcher can be created while editing a game
-- message dialog on top of application, not in the middle of the screen
-- on edition same is not anymore done 10 times ( one by session ) -> A single one is enough
-- use icons for platform
+Last version is 2021.1.0502
 
 # Known bugs
 - select all and start mapping --> CLASH GUI !
