@@ -230,8 +230,9 @@ class procGui(EventListener):
     def newGame(self, proc):
         Log.debug("New game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(proc)
+        self.reloadLastSessions()
 
-    def refreshDone(self, platform_list_updated):
+    def refreshDone(self, current_game, platform_list_updated):
         if self.last_start_time is not None:
             duration = int((time.time() - self.last_start) / 60)
             self.ui_play_time_label.set("{} | ~{} minutes".format(self.last_start_time, duration))
@@ -402,7 +403,7 @@ class procGui(EventListener):
                                                                                  JopLauncher.SHORT_ABOUT,
                                                                                  JopLauncher.URL,
                                                                                  JopLauncher.ICON_URL)
-        GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=210).show()
+        GhMessageBox(self.app.window, JopLauncher.APP_NAME, message, width=300, height=220).show()
 
     def applyExit(self):
         self.app.close()

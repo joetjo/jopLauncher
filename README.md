@@ -72,13 +72,13 @@ Last version is 2021.1.0502
 - select all and start mapping --> CLASH GUI !
 - active platform not anymore updated on refresh ( from too mmuch to never )
 - lien WWW actif quand page définie ( wrond check )
-
-# Known bugs
-
 - when game use a crash handler or any other stuff that is detected before, game process is not detected once name ha
   been excluded ( it has to be removed from internal monitored process of processMgr )
   |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
-- GUI frozen when using the usual window cross.
+
+# Known bugs
+
+- GUI frozen when using the usual window cross. --> frozen 50s max ?
 
 # Known limitations
 

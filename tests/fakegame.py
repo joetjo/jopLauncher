@@ -24,7 +24,7 @@ class Fake:
 
     def __init__(self, title):
         self.window = Tk()
-        self.window.title("FAKEGAME V2 ()")
+        self.window.title("FAKEGAME V2 ({})".format(os.getpid()))
         Label(self.window, text=title).pack()
 
     def param(self, param):
