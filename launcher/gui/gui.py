@@ -253,7 +253,8 @@ class procGui(EventListener):
         if self.ready:
             if all_mode:
                 for ui_session in self.ui_sessions:
-                    ui_session.setSelected(selected)
+                    if ui_session.session is not None:
+                        ui_session.setSelected(selected)
 
             if self.isGameSelected():
                 self.ui_game_action_panel.grid()
@@ -275,7 +276,7 @@ class procGui(EventListener):
         selection = []
         names = None
         for ui_session in self.ui_sessions:
-            if ui_session.selected:
+            if ui_session.selected and ui_session.getName() is not None:
                 selection.append(ui_session)
                 if names is None:
                     names = ui_session.getName()

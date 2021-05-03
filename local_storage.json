@@ -1,9 +1,9 @@
 {
   "Games": {
     "BorderLand2": {
-      "duration": "620.124688",
-      "last_duration": "15.445938",
-      "last_session": "1619961792.8183603",
+      "duration": "637.874681",
+      "last_duration": "8.742485",
+      "last_session": "1619975222.56895",
       "note": "",
       "www": "",
       "tips": ""
@@ -33,9 +33,9 @@
       "tips": "blackcross-taylor.com/index.php/guides"
     },
     "TheWitcher3": {
-      "duration": "338.96378400000003",
-      "last_duration": "117.525684",
-      "last_session": "1619962773.5391526",
+      "duration": "410.4092330000001",
+      "last_duration": "35.676458",
+      "last_session": "1619975196.3182397",
       "note": "",
       "www": "",
       "tips": ""
@@ -52,9 +52,44 @@
       "note": "",
       "www": "",
       "tips": ""
+    },
+    "Divinity Original Sin": {
+      "duration": "167.900133",
+      "last_duration": "35.942532",
+      "last_session": "1619975054.1952727",
+      "note": "",
+      "www": "",
+      "tips": ""
     }
   },
   "last_sessions": [
+    [
+      "BorderLand2",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
+      "BorderLand2",
+      "",
+      "EPIC",
+      "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
+      "tests\\jeux\\games\\Borderland2\\borderland2.exe"
+    ],
+    [
+      "TheWitcher3",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher3\\tw3.exe",
+      "tw3",
+      "ALauncher",
+      "GOG",
+      "",
+      ""
+    ],
+    [
+      "Divinity Original Sin",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Dos2\\dos2.exe",
+      "dos2",
+      "",
+      "STEAM",
+      "",
+      ""
+    ],
     [
       "MassEffectDefinitiveAndLastEdition",
       "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\MassEffectDefinitiveAndLastEdition\\ME123.exe",
@@ -70,15 +105,6 @@
       "tw2",
       "",
       "",
-      "",
-      ""
-    ],
-    [
-      "TheWitcher3",
-      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher3\\tw3.exe",
-      "tw3",
-      "ALauncher",
-      "GOG",
       "",
       ""
     ],
@@ -108,15 +134,6 @@
       "UBISOFT",
       "",
       ""
-    ],
-    [
-      "BorderLand2",
-      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
-      "BorderLand2",
-      "",
-      "EPIC",
-      "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
-      "tests\\jeux\\games\\Borderland2\\borderland2.exe"
     ]
   ],
   "mappings": {
@@ -124,7 +141,8 @@
     "renpy": "PARENT",
     "tw3": "PARENT",
     "tw2": "PARENT",
-    "ME123": "PARENT"
+    "ME123": "PARENT",
+    "dos2": "Divinity Original Sin"
   },
   "launchers": {
     "ALauncher": "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/ALauncher.exe"

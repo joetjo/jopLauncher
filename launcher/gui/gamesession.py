@@ -189,6 +189,11 @@ class GameSession(GhSimplePanel):
         self.ui_launch_button.grid_remove()
         name = self.session.getName()
         original_name = self.session.getOriginName()
+        mapping = self.app.procMgr.getMapping(original_name)
+        if mapping is not None:
+            self.ui_mapping_entry.set(mapping)
+        else:
+            self.ui_mapping_entry.set("")
         if name == original_name:
             self.ui_name_label.set(name)
         else:

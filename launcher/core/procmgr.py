@@ -62,7 +62,7 @@ class ProcMgr:
                 if p.isGame():
                     if not self.isIgnore(p.getName()):
                         p.removeExtension()
-                        mapping = GhStorage.getValue(self.game_mappings, p.getName())
+                        mapping = self.getMapping(p.getName())
                         if mapping is not None:
                             p.forceName(mapping)
 
@@ -202,6 +202,9 @@ class ProcMgr:
         if not self.isIgnore(name):
             self.game_launchers[name] = path
             self.storage.save()
+
+    def getMapping(self, name):
+        return GhStorage.getValue(self.game_mappings, name)
 
     # set or overwrite mapping
     def addMapping(self, session, map_name):

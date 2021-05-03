@@ -66,8 +66,19 @@ Not available
 
 Last version is 2021.1.0502
 
-# Known bugs
+- mapping propose by default the last mapping name use ( from other game... ). When a mapping has never been done, it
+  should be PARENT and whatever, never a name of another game... ( is this check that mapping name is not already used
+  ? )
 - select all and start mapping --> CLASH GUI !
+
+# Known bugs
+
+- when game use a crash handler or any other stuff that is detected before, game process is not detected once name ha
+  been excluded ( it has to be removed from internal monitored process of processMgr )
+  |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
+- active platform not anymore updated on refresh ( from too mmuch to never )
+- GUI frozen when using the usual window cross.
+- lien WWW actif quand page définie ( wrond check )
 
 # Known limitations
 
@@ -76,11 +87,13 @@ Last version is 2021.1.0502
 - refresh notif close launchers or excluded game
 
 # Enhancement To be done
+
+- on new game detection add it in the hostory list to allorw edit properties without restarting the game
 - game associated to platform should not start if platform is not started based on a flag by platform ( steam start
   automatically for example )
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
-- platform starter
+- platform starter --> horizontal panel at the bottom of active platfom with all not started platform
 - python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
 - add pagination for all sessions
 - packaging icons / images
