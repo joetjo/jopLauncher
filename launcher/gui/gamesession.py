@@ -148,7 +148,7 @@ class GameSession(GhSimplePanel):
             self.ui_store_button.grid()
             self.setButtonState(self.ui_store_button, len(self.session.getWWW()) > 0)
             self.ui_tips_button.grid()
-            self.setButtonState(self.ui_tips_button, len(self.session.getWWW()) > 0)
+            self.setButtonState(self.ui_tips_button, len(self.session.getTips()) > 0)
             platform = self.session.getPlatform()
             if platform is not None and len(platform) > 0:
                 image = self.app.icons.PLATFORMS[platform]
