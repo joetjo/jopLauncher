@@ -70,13 +70,13 @@ Last version is 2021.1.0502
   should be PARENT and whatever, never a name of another game... ( is this check that mapping name is not already used
   ? )
 - select all and start mapping --> CLASH GUI !
+- active platform not anymore updated on refresh ( from too mmuch to never )
 
 # Known bugs
 
 - when game use a crash handler or any other stuff that is detected before, game process is not detected once name ha
   been excluded ( it has to be removed from internal monitored process of processMgr )
   |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
-- active platform not anymore updated on refresh ( from too mmuch to never )
 - GUI frozen when using the usual window cross.
 - lien WWW actif quand page définie ( wrond check )
 

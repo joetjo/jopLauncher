@@ -94,9 +94,12 @@ class ProcMgr:
                         platforms.append(p.game_platform)
 
         Log.debug("{} processes detected / {} game(s) platforms".format(len(self.plist), len(platforms)))
+        platform_list_updated = len(self.platforms) != platforms
+        if not platform_list_updated:
+            platform_list_updated = len(self.platforms) != len(list(set(platforms)) & list(set(self.platforms)))
         self.platforms = platforms
         if self.eventListener is not None:
-            self.eventListener.refreshDone()
+            self.eventListener.refreshDone(platform_list_updated)
 
         values = dict(self.pMonitored)
         # copy list before to be able to remove element from list while looping

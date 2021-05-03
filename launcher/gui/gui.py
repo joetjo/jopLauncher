@@ -231,12 +231,14 @@ class procGui(EventListener):
         Log.debug("New game detected {} ({})".format(proc.getName(), proc.getPath()))
         self.setPlaying(proc)
 
-    def refreshDone(self):
+    def refreshDone(self, platform_list_updated):
         if self.last_start_time is not None:
             duration = int((time.time() - self.last_start) / 60)
             self.ui_play_time_label.set("{} | ~{} minutes".format(self.last_start_time, duration))
         now = datetime.now()
         self.ui_status.set("process check @ {}  | ".format(now.strftime("%H:%M:%S")))
+        if platform_list_updated:
+            self.display_mode.refreshExtended()
 
     def refreshGameCount(self):
         self.ui_game_stat.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
