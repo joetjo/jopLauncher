@@ -75,6 +75,13 @@ Last version is 2021.1.0502
 - when game use a crash handler or any other stuff that is detected before, game process is not detected once name ha
   been excluded ( it has to be removed from internal monitored process of processMgr )
   |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
+- on new game detection add it in the history list to allow edit properties without restarting the game
+- ui preference ( use GHSetup ) :  .SbSGL.json in home dir
+
+tests:
+
+- python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label | script
+  that generates a fake test games hierarchy | dev storage is now based in these test games.
 
 # Known bugs
 
@@ -88,16 +95,13 @@ Last version is 2021.1.0502
 
 # Enhancement To be done
 
-- on new game detection add it in the hostory list to allorw edit properties without restarting the game
 - game associated to platform should not start if platform is not started based on a flag by platform ( steam start
   automatically for example )
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
 - platform starter --> horizontal panel at the bottom of active platfom with all not started platform
-- python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label
 - add pagination for all sessions
 - packaging icons / images
-- ui preference ( use GHSetup )
 - separate storage in multiple files
 - on storage migration, save à backup of the file before
 - menu to start companion app

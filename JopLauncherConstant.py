@@ -1,10 +1,14 @@
 from gridgui.application import GhAppSetup
+from launcher.jopsetup import JopSetup
+
+# True for print_mode
+JopSETUP = JopSetup(False)
 
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2021.1.05.next'
-    DEBUG = True
+    VERSION = '2021.1.05.next.2'
+    DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
@@ -13,18 +17,6 @@ class JopLauncher:
     ICON_URL = "https://icons8.com"
 
     DB_VERSION = 2
-
-    # delay between refresh 5s * REFRESH_DELAY
-    REFRESH_DELAY = 5
-    MAX_LAST_SESSION_COUNT = 10
-
-    GAME_PATTERN = 'jeux'
-    GAME_EXTENSION = '.exe'
-
-    PLATFORM_WIDTH = 5
-    GAME_NAME_WIDTH = 30
-    URL_WIDTH = 70
-    PARAMS_WIDTH = 45
 
     GAME_PLATFORMS = {
         "steam.exe": "STEAM",
@@ -48,18 +40,17 @@ class JopLauncher:
     COMPANION_APP = "C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"
 
 
-# TODO - setup using GhSetup
+GhAppSetup.width = JopSETUP.get(JopSETUP.APP_WIDTH)
+GhAppSetup.height = JopSETUP.get(JopSETUP.APP_MIN_HEIGHT) + \
+                    (JopSETUP.get(JopSETUP.APP_HEIGHT_BY_GAME) * JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT))
+GhAppSetup.vertical = JopSETUP.get(JopSETUP.APP_VERTICAL)
+GhAppSetup.horizontal = JopSETUP.get(JopSETUP.APP_HORIZONTAL)
+GhAppSetup.icon = JopSETUP.get(JopSETUP.APP_ICON)
+GhAppSetup.theme = JopSETUP.get(JopSETUP.APP_THEME)
 
-
-GhAppSetup.width = 850
-GhAppSetup.height = 300 + 24 * JopLauncher.MAX_LAST_SESSION_COUNT
-GhAppSetup.vertical = 'top'
-GhAppSetup.horizontal = 'right'
-GhAppSetup.icon = 'icons/joystick.ico'
-
-GhAppSetup.image_button = True
+GhAppSetup.image_button = JopSETUP.get(JopSETUP.APP_IMAGE_BUTTON)
 # Must not be false if image_button is false
-GhAppSetup.image_text_button = False
+GhAppSetup.image_text_button = JopSETUP.get(JopSETUP.APP_IMAGE_TEXT)
 
 # GhAppSetup.vertical = 10
 # GhAppSetup.horizontal = 10

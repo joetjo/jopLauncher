@@ -1,7 +1,7 @@
 from datetime import datetime
 from tkinter import DISABLED, NORMAL, RIGHT, LEFT
 
-from JopLauncherConstant import JopLauncher
+from JopLauncherConstant import JopLauncher, JopSETUP
 from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
 from base.launcher import GhLauncher
@@ -55,7 +55,7 @@ class GameSession(GhSimplePanel):
 
         if title_mode:
             self.ui_name_label = GhApp.createLabel(main_panel, self.row(), self.col_next(),
-                                                   width=JopLauncher.GAME_NAME_WIDTH)
+                                                   width=JopSETUP.get(JopSETUP.GAME_NAME_WIDTH))
             self.ui_name_label.set(Strings.GAME_NAME)
         else:
             self.ui_name_label = GhApp.createLabel(main_panel, self.row_next(), self.col_reset(0))

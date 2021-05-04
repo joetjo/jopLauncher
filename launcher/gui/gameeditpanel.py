@@ -1,4 +1,4 @@
-from JopLauncherConstant import JopLauncher
+from JopLauncherConstant import JopLauncher, JopSETUP
 from base.fileutil import GhFileUtil
 from gridgui.application import GhApp
 from gridgui.simplepanel import GhSimplePanel
@@ -24,7 +24,7 @@ class GameEditPanel(GhSimplePanel):
         self.ui_launcher_button = GhApp.createButton(content, self.row(), self.col_next(), text=Strings.NEW_LAUNCHER,
                                                      command=self.applyNewLauncher, image=self.app.icons.PLUS)
         self.ui_params_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_PARAMS)
-        self.ui_params = GhApp.createEntry(content, self.row(), self.col_next(), JopLauncher.PARAMS_WIDTH,
+        self.ui_params = GhApp.createEntry(content, self.row(), self.col_next(), JopSETUP.get(JopSETUP.PARAMS_WIDTH),
                                            "", colspan=2)
 
         # Line 2
@@ -35,7 +35,8 @@ class GameEditPanel(GhSimplePanel):
                                                            self.applyPlatform, self.app.procMgr.getPossiblePlatforms(),
                                                            width=8, colspan=2)
         self.ui_custom_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_LAUNCHER)
-        self.ui_custom_path = GhApp.createLabel(content, self.row(), self.col_next(), width=JopLauncher.PARAMS_WIDTH)
+        self.ui_custom_path = GhApp.createLabel(content, self.row(), self.col_next(),
+                                                width=JopSETUP.get(JopSETUP.PARAMS_WIDTH))
         self.ui_custom_button = GhApp.createButton(content, self.row(), self.col_next(), text=Strings.SELECT_EXE_BUTTON,
                                                    command=self.applySelectExe, anchor="e",
                                                    image=self.app.icons.FILE_SELECTION)
@@ -53,13 +54,15 @@ class GameEditPanel(GhSimplePanel):
         # Line 4
         self.ui_www_link_label = GhApp.createLabel(content, self.row(), self.col_next(),
                                                    text=Strings.WWW_LINK)
-        self.ui_www_link = GhApp.createEntry(content, self.row_next(), self.col_reset(), JopLauncher.URL_WIDTH,
+        self.ui_www_link = GhApp.createEntry(content, self.row_next(), self.col_reset(),
+                                             JopSETUP.get(JopSETUP.URL_WIDTH),
                                              "", colspan=5)
 
         # Line 5
         self.ui_tips_link_label = GhApp.createLabel(content, self.row(), self.col_next(),
                                                     text=Strings.TIPS_LINK)
-        self.ui_tips_link = GhApp.createEntry(content, self.row(), self.col_reset(), JopLauncher.URL_WIDTH,
+        self.ui_tips_link = GhApp.createEntry(content, self.row(), self.col_reset(),
+                                              JopSETUP.get(JopSETUP.URL_WIDTH),
                                               "", colspan=5)
 
     def grid_remove(self):

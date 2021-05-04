@@ -1,12 +1,13 @@
 from tkinter import PhotoImage
 
+from JopLauncherConstant import JopSETUP
 from base.fileutil import GhFileUtil
 from launcher.log import Log
 
 
 class GhIcons:
     ICON_PACK = "-16.png"
-    THEME = "black"
+    THEME = JopSETUP.get(JopSETUP.APP_THEME)
 
     def __init__(self, platforms):
         self.VOID = PhotoImage(file="icons/{}/void{}".format(GhIcons.THEME, GhIcons.ICON_PACK))

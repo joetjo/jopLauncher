@@ -2,13 +2,17 @@ import os
 import re
 from datetime import datetime
 
-from JopLauncherConstant import JopLauncher
+from JopLauncherConstant import JopLauncher, JopSETUP
 from launcher.log import Log
 
 
 class ProcessInfo:
+    game_extension = JopSETUP.get(JopSETUP.GAME_EXTENSION)
 
     def __init__(self, pinfo):
+
+        self.game_pattern = JopSETUP.get(JopSETUP.GAME_PATTERN)
+
         self.pinfo = pinfo
         self.pid = pinfo['pid']
         self.name = pinfo['name']
@@ -47,8 +51,8 @@ class ProcessInfo:
 
     @staticmethod
     def removeGameExtension(name):
-        if JopLauncher.GAME_EXTENSION in name:
-            return name[0:name.rfind(JopLauncher.GAME_EXTENSION)]
+        if ProcessInfo.game_extension in name:
+            return name[0:name.rfind(ProcessInfo.game_extension)]
         else:
             return name
 
@@ -59,7 +63,7 @@ class ProcessInfo:
         return self.game
 
     def gameDetector(self, path):
-        return (self.path is not None) and re.search(JopLauncher.GAME_PATTERN, path, re.IGNORECASE)
+        return (self.path is not None) and re.search(self.game_pattern, path, re.IGNORECASE)
 
     def platformDetector(self, path):
         if self.path is None:

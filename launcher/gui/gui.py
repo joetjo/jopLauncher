@@ -1,7 +1,7 @@
 import time
 from datetime import timedelta, datetime
 
-from JopLauncherConstant import JopLauncher
+from JopLauncherConstant import JopLauncher, JopSETUP
 from base.launcher import GhLauncher
 from base.pair import Pair
 from basegui.messagebox import GhMessageBox
@@ -9,7 +9,7 @@ from gridgui.application import GhApp
 from gridgui.columnpanel import GhColumnPanel
 from gridgui.listnameditempanel import GhListNamedItemPanel
 from gridgui.simplepanel import GhSimplePanel
-from icons.black.icons import GhIcons
+from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
 from launcher.gui.displaymode import DisplayMode
 from launcher.gui.gameactionspanel import GameActionPanel
@@ -32,6 +32,7 @@ class procGui(EventListener):
         self.ready = False
         self.procMgr = procmgr
         self.procMgr.setListener(self)
+        self.max_session_count = JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT)
         self.last_start = -1
         self.last_start_time = None
         self.display_mode = DisplayMode(self)
@@ -103,7 +104,7 @@ class procGui(EventListener):
         app.row_col_reset()
         GameSession(content_panel, self, app.row_next(), app.col(), title_mode=True)
         self.ui_sessions = []
-        for idx in range(0, JopLauncher.MAX_LAST_SESSION_COUNT):
+        for idx in range(0, self.max_session_count):
             self.ui_sessions.append(GameSession(content_panel, self, app.row_reset(2 + idx), app.col()))
 
         # CONTENT RIGHT
@@ -161,7 +162,7 @@ class procGui(EventListener):
         for session in self.procMgr.getSessions():
             Log.debug(" | {:02d} | {}".format(idx, session.getName()))
             if self.display_mode.isVisible(session):
-                if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
+                if idx < self.max_session_count:
                     self.ui_sessions[idx].set(session)
                 idx += 1
 
@@ -172,7 +173,7 @@ class procGui(EventListener):
 
     def clearAllSessions(self, start_index=0):
         Log.debug("UI: clearing session list from {}".format(start_index))
-        for idx in range(start_index, JopLauncher.MAX_LAST_SESSION_COUNT):
+        for idx in range(start_index, self.max_session_count):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
