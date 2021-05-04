@@ -76,6 +76,10 @@ Last version is 2021.1.0502
   been excluded ( it has to be removed from internal monitored process of processMgr )
   |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
 - on new game detection add it in the history list to allow edit properties without restarting the game
+- GUI frozen when using the usual window cross.
+
+Enhancements:
+
 - ui preference ( use GHSetup ) :  .SbSGL.json in home dir
 
 tests:
@@ -84,8 +88,6 @@ tests:
   that generates a fake test games hierarchy | dev storage is now based in these test games.
 
 # Known bugs
-
-- GUI frozen when using the usual window cross. --> frozen 50s max ?
 
 # Known limitations
 
