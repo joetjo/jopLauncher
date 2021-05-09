@@ -64,30 +64,13 @@ Not available
 
 # What will be in next version ?
 
-Last version is 2021.1.0502
-
-- mapping propose by default the last mapping name use ( from other game... ). When a mapping has never been done, it
-  should be PARENT and whatever, never a name of another game... ( is this check that mapping name is not already used
-  ? )
-- select all and start mapping --> CLASH GUI !
-- active platform not anymore updated on refresh ( from too mmuch to never )
-- lien WWW actif quand page définie ( wrond check )
-- when game use a crash handler or any other stuff that is detected before, game process is not detected once name ha
-  been excluded ( it has to be removed from internal monitored process of processMgr )
-  |--> sometime playing game is not detected -> on refresh make sur to "reset" monitoredid of removed process
-- on new game detection add it in the history list to allow edit properties without restarting the game
-- GUI frozen when using the usual window cross.
-
-Enhancements:
-
-- ui preference ( use GHSetup ) :  .SbSGL.json in home dir
-
-tests:
-
-- python fake exe that display just 1st parameter to test ( normal launch / launcher ) - GUI with just a label | script
-  that generates a fake test games hierarchy | dev storage is now based in these test games.
+Last version is 2021.1.0902
 
 # Known bugs
+
+- mapping running game --> crash on end game
+- empty custom parameter added to command line ( not good to use witch a launcher )
+- search apply only on 10 last sessions, not all...
 
 # Known limitations
 
@@ -97,12 +80,14 @@ tests:
 
 # Enhancement To be done
 
+- double game for certain game to be supported...
 - game associated to platform should not start if platform is not started based on a flag by platform ( steam start
   automatically for example )
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
 - platform starter --> horizontal panel at the bottom of active platfom with all not started platform
 - add pagination for all sessions
+- launch and detect discord
 - packaging icons / images
 - separate storage in multiple files
 - on storage migration, save à backup of the file before

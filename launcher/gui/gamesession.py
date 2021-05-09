@@ -248,8 +248,8 @@ class GameSession(GhSimplePanel):
                 exe = [custom]
             else:
                 exe = [self.session.getPath()]
-            params = self.session.getParameters()
-            if params is not None:
+            params = self.session.getParameters().strip()
+            if params is not None and len(params) > 0:
                 for p in params.split(" "):
                     exe.append(p)
             GhLauncher.launch(self.getName(), exe)
