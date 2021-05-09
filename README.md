@@ -69,7 +69,6 @@ Last version is 2021.1.0902
 # Known bugs
 
 - mapping running game --> crash on end game
-- empty custom parameter added to command line ( not good to use witch a launcher )
 - search apply only on 10 last sessions, not all...
 
 # Known limitations
