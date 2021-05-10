@@ -11,5 +11,6 @@ class MainMenu(GhAppMenu):
         self.add(Strings.MENU_LAUNCHER, gui.applyShowLauncher)
         self.addSep()
         self.add(Strings.MENU_COMP_APP, gui.applyLaunchCompApp)
+        self.add(Strings.MENU_ICONFX_APP, gui.applyLaunchIconExtract)
         self.addSep()
         self.add(Strings.EXIT, gui.applyExit)

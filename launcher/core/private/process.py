@@ -21,6 +21,7 @@ class ProcessInfo:
 
         self.game = self.gameDetector(self.path)
         self.game_platform = self.platformDetector(self.path)
+        self.other = self.otherDetector(self.path)
         self.storeEntry = None
 
         self.started = None
@@ -71,6 +72,13 @@ class ProcessInfo:
         for key in JopLauncher.GAME_PLATFORMS:
             if re.search(key, path, re.IGNORECASE):
                 return JopLauncher.GAME_PLATFORMS[key]
+
+    def otherDetector(self, path):
+        if self.path is None:
+            return None
+        for key in JopLauncher.COM_APP:
+            if re.search(key, path, re.IGNORECASE):
+                return JopLauncher.COM_APP[key]
 
     def setStarted(self):
         if self.started is None:

@@ -161,7 +161,7 @@ class GameEditPanel(GhSimplePanel):
         if len(self.session.getNote()) > 0:
             folder = GhFileUtil.parentFolder(self.session.getNote())
         else:
-            folder = JopLauncher.LOCAL_FILE_FOLDER
+            folder = JopSETUP.get(JopSETUP.LOCAL_FILE_FOLDER)
         path = GhFileUtil.fileSelection(folder,
                                         title=Strings.SELECT_NOTE,
                                         filetypes=JopLauncher.NOTE_FILE)

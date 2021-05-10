@@ -30,6 +30,12 @@ class JopSetup:
     MAX_LAST_SESSION_COUNT = "MAX_LAST_SESSION_COUNT"
     GAME_PATTERN = "GAME_PATTERN"
     GAME_EXTENSION = "GAME_EXTENSION"
+    NOTE_EXE = "NOTE_EXE"
+    URL_EXE = "URL_EXE"
+    LOCAL_FILE_FOLDER = "LOCAL_FILE_FOLDER"
+    COMPANION_APP = "COMPANION_APP"
+    ICONFX_APP = "ICONFX_APP"
+    DISCORD = "DISCORD"
 
     @staticmethod
     # Test Purpose
@@ -67,6 +73,15 @@ class JopSetup:
         self.initSetupEntry(self.MAX_LAST_SESSION_COUNT, 10)
         self.initSetupEntry(self.GAME_PATTERN, 'jeux')
         self.initSetupEntry(self.GAME_EXTENSION, '.exe')
+        self.initSetupEntry(self.NOTE_EXE, "C:/Program Files (x86)/Notepad++/notepad++.exe")
+        self.initSetupEntry(self.URL_EXE, "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+        self.initSetupEntry(self.LOCAL_FILE_FOLDER, "C:/Users/nicol/Documents/GitHub/gList/notes")
+        self.initSetupEntry(self.COMPANION_APP, ["C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"])
+        self.initSetupEntry(self.ICONFX_APP, ["G:/NMPTF-PortableApps/PortableApps/IcoFXPortable/IcoFXPortable.exe"])
+        self.initSetupEntry(self.DISCORD, ["C:/Users/nicol/AppData/Local/Discord/Update.exe",
+                                           "--processStart",
+                                           "Discord.exe"])
+
         #        self.initSetupEntry(self., )
         if print_mode:
             print("========================================================")

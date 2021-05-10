@@ -7,8 +7,8 @@ JopSETUP = JopSetup(False)
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2021.1.05.09b'
-    DEBUG = False
+    VERSION = '2021.1.05.next2'
+    DEBUG = True
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
@@ -27,17 +27,17 @@ class JopLauncher:
         "Origin.exe": "ORIGIN"
     }
 
+    COM_APP_DISCORD = "Discord"
+    COM_APP = {
+        "Discord.exe": COM_APP_DISCORD
+    }
+
     EXEC_FILE = [("Executable", "*.exe"),
                  ("Batch file", "*.bat")]
 
     NOTE_FILE = [("Markdown", "*.md"),
                  ("Text", "*.txt"),
                  ("whatever you want", "*.*")]
-
-    NOTE_EXE = "C:/Program Files (x86)/Notepad++/notepad++.exe"
-    URL_EXE = "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe"
-    LOCAL_FILE_FOLDER = "C:/Users/nicol/Documents/GitHub/gList/notes"
-    COMPANION_APP = "C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"
 
 
 GhAppSetup.width = JopSETUP.get(JopSETUP.APP_WIDTH)

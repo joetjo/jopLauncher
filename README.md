@@ -60,11 +60,15 @@ not possible yet to add game manually in list.
 
 > How to I change application setup ?
 
-Not available
+Edit SbSGL.json in home dir.
 
 # What will be in next version ?
 
-Last version is 2021.1.0902
+Last version is 2021.1.0509b
+
+Enhancement:
+
+- launch and detect discord
 
 # Known bugs
 
@@ -79,18 +83,18 @@ Last version is 2021.1.0902
 
 # Enhancement To be done
 
-- double game for certain game to be supported...
-- game associated to platform should not start if platform is not started based on a flag by platform ( steam start
-  automatically for example )
+- add icon to game
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
-- platform starter --> horizontal panel at the bottom of active platfom with all not started platform
+- platform starter --> horizontal panel at the bottom of active platform with all not started platform
 - add pagination for all sessions
-- launch and detect discord
 - packaging icons / images
 - separate storage in multiple files
 - on storage migration, save à backup of the file before
-- menu to start companion app
+- menu to start "IconFx"
+- double game for certain game to be supported...
+- game associated to platform should not start if platform is not started based on a flag by platform ( steam start
+  automatically for example )
 
 # Potential Enhancement
 

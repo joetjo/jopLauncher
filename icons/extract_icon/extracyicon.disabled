@@ -2,7 +2,7 @@
 # From https://github.com/57ur14/pefile-extract-icon ( MIT License on fork )
 #               --> https://github.com/firodj/extract-icon-py ( MIT License on fork )
 
-
+"""
 import struct
 from io import BytesIO
 
@@ -203,3 +203,4 @@ class ExtractIcon(object):
             dib_size = struct.unpack('<L', data[0:4])[0]
             header = 'BM' + str(struct.pack('<LLL', len(data) + 14, 0, 14 + dib_size))
         return header
+"""

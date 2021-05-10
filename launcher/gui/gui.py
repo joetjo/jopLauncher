@@ -1,5 +1,6 @@
 import time
 from datetime import timedelta, datetime
+from tkinter import LEFT
 
 from JopLauncherConstant import JopLauncher, JopSETUP
 from base.launcher import GhLauncher
@@ -36,6 +37,7 @@ class procGui(EventListener):
         self.last_start = -1
         self.last_start_time = None
         self.display_mode = DisplayMode(self)
+        self.discord = True
 
         self.app = GhApp("{} - {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION), self.applyExit)
         app = self.app
@@ -62,9 +64,15 @@ class procGui(EventListener):
         # 2nd line
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.PLAY_TIME, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
-        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(1), anchor='e')
+        self.ui_play_time_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_reset(), anchor='e')
 
         # 3rd line
+        self.ui_discord_button = GhApp.createButton(header_col.left, app.row(), app.col(), text="::",
+                                                    padx=0, image=self.icons.DISCORD,
+                                                    command=self.applyLaunchDiscord)
+        self.ui_discord_label = GhApp.createLabel(header_col.left, app.row(), app.col_next(),
+                                                  justify=LEFT, anchor="e")
+        self.ui_discord_label.setImage(self.icons.DISCORD, compound=LEFT)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=Strings.TIME_PLAYED, width=label_width)
         GhApp.createLabel(header_col.left, app.row(), app.col_next(), text=":")
         self.ui_played_duration_label = GhApp.createLabel(header_col.left, app.row_next(), app.col_next(), anchor='e')
@@ -132,6 +140,7 @@ class procGui(EventListener):
         GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION,
                            image=self.icons.ABOUT)
 
+        self.setDiscord(False)
         self.reloadLastSessions()
 
         proc = procmgr.getFirstMonitored()
@@ -171,6 +180,16 @@ class procGui(EventListener):
         self.display_mode.refreshExtended()
         self.refreshGameCount()
 
+    def setDiscord(self, discord_flag):
+        if self.discord != discord_flag:
+            self.discord = discord_flag
+            if discord_flag:
+                self.ui_discord_button.grid_remove()
+                self.ui_discord_label.grid()
+            else:
+                self.ui_discord_button.grid()
+                self.ui_discord_label.grid_remove()
+
     def clearAllSessions(self, start_index=0):
         Log.debug("UI: clearing session list from {}".format(start_index))
         for idx in range(start_index, self.max_session_count):
@@ -189,15 +208,15 @@ class procGui(EventListener):
             idx = 0
             for session in self.procMgr.searchInStorage(token).list():
                 if self.display_mode.isVisible(session):
-                    if idx < JopLauncher.MAX_LAST_SESSION_COUNT:
+                    if idx < JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT):
                         self.ui_sessions[idx].set(session)
                     idx += 1
 
             self.clearAllSessions(start_index=idx)
 
-            if idx >= JopLauncher.MAX_LAST_SESSION_COUNT:
+            if idx >= JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT):
                 self.display_mode.searchResult(
-                    Strings.RESULT_SEARCH_EXCEED.format(idx, JopLauncher.MAX_LAST_SESSION_COUNT))
+                    Strings.RESULT_SEARCH_EXCEED.format(idx, JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT)))
             else:
                 self.display_mode.searchResult(Strings.RESULT_SEARCH.format(idx))
 
@@ -233,7 +252,7 @@ class procGui(EventListener):
         self.setPlaying(proc)
         self.reloadLastSessions()
 
-    def refreshDone(self, current_game, platform_list_updated):
+    def refreshDone(self, current_game, platform_list_updated, others):
         if self.last_start_time is not None:
             duration = int((time.time() - self.last_start) / 60)
             self.ui_play_time_label.set("{} | ~{} minutes".format(self.last_start_time, duration))
@@ -241,6 +260,7 @@ class procGui(EventListener):
         self.ui_status.set("process check @ {}  | ".format(now.strftime("%H:%M:%S")))
         if platform_list_updated:
             self.display_mode.refreshExtended()
+        self.setDiscord(JopLauncher.COM_APP_DISCORD in others)
 
     def refreshGameCount(self):
         self.ui_game_stat.set(Strings.GAME_COUNT.format(len(self.procMgr.games)))
@@ -425,14 +445,14 @@ class procGui(EventListener):
     def applyCloseExtended(self):
         self.display_mode.closeExtended()
 
-    def applyLaunchCompApp(self):
-        GhLauncher.launch("note", [JopLauncher.COMPANION_APP])
+    @staticmethod
+    def applyLaunchCompApp():
+        GhLauncher.launch("note", JopSETUP.get(JopSETUP.COMPANION_APP))
 
-    # TEST MODE PURPOSE ONLY
-    def test_startStop(self):
-        if self.ui_playing_label.get() == Strings.NO_GAME:
-            self.procMgr.test_setGame(self.ui_test_game_entry.get())
-            self.ui_test_game_button.set("Stop")
-        else:
-            self.procMgr.test_setGame(None)
-            self.ui_test_game_button.set("Start")
+    @staticmethod
+    def applyLaunchIconExtract():
+        GhLauncher.launch("icofx", JopSETUP.get(JopSETUP.ICONFX_APP))
+
+    @staticmethod
+    def applyLaunchDiscord():
+        GhLauncher.launch("discord", JopSETUP.get(JopSETUP.DISCORD))

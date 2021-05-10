@@ -1,7 +1,7 @@
 from datetime import datetime
 from tkinter import DISABLED, NORMAL, RIGHT, LEFT
 
-from JopLauncherConstant import JopLauncher, JopSETUP
+from JopLauncherConstant import JopSETUP
 from base.fileutil import GhFileUtil
 from base.jsonstore import GhStorage
 from base.launcher import GhLauncher
@@ -259,14 +259,14 @@ class GameSession(GhSimplePanel):
     def launchNote(self):
         note = self.session.getNote()
         if note is not None and len(note) > 0:
-            GhLauncher.launch("note", [JopLauncher.NOTE_EXE, note])
+            GhLauncher.launch("note", [JopSETUP.get(JopSETUP.NOTE_EXE), note])
 
     def launchWWW(self):
         page = self.session.getWWW()
         if page is not None and len(page) > 0:
-            GhLauncher.launch("Store", [JopLauncher.URL_EXE, page])
+            GhLauncher.launch("Store", [JopSETUP.get(JopSETUP.URL_EXE), page])
 
     def launchTips(self):
         page = self.session.getTips()
         if page is not None and len(page) > 0:
-            GhLauncher.launch("Tips", [JopLauncher.URL_EXE, page])
+            GhLauncher.launch("Tips", [JopSETUP.get(JopSETUP.URL_EXE), page])

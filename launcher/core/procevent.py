@@ -11,7 +11,7 @@ class EventListener(ABC):
         Log.debug("[ABC Impl] New game detected {} ({})".format(proc.getName(), proc.getPath()))
 
     @abstractmethod
-    def refreshDone(self, current_game, platform_list_updated):
+    def refreshDone(self, current_game, platform_list_updated, others):
         pass
 
     @abstractmethod

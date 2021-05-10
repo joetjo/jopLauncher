@@ -50,6 +50,7 @@ class ProcMgr:
 
         # Running platforms
         self.platforms = []
+        self.others = []
         self.games_platforms = [""]
         self.current_game_pid = 0
         for key in JopLauncher.GAME_PLATFORMS:
@@ -78,6 +79,7 @@ class ProcMgr:
     def loadPList(self):
         self.plist = dict()
         platforms = []
+        others = []
 
         # One single game should be detected at the same time
         Log.debug("BEGIN PLIST UPDATE: {}".format(ProcMgr.toString(self.pMonitored)))
@@ -158,17 +160,24 @@ class ProcMgr:
                 elif p.game_platform is not None:
                     if p.game_platform not in platforms:
                         platforms.append(p.game_platform)
+                elif p.other is not None:
+                    if p.other not in others:
+                        others.append(p.other)
         else:
             for pid, p in self.plist.items():
                 if p.game_platform is not None and p.game_platform not in platforms:
                     platforms.append(p.game_platform)
+                if p.other is not None and p.other not in others:
+                    others.append(p.other)
 
-        Log.debug("{} processes detected / {} game(s) platforms / {}".format(len(self.plist),
-                                                                             len(platforms),
-                                                                             ProcMgr.toString(self.pMonitored)))
+        Log.debug("{} processes detected / {} game(s) platforms / {} Other(s) / {}".format(len(self.plist),
+                                                                                           len(platforms), len(others),
+                                                                                           ProcMgr.toString(
+                                                                                               self.pMonitored)))
         #
         # Check for running game platform
         #
+        self.others = others
         platform_list_updated = len(self.platforms) != platforms
         if not platform_list_updated:
             platform_list_updated = len(self.platforms) != len(list(set(platforms)) & list(set(self.platforms)))
@@ -177,7 +186,7 @@ class ProcMgr:
             current_name = None
             if game_detected is not None:
                 current_name = game_detected.getName()
-            self.eventListener.refreshDone(current_name, platform_list_updated)
+            self.eventListener.refreshDone(current_name, platform_list_updated, others)
 
         #
         # Search for stopped game
