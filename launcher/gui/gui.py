@@ -3,6 +3,7 @@ from datetime import timedelta, datetime
 from tkinter import LEFT
 
 from JopLauncherConstant import JopLauncher, JopSETUP
+from base.fileutil import GhFileUtil
 from base.launcher import GhLauncher
 from base.pair import Pair
 from basegui.messagebox import GhMessageBox
@@ -444,6 +445,13 @@ class procGui(EventListener):
 
     def applyCloseExtended(self):
         self.display_mode.closeExtended()
+
+    def applyLaunchPlatform(self, label, cmd):
+        self.procMgr.refresh()
+        if label not in self.procMgr.platforms:
+            GhLauncher.launch(label, cmd, GhFileUtil.parentFolder(cmd[0]))
+        else:
+            Log.info("Platform {} already running".format(label))
 
     @staticmethod
     def applyLaunchCompApp():

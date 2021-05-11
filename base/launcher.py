@@ -6,11 +6,11 @@ import threading
 class GhLauncher:
 
     @staticmethod
-    def launch(label, exe):
-        print("Launching {} ({}) from folder {} ".format(label, exe, os.getcwd()))
-        bg = threading.Thread(target=GhLauncher.launchImpl, args=(exe,))
+    def launch(label, exe, cwd=os.getcwd()):
+        print("Launching {} ({}) from folder {} ".format(label, exe, cwd))
+        bg = threading.Thread(target=GhLauncher.launchImpl, args=(exe, cwd))
         bg.start()
 
     @staticmethod
-    def launchImpl(exe):
-        subprocess.run(exe)
+    def launchImpl(exe, cwd):
+        subprocess.run(exe, cwd=cwd)

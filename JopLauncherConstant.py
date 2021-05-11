@@ -8,7 +8,7 @@ JopSETUP = JopSetup(False)
 class JopLauncher:
     # To be updated on release
     VERSION = '2021.1.05.next2'
-    DEBUG = True
+    DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
@@ -19,12 +19,12 @@ class JopLauncher:
     DB_VERSION = 2
 
     GAME_PLATFORMS = {
-        "steam.exe": "STEAM",
-        "GalaxyClient.exe": "GOG",
-        "EpicGamesLauncher.exe": "EPIC",
-        "upc.exe": "UBISOFT",
-        "itch.exe": "ITCHIO",
-        "Origin.exe": "ORIGIN"
+        "steam.exe": JopSETUP.STEAM,
+        "GalaxyClient.exe": JopSETUP.GOG,
+        "EpicGamesLauncher.exe": JopSETUP.EPIC,
+        "upc.exe": JopSETUP.UBISOFT,
+        "itch.exe": JopSETUP.ITCHIO,
+        "Origin.exe": JopSETUP.ORIGIN
     }
 
     COM_APP_DISCORD = "Discord"

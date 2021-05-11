@@ -37,6 +37,13 @@ class JopSetup:
     ICONFX_APP = "ICONFX_APP"
     DISCORD = "DISCORD"
 
+    STEAM = "STEAM"
+    GOG = "GOG"
+    EPIC = "EPIC"
+    UBISOFT = "UBISOFT"
+    ITCHIO = "ITCHIO"
+    ORIGIN = "ORIGIN"
+
     @staticmethod
     # Test Purpose
     def initJopSetup(content):
@@ -81,6 +88,14 @@ class JopSetup:
         self.initSetupEntry(self.DISCORD, ["C:/Users/nicol/AppData/Local/Discord/Update.exe",
                                            "--processStart",
                                            "Discord.exe"])
+
+        self.initSetupEntry(self.STEAM, ["C:/Program Files (x86)/Steam/Steam.exe"])
+        self.initSetupEntry(self.GOG, ["C:/Program Files (x86)/GOG Galaxy/GalaxyClient.exe"])
+        self.initSetupEntry(self.EPIC,
+                            ["C:/Program Files (x86)/Epic Games/Launcher/Portal/Binaries/Win32/EpicGamesLauncher.exe"])
+        self.initSetupEntry(self.ITCHIO, ["G:/itchio/itch-setup.exe", "--prefer-launch" "--appname" "itch"])
+        self.initSetupEntry(self.UBISOFT, ["C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/Uplay.exe"])
+        self.initSetupEntry(self.ORIGIN, ["C:/Program Files (x86)/Origin/Origin.exe"])
 
         #        self.initSetupEntry(self., )
         if print_mode:

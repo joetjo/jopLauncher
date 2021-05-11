@@ -19,6 +19,7 @@ class Strings:
     MENU_LAUNCHER = "Show launchers"
     MENU_COMP_APP = "Companion App"
     MENU_ICONFX_APP = "Icon App"
+    LAUNCH_PLATFORM_MENU = ""
     EXCLUDED_GAME = "   ** Excluded games **  "
     LAUNCHERS = "   ** Custom launchers **  "
     PLATFORMS = "Actives Platforms"

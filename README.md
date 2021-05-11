@@ -69,6 +69,7 @@ Last version is 2021.1.0509b
 Enhancement:
 
 - launch and detect discord
+- platform starter menu added
 
 # Known bugs
 
@@ -86,7 +87,6 @@ Enhancement:
 - add icon to game
 - add a way to disable the running mode if not supported.
 - add a way to add a specific process that do not map the pattern
-- platform starter --> horizontal panel at the bottom of active platform with all not started platform
 - add pagination for all sessions
 - packaging icons / images
 - separate storage in multiple files
