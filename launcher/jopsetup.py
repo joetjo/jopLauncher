@@ -64,8 +64,8 @@ class JopSetup:
         self.dirty = False
         if print_mode:
             print("================= SbSGM SETUP  =========================")
-        self.initSetupEntry(self.APP_WIDTH, 850)
-        self.initSetupEntry(self.APP_MIN_HEIGHT, 300)
+        self.initSetupEntry(self.APP_WIDTH, 1050)
+        self.initSetupEntry(self.APP_MIN_HEIGHT, 400)
         self.initSetupEntry(self.APP_HEIGHT_BY_GAME, 24)
         self.initSetupEntry(self.APP_VERTICAL, 'top')
         self.initSetupEntry(self.APP_HORIZONTAL, 'right')
@@ -77,7 +77,7 @@ class JopSetup:
         self.initSetupEntry(self.URL_WIDTH, 70)
         self.initSetupEntry(self.PARAMS_WIDTH, 45)
         self.initSetupEntry(self.REFRESH_DELAY, 5)
-        self.initSetupEntry(self.MAX_LAST_SESSION_COUNT, 10)
+        self.initSetupEntry(self.MAX_LAST_SESSION_COUNT, 30)
         self.initSetupEntry(self.GAME_PATTERN, 'jeux')
         self.initSetupEntry(self.GAME_EXTENSION, '.exe')
         self.initSetupEntry(self.NOTE_EXE, "C:/Program Files (x86)/Notepad++/notepad++.exe")

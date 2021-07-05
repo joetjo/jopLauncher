@@ -2,12 +2,12 @@
 
 > **SbSGL**
 
-> [No login/No internet access]
-> The Simple but Smart Game Launcher"
+> No login/No internet access
+> The Simple but Smart Game Launcher
 > Old School GUI
 
 Global game management platform that do not need internet, do not need any registering, do no store data into the cloud,
-do not need access to your game account.... and discover automatically which game is running ( with a light and
+do not need to access to your game account.... and discover automatically which game is running ( with a light and
 configurable prerequisite on where to install game ).
 
 > All the recorded data are local and nothing is published. Local data are not protected ( protection rely on your local account on your laptop/desktop )
@@ -75,12 +75,15 @@ Enhancement:
 
 - mapping running game --> crash on end game
 - search apply only on 10 last sessions, not all...
+- starting a new game setup the initial total duration to the last played game.
+- Regression : starting a mapping do not propose anymore to use PARENT by default
 
 # Known limitations
 
 - mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
 - refresh notif close launchers or excluded game
+- no way to start a game in admin mode
 
 # Enhancement To be done
 
@@ -199,7 +202,7 @@ Enhancement:
     `wait for detection`
   - stop game
 
-Choose your favorote game and assign:
+Choose your favorite game and assign:
 
 - a local mardown
 - a store URL
