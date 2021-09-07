@@ -7,8 +7,8 @@ JopSETUP = JopSetup(False)
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2021.1.05.next2'
-    DEBUG = False
+    VERSION = '2021.15.09'
+    DEBUG = True
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"

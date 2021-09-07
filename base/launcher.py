@@ -7,7 +7,7 @@ class GhLauncher:
 
     @staticmethod
     def launch(label, exe, cwd=os.getcwd()):
-        print("Launching {} ({}) from folder {} ".format(label, exe, cwd))
+        print("Launcher: Launching {} ({}) from folder {} ".format(label, exe, cwd))
         bg = threading.Thread(target=GhLauncher.launchImpl, args=(exe, cwd))
         bg.start()
 

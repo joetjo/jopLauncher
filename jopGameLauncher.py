@@ -8,12 +8,16 @@ from launcher.log import Log
 
 
 def background(procmgr):
-    delay = JopSETUP.get(JopSETUP.REFRESH_DELAY)
-    Log.info("Starting auto refresh thread - sleeping delay: {}s".format(delay * 5))
+    sleep_time = 2
+    delay = JopSETUP.get(JopSETUP.REFRESH_DELAY) / sleep_time
+    Log.info("Core-Thread: Starting auto refresh thread - sleeping delay: {}s".format(delay * sleep_time))
     count = delay
     while not procmgr.shutdown:
-        time.sleep(5)
-        if not procmgr.shutdown and count > delay:
+        time.sleep(sleep_time)
+        if procmgr.shutdown:
+            Log.debug("Core-thread: stopping background thread")
+            break
+        elif count > delay:
             procmgr.refresh()
             count = 0
         else:
@@ -24,10 +28,9 @@ def main():
     procmgr = ProcMgr()
 
     bg = threading.Thread(target=background, args=(procmgr,))
-    bg.start()
+    procGui(procmgr, bg)
 
-    procGui(procmgr)
-
+    Log.info("GUI Closed, stopping core")
     procmgr.stop()
 
 

@@ -1,4 +1,5 @@
 # psutil must no be imported --> all call inside ProcessUtil fpr easy test purpose
+import copy
 import logging  # This module is thread safe.
 import threading
 import time
@@ -6,6 +7,7 @@ import time
 from JopLauncherConstant import JopLauncher
 from base.jsonstore import GhStorage
 from launcher.core.migrations.migrate import StorageVersion
+from launcher.core.private.currentgame import GameProcessHolder
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
 from launcher.core.private.session import SessionList, Session
@@ -30,8 +32,8 @@ class ProcMgr:
         self.process_util = ProcessUtil()
         self.shutdown = False
         self.plist = dict()
-        self.pMonitored = dict()
-        self.pStopped = dict()
+        self.currentGame = GameProcessHolder()
+        self.previousGame = GameProcessHolder()
         self.eventListener = None
 
         self.storage = GhStorage(LOCAL_STORAGE, version=JopLauncher.DB_VERSION)
@@ -52,19 +54,19 @@ class ProcMgr:
         self.platforms = []
         self.others = []
         self.games_platforms = [""]
-        self.current_game_pid = 0
         for key in JopLauncher.GAME_PLATFORMS:
             self.games_platforms.append(JopLauncher.GAME_PLATFORMS[key])
-
-        self.loadPList()
 
     def setListener(self, event_listener):
         self.eventListener = event_listener
 
+    # Returns current game if current game is still running
     def getCurrentGameDetected(self):
         try:
-            if self.plist[self.current_game_pid] is not None:
-                return self.pMonitored[self.current_game_pid]
+            if self.currentGame.isSet() and self.plist[self.currentGame.pid] is not None:
+                return self.currentGame
+            else:
+                return None
         except KeyError:
             return None
 
@@ -72,8 +74,8 @@ class ProcMgr:
         if LOCK.acquire(True):  # blocking
             detected_game = self.getCurrentGameDetected()
             if detected_game is not None and detected_game.getName() == name:
-                self.pMonitored = dict()
-                self.current_game_pid = 0
+                self.previousGame = GameProcessHolder(self.currentGame)
+                self.currentGame.reset()
             LOCK.release()
 
     def loadPList(self):
@@ -82,7 +84,7 @@ class ProcMgr:
         others = []
 
         # One single game should be detected at the same time
-        Log.debug("BEGIN PLIST UPDATE: {}".format(ProcMgr.toString(self.pMonitored)))
+        Log.debug("CORE: BEGIN PLIST UPDATE ( current game {} )".format(self.currentGame.pid))
 
         #
         # Retrieve Process List
@@ -98,19 +100,22 @@ class ProcMgr:
         #    But check is game is not been ignored or define as a launcher
         #
         game_detected = self.getCurrentGameDetected()
+        if game_detected is None and self.currentGame.isSet():
+            self.previousGame = GameProcessHolder(self.currentGame)
+            Log.debug("CORE: Game end detected: {}".format(self.previousGame.getName()))
+            self.currentGame.reset()
+
         if game_detected is not None:
-            Log.debug("Last detected game still running ({})".format(game_detected.getName()))
+            Log.debug("CORE: Last detected game still running ({})".format(game_detected.getName()))
             if self.isLauncher(game_detected.getName()) or self.isIgnore(game_detected.getName()):
-                Log.debug("   --> current running game has been excluded or is a launcher")
+                Log.debug("CORE:   --> current running game has been excluded or is a launcher")
                 # Let's forget about it !
-                self.pMonitored = dict()
-                self.current_game_pid = 0
-                game_detected = None
+                self.currentGame.reset()
 
         #
         # Game discovery ( if no current game )
         #
-        if self.current_game_pid == 0:
+        if not self.currentGame.isSet():
             for pid, p in self.plist.items():
                 if p.isGame():  # Yeeesss that's what we search
                     p.removeExtension()  # Remove the extension before any action
@@ -124,39 +129,39 @@ class ProcMgr:
 
                         # This is a really game !!
                         Log.debug("PList -game detected {}".format(p.getName()))
-                        if self.pMonitored.get(p.getPid()) is None:
+                        if not self.currentGame.isSet():
                             #
                             # new game detected
                             #
-                            self.current_game_pid = p.getPid()
+                            self.currentGame.setProcess(p)
                             store_entry = self.find(p.getName(), "loading plist: process discovery")
                             if store_entry is None:
                                 # TODO mapping name may be identical to a real other process name - to check
                                 Log.info(
                                     "New game discovered : creating game {} within storage".format(p.getName()))
-                                self.games[p.getName()] = GAME_TEMPLATE
+                                self.games[p.getName()] = copy.deepcopy(GAME_TEMPLATE)
                                 p.setStoreEntry(self.games[p.getName()])
                                 self.storage.save()
                             else:
                                 p.setStoreEntry(store_entry)
 
                             p.setStarted()
-                            game_detected = p
-                            self.pMonitored[p.getPid()] = p
+                            self.currentGame.setProcess(p)
 
-                            session = self.sessions.findSessionByName(p.getName())
+                            session = self.sessions.findSessionByName(self.currentGame.getName())
                             if session is None:
-                                session = Session([p.getName(), p.path, p.getOriginName(), "", "", "", ""],
-                                                  self.find(p.getName(),
-                                                            "loading plist: processing 1st game session declaration"))
+                                session = Session(
+                                    [self.currentGame.getName(), p.path, p.getOriginName(), "", "", "", ""],
+                                    self.find(self.currentGame.getName(),
+                                              "loading plist: processing 1st game session declaration"))
                             self.sessions.addSession(session)
 
                             if self.eventListener is not None:
-                                self.eventListener.newGame(p)
+                                self.eventListener.newGame(self.currentGame)
                         else:
-                            Log.debug("More than one game detected ! {} is ignored".format(p.getName()))
+                            Log.info("More than one game detected ! {} is ignored".format(self.currentGame.getName()))
                     else:
-                        Log.debug("Process {} exclude".format(p.getName()))
+                        Log.debug("Process {} exclude".format(self.currentGame.getName()))
                 elif p.game_platform is not None:
                     if p.game_platform not in platforms:
                         platforms.append(p.game_platform)
@@ -170,10 +175,10 @@ class ProcMgr:
                 if p.other is not None and p.other not in others:
                     others.append(p.other)
 
-        Log.debug("{} processes detected / {} game(s) platforms / {} Other(s) / {}".format(len(self.plist),
-                                                                                           len(platforms), len(others),
-                                                                                           ProcMgr.toString(
-                                                                                               self.pMonitored)))
+        Log.debug("CORE: {} processes detected / {} game(s) platforms / {} Other(s) / {}".format(len(self.plist),
+                                                                                                 len(platforms),
+                                                                                                 len(others),
+                                                                                                 self.currentGame.getName()))
         #
         # Check for running game platform
         #
@@ -189,34 +194,31 @@ class ProcMgr:
             self.eventListener.refreshDone(current_name, platform_list_updated, others)
 
         #
-        # Search for stopped game
+        # Check if current game has been stopped
         #
-        values = dict(self.pMonitored)
-        # copy list before to be able to remove element from list while looping
-        # list is supposed to be just one element... ( play one gate at a time )
-        for proc in values.values():
-            if self.get(proc.getPid()) is None:
-                new_duration = proc.setStopped()
-                self.pStopped[proc.getPid()] = proc
+        if self.previousGame is not None \
+                and self.previousGame.isSet():
 
-                store = proc.getStoreEntry()
-                try:
-                    duration = float(store["duration"])
-                except KeyError:
-                    duration = 0.0
-                store["duration"] = str(duration + new_duration.total_seconds())
-                store["last_duration"] = str(new_duration.total_seconds())
-                store["last_session"] = str(time.time())
-                self.sessions.addSession(self.sessions.findSessionByName(proc.getName()))
+            new_duration = self.previousGame.process.setStopped()
 
-                self.current_game_pid = 0
-                self.pMonitored = dict()
-                self.storage.save()
+            store = self.previousGame.process.getStoreEntry()
+            try:
+                duration = float(store["duration"])
+            except KeyError:
+                duration = 0.0
+            store["duration"] = str(duration + new_duration.total_seconds())
+            store["last_duration"] = str(new_duration.total_seconds())
+            store["last_session"] = str(time.time())
+            self.sessions.addSession(self.sessions.findSessionByName(self.previousGame.getName()))
 
-                if self.eventListener is not None:
-                    self.eventListener.endGame(proc)
+            self.storage.save()
 
-        Log.debug("END PLIST UPDATE: {}".format(ProcMgr.toString(self.pMonitored)))
+            if self.eventListener is not None:
+                self.eventListener.endGame(self.previousGame.process)
+
+            self.previousGame = None
+
+        Log.debug("END PLIST UPDATE")
 
     @staticmethod
     def toString(pdict):
@@ -227,11 +229,11 @@ class ProcMgr:
 
     def refresh(self):
         if LOCK.acquire(False):  # Non-blocking -- return whether we got it
-            Log.debug('Refreshing...')
+            Log.debug('CORE: Refreshing...')
             self.loadPList()
             LOCK.release()
         else:
-            logging.info("Couldn't get the lock. Maybe next time")
+            logging.info("CORE: Couldn't get the lock. Maybe next time")
 
     def getSessions(self):
         return self.sessions.list()
@@ -259,9 +261,9 @@ class ProcMgr:
                 result.addSession(last)
         return result
 
-    def getFirstMonitored(self):
-        if len(self.pMonitored) > 0:
-            return self.pMonitored[next(iter(self.pMonitored))]
+    def getCurrentGame(self):
+        if self.currentGame.isSet():
+            return self.currentGame
         else:
             return None
 

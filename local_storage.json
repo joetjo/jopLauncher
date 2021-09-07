@@ -41,9 +41,9 @@
       "tips": ""
     },
     "TheWitcher2": {
-      "duration": "27.40482",
-      "last_duration": "13.702908",
-      "last_session": "1619962886.8820276"
+      "duration": "57.05438",
+      "last_duration": "19.06151",
+      "last_session": "1631039553.9337366"
     },
     "MassEffectDefinitiveAndLastEdition": {
       "duration": "55.286666",
@@ -63,6 +63,15 @@
     }
   },
   "last_sessions": [
+    [
+      "TheWitcher2",
+      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2\\tw2.exe",
+      "tw2",
+      "",
+      "",
+      "",
+      ""
+    ],
     [
       "TheWitcher3",
       "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher3\\tw3.exe",
@@ -123,15 +132,6 @@
       "ME123",
       "",
       "ORIGIN",
-      "",
-      ""
-    ],
-    [
-      "TheWitcher2",
-      "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2\\tw2.exe",
-      "tw2",
-      "",
-      "",
       "",
       ""
     ]

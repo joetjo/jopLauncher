@@ -15,7 +15,7 @@ configurable prerequisite on where to install game ).
 - Detects running game and record running time ( game has to be installed in a path that contains "jeux" , game process
   name will be used by default )
 - Detect common game platform and display which one is running
-- shows last 10 gaming sessions and allows starting a new session of the corresponding game
+- shows last gaming sessions and allows starting a new session of the corresponding game
 - | -> or to search an already played game and allow to restart it
 - | -> and applying a filter to see on installed game
 - allows excluding process that are detected but are not game ( launcher, crash handler, etc.. you may discover strange
@@ -73,17 +73,26 @@ Enhancement:
 
 # Known bugs
 
-- mapping running game --> crash on end game
-- search apply only on 10 last sessions, not all...
-- starting a new game setup the initial total duration to the last played game.
-- Regression : starting a mapping do not propose anymore to use PARENT by default
+- search apply only on last sessions, not all...
 
 # Known limitations
 
 - mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
-- refresh notif close launchers or excluded game
-- no way to start a game in admin mode
+- refresh notification close launchers or excluded game
+- it's not possible to start a game in admin mode
+
+# Next version content:
+
+Fixes:
+
+- mapping running game --> crash on end game
+- starting a new game setup the initial total duration to the last played game.
+- Regression : starting a mapping do not propose anymore to use PARENT by default
+- Game may be detected before UI startup and then not displayed in GUI
+- Closing GUI is not done on click and that's a shame
+
+Bug tracking system : None yet. Will be setup when needed.
 
 # Enhancement To be done
 
@@ -204,7 +213,7 @@ Enhancement:
 
 Choose your favorite game and assign:
 
-- a local mardown
+- a local markdown
 - a store URL
 - a Tips/Walktrough URL
 

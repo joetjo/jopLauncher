@@ -193,7 +193,7 @@ class GameSession(GhSimplePanel):
         if mapping is not None:
             self.ui_mapping_entry.set(mapping)
         else:
-            self.ui_mapping_entry.set("")
+            self.ui_mapping_entry.set("PARENT")
         if name == original_name:
             self.ui_name_label.set(name)
         else:

@@ -30,7 +30,7 @@ class procGui(EventListener):
 
     HEADER_LABEL_WIDTH = 40
 
-    def __init__(self, procmgr):
+    def __init__(self, procmgr, bgthread):
         self.ready = False
         self.procMgr = procmgr
         self.procMgr.setListener(self)
@@ -144,11 +144,11 @@ class procGui(EventListener):
         self.setDiscord(False)
         self.reloadLastSessions()
 
-        proc = procmgr.getFirstMonitored()
-        if proc is not None:
-            self.setPlaying(proc)
+        self.setPlaying(procmgr.getCurrentGame())
 
         self.ready = True
+
+        bgthread.start()
         self.app.start()
 
     def getWindow(self):
@@ -224,8 +224,8 @@ class procGui(EventListener):
     def searchInProgress(self):
         return self.display_mode.isSearchInProgress()
 
-    def setPlaying(self, proc):
-        if proc is None:
+    def setPlaying(self, game):
+        if game is None or not game.isSet():
             self.last_start = -1
             self.last_start_time = None
             self.ui_play_time_label.set("")
@@ -235,10 +235,10 @@ class procGui(EventListener):
             now = datetime.now()
             self.last_start = time.time()
             self.last_start_time = now.strftime("%H:%M:%S")
-            self.ui_playing_label.set(proc.getName())
+            self.ui_playing_label.set(game.getName())
             self.ui_play_time_label.set("just launch ! ({})".format(self.last_start_time))
-            if proc.hasData():
-                self.setPlayedDuration(float(proc.getStoreEntry()["duration"]))
+            if game.process.hasData():
+                self.setPlayedDuration(float(game.process.getStoreEntry()["duration"]))
             else:
                 self.setPlayedDuration(0)
 
@@ -248,9 +248,9 @@ class procGui(EventListener):
 
     # BEGIN Proc listener implementations
 
-    def newGame(self, proc):
-        Log.debug("New game detected {} ({})".format(proc.getName(), proc.getPath()))
-        self.setPlaying(proc)
+    def newGame(self, game):
+        Log.debug("New game detected {} ({})".format(game.getName(), game.process.getPath()))
+        self.setPlaying(game)
         self.reloadLastSessions()
 
     def refreshDone(self, current_game, platform_list_updated, others):
@@ -297,7 +297,10 @@ class procGui(EventListener):
     def isGameRunning(self):
         return self.last_start > 0
 
-    def getGameSelected(self):
+    def getGameSelected(self, check_current_game=True):
+        # No selection can be taken into account while a game is running
+        if check_current_game and self.procMgr.currentGame.isSet():
+            return None
         selection = []
         names = None
         for ui_session in self.ui_sessions:

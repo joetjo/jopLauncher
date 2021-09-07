@@ -1,5 +1,6 @@
-from base.jsonstore import GhStorage
 from pathlib import Path
+
+from base.jsonstore import GhStorage
 
 
 class GhSetup(GhStorage):
@@ -17,7 +18,7 @@ class GhSetup(GhStorage):
                 self.save()
                 self.setup = self.data()['global']
 
-            print("Configuration loaded")
+            print("GhSetup: Configuration loaded")
         else:
             super(GhSetup, self).__init__(appname, content)
 
