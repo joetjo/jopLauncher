@@ -256,8 +256,8 @@ class ProcMgr:
             if token in game_name:
                 last = self.sessions.findSessionByName(game_name)
                 if last is None:
-                    # not played in 10 last session
-                    last = Session([game_name, "", game_name], self.games[game_name])
+                    # not played in last sessions ( no session data - empty one should be used to display the result
+                    last = Session([game_name, "", game_name, "", "", "", ""], self.games[game_name])
                 result.addSession(last)
         return result
 

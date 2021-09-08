@@ -64,25 +64,7 @@ Edit SbSGL.json in home dir.
 
 # What will be in next version ?
 
-Last version is 2021.1.0509b
-
-Enhancement:
-
-- launch and detect discord
-- platform starter menu added
-
-# Known bugs
-
-- search apply only on last sessions, not all...
-
-# Known limitations
-
-- mapping name may be identical to a real other process name when loading process - to check
-- missing scrollbar or pagination on extended display for excluded game platform and launchers
-- refresh notification close launchers or excluded game
-- it's not possible to start a game in admin mode
-
-# Next version content:
+Last version is 2021.9.08a
 
 Fixes:
 
@@ -91,10 +73,22 @@ Fixes:
 - Regression : starting a mapping do not propose anymore to use PARENT by default
 - Game may be detected before UI startup and then not displayed in GUI
 - Closing GUI is not done on click and that's a shame
+- search apply only on last sessions, not all...
+
+# Known bugs
+
+None
+
+# Known limitations
+
+- mapping name may be identical to a real other process name when loading process - to check
+- missing scrollbar or pagination on extended display for excluded game platform and launchers
+- refresh notification close launchers or excluded game
+- it's not possible to start a game in admin mode
 
 Bug tracking system : None yet. Will be setup when needed.
 
-# Enhancement To be done
+# Future potential minor enhancements
 
 - add icon to game
 - add a way to disable the running mode if not supported.
@@ -108,12 +102,9 @@ Bug tracking system : None yet. Will be setup when needed.
 - game associated to platform should not start if platform is not started based on a flag by platform ( steam start
   automatically for example )
 
-# Potential Enhancement
+# Potential Major Enhancements
 
 - ui preference editor ( generic over GHSetup ) - top level panel with a generic property editor
-
-# Major enhancement
-
 - merge different storage when playing on several laptop/desktop
 
 # Step to switch to public
@@ -121,7 +112,6 @@ Bug tracking system : None yet. Will be setup when needed.
 - license decision
 - header in file
 - screenshots in readme
-- reset local storage to no publish my data
 - finalize packaging ( app icon, resources, ... )
 
 # Minimal testing STABLE release
