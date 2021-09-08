@@ -64,7 +64,7 @@ Edit SbSGL.json in home dir.
 
 # What will be in next version ?
 
-Last version is 2021.9.08a
+Last version is 2021.1.0908a
 
 Fixes:
 
