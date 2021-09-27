@@ -45,6 +45,7 @@ class MainMenu(GhAppMenu):
                 PlatformLauncher(self, gui, entry, cmd)
         self.addSep()
         self.add(Strings.MENU_COMP_APP, gui.applyLaunchCompApp)
+        self.add(Strings.MENU_MARKDOWN_REPORT, gui.updateMarkdownReport)
         self.add(Strings.MENU_ICONFX_APP, gui.applyLaunchIconExtract)
         self.addSep()
         self.add(Strings.EXIT, gui.applyExit)

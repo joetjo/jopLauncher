@@ -48,6 +48,7 @@ class JopSetup:
     URL_EXE = "URL_EXE"
     LOCAL_FILE_FOLDER = "LOCAL_FILE_FOLDER"
     COMPANION_APP = "COMPANION_APP"
+    MARKDOWN_REPORT = "MARKDOWN_REPORT"
     ICONFX_APP = "ICONFX_APP"
     DISCORD = "DISCORD"
 
@@ -96,10 +97,11 @@ class JopSetup:
         self.initSetupEntry(self.GAME_EXTENSION, '.exe')
         self.initSetupEntry(self.NOTE_EXE, "C:/Program Files (x86)/Notepad++/notepad++.exe")
         self.initSetupEntry(self.URL_EXE, "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
-        self.initSetupEntry(self.LOCAL_FILE_FOLDER, "C:/Users/nicol/Documents/GitHub/gList/notes")
-        self.initSetupEntry(self.COMPANION_APP, ["C:/Users/nicol/AppData/Local/Programs/notable/Notable.exe"])
+        self.initSetupEntry(self.LOCAL_FILE_FOLDER, "C:/MarkdownFiles")
+        self.initSetupEntry(self.COMPANION_APP, ["C:/Users/Machin/AppData/Local/Programs/Obsidian/Obsidian.exe"])
+        self.initSetupEntry(self.MARKDOWN_REPORT, "True")
         self.initSetupEntry(self.ICONFX_APP, ["G:/NMPTF-PortableApps/PortableApps/IcoFXPortable/IcoFXPortable.exe"])
-        self.initSetupEntry(self.DISCORD, ["C:/Users/nicol/AppData/Local/Discord/Update.exe",
+        self.initSetupEntry(self.DISCORD, ["C:/Users/Machin/AppData/Local/Discord/Update.exe",
                                            "--processStart",
                                            "Discord.exe"])
 

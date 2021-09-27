@@ -29,8 +29,8 @@ Note: the project is fully compatible to other platforms but tested only on Wind
 
 **Suggested Companion app**
 
-A good companion app to take notes about your games : https://www.electronjs.org/apps/notable
-it allows to set a markdown file by game and "tag" game to search in your own game. jopLauncher allows to link the md file of the game and to open it outside notable. What is interessant with notable is that is used standard markdown file that can used anywhere nut notable allows a nice tagging / indexing / searching / visualization.
+A good companion app to take notes about your games : http://obisidian.md
+it allows to set a markdown files by game and "tag" game to search in your own game. jopLauncher allows to link the md file of the game and to open it outside notable. What is interessant with notable is that is used standard markdown file that can used anywhere nut notable allows a nice tagging / indexing / searching / visualization.
 
 # FAQ - Documentation
 
@@ -64,16 +64,9 @@ Edit SbSGL.json in home dir.
 
 # What will be in next version ?
 
-Last version is 2021.1.0908a
+Last version is 2021.1.2709a
 
-Fixes:
-
-- mapping running game --> crash on end game
-- starting a new game setup the initial total duration to the last played game.
-- Regression : starting a mapping do not propose anymore to use PARENT by default
-- Game may be detected before UI startup and then not displayed in GUI
-- Closing GUI is not done on click and that's a shame
-- search apply only on last sessions, not all...
+Add MarkdownHelper to update markdown files from companion application.
 
 # Known bugs
 

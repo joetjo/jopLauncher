@@ -33,6 +33,7 @@ from launcher.gui.gamesession import GameSession
 from launcher.gui.menu import MainMenu
 from launcher.gui.strings import Strings
 from launcher.log import Log
+from markdown.markdown import markdown
 
 
 class procGui(EventListener):
@@ -473,6 +474,10 @@ class procGui(EventListener):
     @staticmethod
     def applyLaunchCompApp():
         GhLauncher.launch("note", JopSETUP.get(JopSETUP.COMPANION_APP))
+
+    @staticmethod
+    def updateMarkdownReport():
+        markdown()
 
     @staticmethod
     def applyLaunchIconExtract():

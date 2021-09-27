@@ -32,6 +32,7 @@ class Strings:
     MENU_EXCLUDED = "Show excluded games"
     MENU_LAUNCHER = "Show launchers"
     MENU_COMP_APP = "Companion App"
+    MENU_MARKDOWN_REPORT = "Update Markdown Report"
     MENU_ICONFX_APP = "Icon App"
     LAUNCH_PLATFORM_MENU = ""
     EXCLUDED_GAME = "   ** Excluded games **  "
