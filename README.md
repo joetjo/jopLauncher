@@ -107,13 +107,6 @@ Bug tracking system : None yet. Will be setup when needed.
 - ui preference editor ( generic over GHSetup ) - top level panel with a generic property editor
 - merge different storage when playing on several laptop/desktop
 
-# Step to switch to public
-
-- license decision
-- header in file
-- screenshots in readme
-- finalize packaging ( app icon, resources, ... )
-
 # Minimal testing STABLE release
 
 - delete storage and restart from empty stuff

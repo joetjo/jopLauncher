@@ -1,3 +1,17 @@
+# Copyright 2021 joetjo https://github.com/joetjo/MarkdownHelper
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
 # psutil must no be imported --> all call inside ProcessUtil fpr easy test purpose
 import copy
 import logging  # This module is thread safe.
@@ -10,7 +24,7 @@ from launcher.core.migrations.migrate import StorageVersion
 from launcher.core.private.currentgame import GameProcessHolder
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
-from launcher.core.private.session import SessionList, Session
+from data.session import SessionList, Session
 from launcher.log import Log
 
 LOCAL_STORAGE = 'local_storage.json'
