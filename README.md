@@ -27,6 +27,8 @@ configurable prerequisite on where to install game ).
 **Platform :** Windows ( python )
 Note: the project is fully compatible to other platforms but tested only on Windows 10 and packaged only for Windows.
 
+![](screenshot.png)
+
 **Suggested Companion app**
 
 A good companion app to take notes about your games : http://obisidian.md
