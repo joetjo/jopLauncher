@@ -64,24 +64,24 @@ not possible yet to add game manually in list.
 
 Edit SbSGL.json in home dir.
 
-# What will be in next version ?
-
-Last version is 2021.1.2709a
+# Last version is 2021.1.2709a
 
 Add MarkdownHelper to update markdown files from companion application.
 
 # Known bugs
-
-None
+- report generation (for companion app ) does not reload report definition on each run
 
 # Known limitations
-
 - mapping name may be identical to a real other process name when loading process - to check
 - missing scrollbar or pagination on extended display for excluded game platform and launchers
 - refresh notification close launchers or excluded game
 - it's not possible to start a game in admin mode
 
 Bug tracking system : None yet. Will be setup when needed.
+
+# What will be in next version ?
+
+Not planned yet
 
 # Future potential minor enhancements
 
