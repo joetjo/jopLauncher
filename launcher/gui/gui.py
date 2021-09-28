@@ -33,7 +33,7 @@ from launcher.gui.gamesession import GameSession
 from launcher.gui.menu import MainMenu
 from launcher.gui.strings import Strings
 from launcher.log import Log
-from markdown.markdown import markdown
+from markdown.markdown import MarkdownHelper
 
 
 class procGui(EventListener):
@@ -477,7 +477,7 @@ class procGui(EventListener):
 
     @staticmethod
     def updateMarkdownReport():
-        markdown()
+        MarkdownHelper().markdown()
 
     @staticmethod
     def applyLaunchIconExtract():

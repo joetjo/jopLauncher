@@ -64,12 +64,11 @@ not possible yet to add game manually in list.
 
 Edit SbSGL.json in home dir.
 
-# Last version is 2021.1.2709a
+# Last version is 2021.1.2809a
 
-Add MarkdownHelper to update markdown files from companion application.
-
-# Known bugs
+# Bug Fixes
 - report generation (for companion app ) does not reload report definition on each run
+- fix else branch level in report
 
 # Known limitations
 - mapping name may be identical to a real other process name when loading process - to check
@@ -81,7 +80,7 @@ Bug tracking system : None yet. Will be setup when needed.
 
 # What will be in next version ?
 
-Not planned yet
+- Update MarkdownHelper ( fix else level )
 
 # Future potential minor enhancements
 
