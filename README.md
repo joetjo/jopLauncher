@@ -64,11 +64,10 @@ not possible yet to add game manually in list.
 
 Edit SbSGL.json in home dir.
 
-# Last version is 2021.1.2809a
+# Last version is 2021.1.2909a
 
 # Bug Fixes
-- report generation (for companion app ) does not reload report definition on each run
-- fix else branch level in report
+- report generation (for companion app ) duplicate files when multiple bloc content are used.
 
 # Known limitations
 - mapping name may be identical to a real other process name when loading process - to check
@@ -77,10 +76,6 @@ Edit SbSGL.json in home dir.
 - it's not possible to start a game in admin mode
 
 Bug tracking system : None yet. Will be setup when needed.
-
-# What will be in next version ?
-
-- Update MarkdownHelper ( fix else level )
 
 # Future potential minor enhancements
 
@@ -206,5 +201,6 @@ Remove some Exe and filter with installed game
 
 # Note:
 
+- markdown folder is provided by https://github.com/joetjo/MarkdownHelper
 - info about scrollbar : https://www.geeksforgeeks.org/scrollable-frames-in-tkinter/
 - icon source set from https://icons8.com/icons ( Thanks to support Open Source project ! )
