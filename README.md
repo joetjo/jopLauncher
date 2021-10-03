@@ -64,10 +64,10 @@ not possible yet to add game manually in list.
 
 Edit SbSGL.json in home dir.
 
-# Last version is 2021.1.2909a
+# Last version is 2021.1.1003a
 
-# Bug Fixes
-- report generation (for companion app ) duplicate files when multiple bloc content are used.
+# Enhancement
+- update markdownHelper tp 1.3 ( support comment in report generation for companion app)
 
 # Known limitations
 - mapping name may be identical to a real other process name when loading process - to check
