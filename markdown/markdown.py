@@ -12,9 +12,10 @@
 #   See the License for the specific language governing permissions and
 #   limitations under the License.
 
+from base.setup import GhSetup
+
 from pathlib import Path
 
-from base.setup import GhSetup
 from markdown.markdownfile import MhMarkdownFile
 from markdown.report import MhReport
 

@@ -177,6 +177,7 @@ class MhReportEntry:
         nextLevel = "{}#".format(self.level)
         if len(self.filteredFiles) > 0:
             writer.writelines("{} {} ({})\n".format(self.level, self.title(), len(self.filteredFiles)))
+            titleToGenerate = True
 
             json_contents = self.getContents()
             if json_contents is not None:
@@ -194,7 +195,7 @@ class MhReportEntry:
                         if comment is None:
                             comment = ""
                         else:
-                            comment = " | <font size=-1>{}</font>".format(comment)
+                            comment = " <font size=-1>{}</font>".format(comment)
                     ctags = ""
                     if self.showTags is not None:
                         for showTag in self.showTags:
@@ -202,7 +203,16 @@ class MhReportEntry:
                                 stag = tag[2 + len(showTag):]
                                 if len(stag) > 0:
                                     ctags = "{} ``{}``".format(ctags, stag)
-                    writer.writelines("- [[{}]] {} {} \n".format(name, ctags, comment))
+                    # Main line with game data
+#                    writer.writelines("- [[{}]] {} {} \n".format(name, ctags, comment))
+                    if self.commentTag is not None and titleToGenerate:
+                        writer.writelines("|game|tags|comment|\n")
+                        writer.writelines("|----|----|-------|\n")
+                        titleToGenerate = False
+                    if self.commentTag is not None:
+                        writer.writelines("| [[{}]] | {} | {} |\n".format(name, ctags, comment))
+                    else:
+                        writer.writelines("[[{}]]  {} \n".format(name, ctags))
 
             try:
                 MhReportEntry(self.json["else"], self.elseFiles, self.allTags,
