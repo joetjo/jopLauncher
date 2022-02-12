@@ -158,7 +158,7 @@ class GameSession(GhSimplePanel):
                 self.setButtonState(self.ui_launch_button, False)
                 self.ui_launch_button.setImage(self.app.icons.PLAY_OFF)
             self.ui_note_button.grid()
-            self.setButtonState(self.ui_note_button, GhFileUtil.fileExist(self.session.getNote()))
+            self.setButtonState(self.ui_note_button, GhFileUtil.fileExist(self.session.getSheet()))
             self.ui_store_button.grid()
             self.setButtonState(self.ui_store_button, len(self.session.getWWW()) > 0)
             self.ui_tips_button.grid()
@@ -271,7 +271,7 @@ class GameSession(GhSimplePanel):
             Log.info("A game is already running, cannot launch {} ".format(self.getName()))
 
     def launchNote(self):
-        note = self.session.getNote()
+        note = self.session.getSheet()
         if note is not None and len(note) > 0:
             GhLauncher.launch("note", [JopSETUP.get(JopSETUP.NOTE_EXE), note])
 

@@ -1,10 +1,41 @@
 @startuml
 'https://plantuml.com/class-diagram
 
+package "json storage" {
+    class GhStorage {
+    "Games" : []
+    | "<Game>" :
+    |  |  "duration":
+    |  |  "last_duration":
+    |  |  "last_session":
+    |  |  "note":
+    |  |  "www":
+    |  |  "tips":
+    |  |  "sheet":
+    |  |  "type":
+    |  |  "status":
+    "last_sessions" []
+    | []
+    |  | ""  # 0 game name visible in GUI
+    |  | ""  # 1 game path
+    |  | ""  # 2 original name
+    |  | ""  # 3 Game Launcher - name from launchers list
+    |  | ""  # 4 Game platform
+    |  | ""  # 5 Game launcher path - specific game launcher
+    |  | ""  # 6 Parameters
+    "mappings" []
+    | "game name" : "mapping name"
+    "ignored" []
+    | "game name"
+    "launchers" []
+    | "launcher name" : "launcher path"
+    }
+}
+
 package "data" {
 
 class Session {
-json
+json # from JSon storage last_sessions->session
 ? game_info
 ---
 + From json storage
@@ -14,18 +45,69 @@ getOriginName(
 getLauncher()
 getPlatform()
 getCustomCommand()
-getNote()
+getLocalSheet()
 getWWW()
 getTips()
+getNote()
+getType()
+getStatus()
 ---
 }
 
 class SessionList {
-json_sessions
+json_sessions # from JSon storage last_sessions
 storage
 }
 
 SessionList "1" *-> "0..N" Session : sessions
 }
+
+package "launcher" {
+    class ProcMgr {
+    platforms
+    others
+    games_platforms
+
+    # From JSON storage
+    game_mappings
+    game_ignored
+    game_launchers
+
+    loadPList()
+    }
+
+    ProcMgr "1" *-> GameProcessHolder : currentGame
+    ProcMgr "1" *-> GameProcessHolder : previousGame
+    ProcMgr "1" *-> GhStorage : storage
+    ProcMgr "1" *-> SessionList : sessions (from Json Storage)
+
+    class GameProcessHolder {
+        pid
+    }
+
+    GameProcessHolder "1" *-> Process : "process"
+    class Process {
+    # from process info
+        pid
+        name
+        path
+
+    # Key name
+        originName
+
+    # Cross links
+        game
+        game_platform
+        other
+        storeEntry
+
+    # Current measures
+        started
+        duration
+    }
+}
+
+launcher -[hidden]-> "json storage"
+launcher -[hidden]-> data
 
 @enduml

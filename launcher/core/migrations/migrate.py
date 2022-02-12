@@ -29,14 +29,32 @@ def toV2(storage, version):
         s.append("")  # custom parameters
 
 
+def toV3(storage, version):
+    games = storage.data()['Games']
+
+    for key, value in games.items():
+        value["type"] = ""
+
+def toV4(storage, version):
+    games = storage.data()['Games']
+
+    for key, value in games.items():
+        value["status"] = ""
+        value["sheet"] = value["note"]
+        value["note"] = ""
+
 class StorageVersion:
     VERSION_LIST = [0,
                     1,
+                    2,
+                    4,
                     JopLauncher.DB_VERSION]
 
     MIGRATIONS_STEP = [nop,
                        nop,
-                       toV2]
+                       toV2,
+                       toV3,
+                       toV4]
 
     @staticmethod
     def check_migration(storage, to):

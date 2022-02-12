@@ -18,13 +18,14 @@ import logging  # This module is thread safe.
 import threading
 import time
 
-from JopLauncherConstant import JopLauncher
+from JopLauncherConstant import JopLauncher, JopSETUP
 from base.jsonstore import GhStorage
+from data.session import SessionList, Session
 from launcher.core.migrations.migrate import StorageVersion
 from launcher.core.private.currentgame import GameProcessHolder
 from launcher.core.private.process import ProcessInfo
 from launcher.core.private.processutil import ProcessUtil
-from data.session import SessionList, Session
+from launcher.jopsetup import JopSetup
 from launcher.log import Log
 
 LOCAL_STORAGE = 'local_storage.json'
@@ -70,6 +71,11 @@ class ProcMgr:
         self.games_platforms = [""]
         for key in JopLauncher.GAME_PLATFORMS:
             self.games_platforms.append(JopLauncher.GAME_PLATFORMS[key])
+
+        # Game properties
+        self.games_types = JopSETUP.get(JopSetup.GAME_TYPES)
+        self.games_statuses = JopSETUP.get(JopSetup.GAME_STATUSES)
+        self.games_notes = JopSETUP.get(JopSetup.GAME_NOTES)
 
     def setListener(self, event_listener):
         self.eventListener = event_listener
@@ -168,7 +174,10 @@ class ProcMgr:
                                     [self.currentGame.getName(), p.path, p.getOriginName(), "", "", "", ""],
                                     self.find(self.currentGame.getName(),
                                               "loading plist: processing 1st game session declaration"))
-                            self.sessions.addSession(session)
+                                self.sessions.addSession(session)
+                            else:
+                                # Path update in case game has been moved or updated
+                                session.setPath(p.path)
 
                             if self.eventListener is not None:
                                 self.eventListener.newGame(self.currentGame)
@@ -355,6 +364,15 @@ class ProcMgr:
 
     def getPossiblePlatforms(self):
         return self.games_platforms
+
+    def getPossibleTypes(self):
+        return self.games_types
+
+    def getPossibleStatuses(self):
+        return self.games_statuses
+
+    def getPossibleNotes(self):
+        return self.games_notes
 
     def stop(self):
         self.shutdown = True

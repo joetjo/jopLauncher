@@ -33,6 +33,9 @@ class Session:
     def getPath(self):
         return self.json[1]
 
+    def setPath(self, value):
+        self.json[1] = value
+
     def getOriginName(self):
         return self.json[2]
 
@@ -60,11 +63,11 @@ class Session:
     def setParameters(self, value):
         self.json[6] = value
 
-    def getNote(self):
-        return GhStorage.getValueOrEmptyString(self.game_info, 'note')
+    def getSheet(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'sheet')
 
-    def setNote(self, value):
-        self.game_info['note'] = value
+    def setSheet(self, value):
+        self.game_info['sheet'] = value
 
     def getWWW(self):
         return GhStorage.getValueOrEmptyString(self.game_info, 'www')
@@ -77,6 +80,24 @@ class Session:
 
     def setTips(self, value):
         self.game_info['tips'] = value
+
+    def getNote(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'note')
+
+    def setNote(self, value):
+        self.game_info['note'] = value
+
+    def getStatus(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'status')
+
+    def setStatus(self, value):
+        self.game_info['status'] = value
+
+    def getType(self):
+        return GhStorage.getValueOrEmptyString(self.game_info, 'type')
+
+    def setType(self, value):
+        self.game_info['type'] = value
 
     # Only on search result ( not available for session from storage )
     def getGameInfo(self):

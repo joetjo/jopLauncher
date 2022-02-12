@@ -64,6 +64,13 @@ not possible yet to add game manually in list.
 
 Edit SbSGL.json in home dir.
 
+# Next version
+- if a game is re-installed in another place, launch never update the path... : to be fixed
+- Add properties to each game:
+  - type : to be able to filter display by type
+  - note : personal evaluation
+  - status : in progress, standby, to be started, ...
+
 # Last version is 2021.1.1221a
 
 # Enhancement

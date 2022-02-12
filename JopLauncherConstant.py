@@ -7,16 +7,16 @@ JopSETUP = JopSetup(False)
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2021.1.1221a'
+    VERSION = '2022.2.14a'
     DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'
     ABOUT = "SbSGL\nThe Simple but Smart Game Launcher\nOld School GUI\n[No login/No internet access]"
-    SHORT_ABOUT = "JoProd@2021 by joetjo@Github"
+    SHORT_ABOUT = "JoProd@2022 by joetjo@Github"
     URL = "https://github.com/joetjo/jopLauncher"
     ICON_URL = "https://icons8.com"
 
-    DB_VERSION = 2
+    DB_VERSION = 4
 
     GAME_PLATFORMS = {
         "steam.exe": JopSETUP.STEAM,

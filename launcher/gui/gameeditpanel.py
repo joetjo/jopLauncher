@@ -24,6 +24,8 @@ class GameEditPanel(GhSimplePanel):
     def __init__(self, parent, app, row, col, colspan=1, sticky="nsew"):
         super().__init__(parent, row=row, col=col, colspan=colspan, sticky=sticky)
 
+        comboWidth = 12;
+
         self.app = app
         self.session = None
         self.launcher_ok = True
@@ -34,7 +36,7 @@ class GameEditPanel(GhSimplePanel):
         self.ui_launcher_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.LAUNCHER)
         self.ui_launcher_combo = GhApp.createCombobox(content, self.row(), self.col_next(),
                                                       self.applyLauncher, self.app.procMgr.getLaunchers(),
-                                                      width=8)
+                                                      width=comboWidth)
         self.ui_launcher_button = GhApp.createButton(content, self.row(), self.col_next(), text=Strings.NEW_LAUNCHER,
                                                      command=self.applyNewLauncher, image=self.app.icons.PLUS)
         self.ui_params_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_PARAMS)
@@ -47,7 +49,7 @@ class GameEditPanel(GhSimplePanel):
                                                         text=Strings.GAME_PLATFORM)
         self.ui_game_platform_combo = GhApp.createCombobox(content, self.row(), self.col_reset(3),
                                                            self.applyPlatform, self.app.procMgr.getPossiblePlatforms(),
-                                                           width=8, colspan=2)
+                                                           width=comboWidth, colspan=2)
         self.ui_custom_label = GhApp.createLabel(content, self.row(), self.col_next(), text=Strings.CUSTOM_LAUNCHER)
         self.ui_custom_path = GhApp.createLabel(content, self.row(), self.col_next(),
                                                 width=JopSETUP.get(JopSETUP.PARAMS_WIDTH))
@@ -55,9 +57,14 @@ class GameEditPanel(GhSimplePanel):
                                                    command=self.applySelectExe, anchor="e",
                                                    image=self.app.icons.FILE_SELECTION)
 
-        self.row_col_reset(2, 0)
-
         # Line 3
+        self.row_col_reset(2, 0)
+        self.ui_game_type_label = GhApp.createLabel(content, self.row(), self.col_next(),
+                                                    text=Strings.GAME_TYPE)
+        self.ui_game_type_combo = GhApp.createCombobox(content, self.row(), self.col_next(),
+                                                       self.applyType, self.app.procMgr.getPossibleTypes(),
+                                                       width=comboWidth, colspan=2)
+        self.col_next()  # Space for + button
         self.ui_local_link_label = GhApp.createLabel(content, self.row(), self.col_next(),
                                                      text=Strings.LOCAL_LINK)
         self.ui_local_link = GhApp.createLabel(content, self.row(), self.col_reset(5), colspan=4)
@@ -66,6 +73,13 @@ class GameEditPanel(GhSimplePanel):
                                                   command=self.applySelectLocal, anchor="e")
 
         # Line 4
+        self.row_col_reset(3, 0)
+        self.ui_game_status_label = GhApp.createLabel(content, self.row(), self.col_next(),
+                                                      text=Strings.GAME_STATUS)
+        self.ui_game_status_combo = GhApp.createCombobox(content, self.row(), self.col_next(),
+                                                         self.applyStatus, self.app.procMgr.getPossibleStatuses(),
+                                                         width=comboWidth, colspan=2)
+        self.col_next()  # Space for + button
         self.ui_www_link_label = GhApp.createLabel(content, self.row(), self.col_next(),
                                                    text=Strings.WWW_LINK)
         self.ui_www_link = GhApp.createEntry(content, self.row_next(), self.col_reset(),
@@ -73,6 +87,13 @@ class GameEditPanel(GhSimplePanel):
                                              "", colspan=5)
 
         # Line 5
+        self.row_col_reset(4, 0)
+        self.ui_game_note_label = GhApp.createLabel(content, self.row(), self.col_next(),
+                                                    text=Strings.GAME_Note)
+        self.ui_game_note_combo = GhApp.createCombobox(content, self.row(), self.col_next(),
+                                                       self.applyNote, self.app.procMgr.getPossibleNotes(),
+                                                       width=comboWidth, colspan=2)
+        self.col_next()  # Space for + button
         self.ui_tips_link_label = GhApp.createLabel(content, self.row(), self.col_next(),
                                                     text=Strings.TIPS_LINK)
         self.ui_tips_link = GhApp.createEntry(content, self.row(), self.col_reset(),
@@ -123,9 +144,12 @@ class GameEditPanel(GhSimplePanel):
         self.ui_game_platform_combo.set(session.getPlatform())
         self.ui_custom_path.set(session.getCustomCommand())
         self.ui_params.set(session.getParameters())
-        self.ui_local_link.set(session.getNote())
+        self.ui_local_link.set(session.getSheet())
         self.ui_www_link.set(session.getWWW())
         self.ui_tips_link.set(session.getTips())
+        self.ui_game_type_combo.set(session.getType())
+        self.ui_game_status_combo.set(session.getStatus())
+        self.ui_game_note_combo.set(session.getNote())
 
     def updateStorage(self):
         session = self.session
@@ -133,9 +157,12 @@ class GameEditPanel(GhSimplePanel):
         session.setPlatform(self.ui_game_platform_combo.get())
         session.setCustomCommand(self.ui_custom_path.get())
         session.setParameters(self.ui_params.get())
-        session.setNote(self.ui_local_link.get())
+        session.setSheet(self.ui_local_link.get())
         session.setWWW(self.ui_www_link.get())
         session.setTips(self.ui_tips_link.get())
+        session.setNote(self.ui_game_note_combo.get())
+        session.setStatus(self.ui_game_status_combo.get())
+        session.setType(self.ui_game_type_combo.get())
 
     def isLauncherOk(self):
         return self.launcher_ok
@@ -158,6 +185,15 @@ class GameEditPanel(GhSimplePanel):
     def applyPlatform(self, event):
         Log.debug("Platform {} selected".format(self.ui_game_platform_combo.get()))
 
+    def applyType(self, event):
+        Log.debug("Type {} selected".format(self.ui_game_type_combo.get()))
+
+    def applyStatus(self, event):
+        Log.debug("Status {} selected".format(self.ui_game_status_combo.get()))
+
+    def applyNote(self, event):
+        Log.debug("Note {} selected".format(self.ui_game_note_combo.get()))
+
     def applySelectExe(self):
         folder = GhFileUtil.home()
         if GhFileUtil.fileExist(self.session.getPath()):
@@ -172,8 +208,8 @@ class GameEditPanel(GhSimplePanel):
 
     def applySelectLocal(self):
         folder = GhFileUtil.home()
-        if len(self.session.getNote()) > 0:
-            folder = GhFileUtil.parentFolder(self.session.getNote())
+        if len(self.session.getSheet()) > 0:
+            folder = GhFileUtil.parentFolder(self.session.getSheet())
         else:
             folder = JopSETUP.get(JopSETUP.LOCAL_FILE_FOLDER)
         path = GhFileUtil.fileSelection(folder,

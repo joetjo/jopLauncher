@@ -6,7 +6,10 @@
             "last_session": "1620068842.1029294",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "Assassins Creed - JoProd Arrival": {
             "duration": "204.594551",
@@ -14,7 +17,10 @@
             "last_session": "1620067515.472239",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "Control": {
             "duration": "53.269271",
@@ -22,15 +28,21 @@
             "last_session": "1620068248.1973631",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "RoseOfSegunda": {
             "duration": "193.01230299999997",
             "last_duration": "12.399528",
             "last_session": "1620067629.973435",
-            "note": "C:/Users/nicol/Documents/GitHub/gList/notes/The rose of Segunda.md",
+            "note": "",
             "www": "https://blackcrosstaylor.itch.io/tros",
-            "tips": "blackcross-taylor.com/index.php/guides"
+            "tips": "blackcross-taylor.com/index.php/guides",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "TheWitcher3": {
             "duration": "571.5086640000001",
@@ -38,15 +50,21 @@
             "last_session": "1620127640.2617931",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "TheWitcher2": {
-            "duration": "57.05438",
-            "last_duration": "19.06151",
-            "last_session": "1631039553.9337366",
+            "duration": "81.895629",
+            "last_duration": "24.841249",
+            "last_session": "1641629627.241048",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "MassEffectDefinitiveAndLastEdition": {
             "duration": "55.286666",
@@ -54,7 +72,10 @@
             "last_session": "1619963186.0556378",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
         },
         "Divinity Original Sin": {
             "duration": "180.89711",
@@ -62,10 +83,33 @@
             "last_session": "1620068267.9077518",
             "note": "",
             "www": "",
-            "tips": ""
+            "tips": "",
+            "type": "",
+            "status": "",
+            "sheet": ""
+        },
+        "TheWitcher2Renamed": {
+            "duration": "30.051218",
+            "last_duration": "30.051218",
+            "last_session": "1641629750.2411008",
+            "note": "1",
+            "www": "test 2",
+            "tips": "ytdyfyhfghd",
+            "type": "RPG",
+            "status": "IN PROGRESS",
+            "sheet": "C:/Users/nicol/Documents/GitHub/gList2/Some stat....md"
         }
     },
     "last_sessions": [
+        [
+            "TheWitcher2Renamed",
+            "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2Renamed\\tw2.exe",
+            "tw2",
+            "",
+            "",
+            "",
+            ""
+        ],
         [
             "TheWitcher2",
             "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2\\tw2.exe",
@@ -150,7 +194,7 @@
     "launchers": {
         "ALauncher": "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/ALauncher.exe"
     },
-    "version": 2,
+    "version": 4,
     "ignored": [
         "Launcher"
     ]

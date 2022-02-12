@@ -59,6 +59,10 @@ class JopSetup:
     ITCHIO = "ITCHIO"
     ORIGIN = "ORIGIN"
 
+    GAME_TYPES = "GAME_TYPES"
+    GAME_STATUSES = "GAME_STATUSES"
+    GAME_NOTES = "GAME_NOTES"
+
     @staticmethod
     # Test Purpose
     def initJopSetup(content):
@@ -112,7 +116,10 @@ class JopSetup:
         self.initSetupEntry(self.ITCHIO, ["G:/itchio/itch-setup.exe", "--prefer-launch" "--appname" "itch"])
         self.initSetupEntry(self.UBISOFT, ["C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/Uplay.exe"])
         self.initSetupEntry(self.ORIGIN, ["C:/Program Files (x86)/Origin/Origin.exe"])
-
+        self.initSetupEntry(self.GAME_TYPES, ["FPS", "RPG", "COOP", "VN", "SIMULATION"]);
+        self.initSetupEntry(self.GAME_STATUSES, ["TO BE STARTED", "IN PROGRESS", "ALTERNATIVE PLAY",
+                                                 "IN STANDBY", "DONE"]);
+        self.initSetupEntry(self.GAME_NOTES, ["1", "2", "3", "4", "GIVUP"]);
         #        self.initSetupEntry(self., )
         if print_mode:
             print("========================================================")
