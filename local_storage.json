@@ -78,15 +78,15 @@
             "sheet": ""
         },
         "Divinity Original Sin": {
-            "duration": "180.89711",
-            "last_duration": "6.458486",
-            "last_session": "1620068267.9077518",
-            "note": "",
-            "www": "",
-            "tips": "",
-            "type": "",
-            "status": "",
-            "sheet": ""
+          "duration": "273.901528",
+          "last_duration": "22.361531",
+          "last_session": "1644996686.4871333",
+          "note": "",
+          "www": "",
+          "tips": "",
+          "type": "",
+          "status": "",
+          "sheet": ""
         },
         "TheWitcher2Renamed": {
             "duration": "30.051218",
@@ -101,17 +101,26 @@
         }
     },
     "last_sessions": [
-        [
-            "TheWitcher2Renamed",
-            "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2Renamed\\tw2.exe",
-            "tw2",
-            "",
-            "",
-            "",
-            ""
-        ],
-        [
-            "TheWitcher2",
+      [
+        "Divinity Original Sin",
+        "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\DivOriginalSin2\\dos2.exe",
+        "dos2",
+        "",
+        "STEAM",
+        "",
+        ""
+      ],
+      [
+        "TheWitcher2Renamed",
+        "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2Renamed\\tw2.exe",
+        "tw2",
+        "",
+        "",
+        "",
+        ""
+      ],
+      [
+        "TheWitcher2",
             "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher2\\tw2.exe",
             "tw2",
             "",
@@ -136,15 +145,6 @@
             "EPIC",
             "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
             "tests\\jeux\\games\\Borderland2\\borderland2.exe"
-        ],
-        [
-            "Divinity Original Sin",
-            "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Dos2\\dos2.exe",
-            "dos2",
-            "",
-            "STEAM",
-            "",
-            ""
         ],
         [
             "Control",

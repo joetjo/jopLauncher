@@ -37,7 +37,10 @@ GAME_TEMPLATE = {
     "last_session": "0",
     "note": "",
     "www": "",
-    "tips": ""
+    "tips": "",
+    "sheet": "",
+    "type": "",
+    "status": ""
 }
 
 
@@ -157,13 +160,17 @@ class ProcMgr:
                             store_entry = self.find(p.getName(), "loading plist: process discovery")
                             if store_entry is None:
                                 # TODO mapping name may be identical to a real other process name - to check
-                                Log.info(
-                                    "New game discovered : creating game {} within storage".format(p.getName()))
+                                Log.info("New game discovered : creating game {} within storage".format(p.getName()))
                                 self.games[p.getName()] = copy.deepcopy(GAME_TEMPLATE)
                                 p.setStoreEntry(self.games[p.getName()])
                                 self.storage.save()
                             else:
                                 p.setStoreEntry(store_entry)
+                                lastSession = self.sessions.findSessionByName(p.getName())
+                                if lastSession is not None and not lastSession.getPath() == p.getPath():
+                                    Log.info("Game {} : path has changed since last play ! Updating from {} to {}"
+                                             .format(p.getName(), lastSession.getPath(), p.getPath()))
+                                    lastSession.setPath(p.getPath())
 
                             p.setStarted()
                             self.currentGame.setProcess(p)
