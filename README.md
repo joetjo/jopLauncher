@@ -46,7 +46,7 @@ On first game that use the generic name, select it in history ( or search result
 
 Select game in history ( or search result ) and set a custom mapping using 'map'. Set the name you want instead of the original executable name.
 
-> Jop Game Launcher has detect a process that is not a game, how to remove it ?
+> Jop Game Launcher has detected a process that is not a game, how to remove it ?
 
 Select invalid game in history ( or search result ) and use `exclude` button. This executable will be removed and ignore if detected again. 
 There is currently no way to cancel the executable exclusion using the application ( storage in json format has to be edited manually ).
@@ -74,7 +74,8 @@ Edit SbSGL.json in home dir.
 # Last version is 2021.1.1221a
 
 # Enhancement
-- update markdownHelper tp 1.9
+
+- update markdownHelper to 1.9
 
 # Known limitations
 - mapping name may be identical to a real other process name when loading process - to check
