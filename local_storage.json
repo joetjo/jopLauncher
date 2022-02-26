@@ -56,14 +56,14 @@
             "sheet": ""
         },
         "TheWitcher2": {
-          "duration": "107.323689",
-          "last_duration": "25.42806",
-          "last_session": "1645859174.4403088",
+          "duration": "115.27362000000001",
+          "last_duration": "7.949931",
+          "last_session": "1645861841.737027",
           "note": "",
           "www": "",
           "tips": "",
           "type": "",
-          "status": "",
+          "status": "IN PROGRESS",
           "sheet": ""
         },
         "MassEffectDefinitiveAndLastEdition": {
@@ -132,16 +132,16 @@
         "TheWitcher3",
         "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\TheWitcher3\\tw3.exe",
         "tw3",
-            "ALauncher",
-            "GOG",
-            "",
-            ""
-        ],
-        [
-            "BorderLand2",
-            "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
-            "BorderLand2",
-            "",
+        "ALauncher",
+        "GOG",
+        "",
+        ""
+      ],
+      [
+        "BorderLand2",
+        "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
+        "BorderLand2",
+        "",
             "EPIC",
             "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
             "tests\\jeux\\games\\Borderland2\\borderland2.exe"

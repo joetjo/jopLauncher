@@ -65,8 +65,8 @@ class DisplayMode:
         self.refreshSessions()
 
     def editExtendedFilter(self):
-
-    # TODO
+        Log.debug("UI: editExtendedFilter")
+        # TODO
 
     def isSearchInProgress(self):
         return self.search_mode

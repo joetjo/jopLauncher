@@ -124,10 +124,18 @@ class procGui(EventListener):
         self.ui_prev_session_label = GhApp.createLabel(header_col.right, app.row(), app.col_reset(3), colspan=3)
         self.ui_prev_session_label.set(self.display_mode.display_mode_string)
         self.ui_search_reset_button = GhApp.createButton(header_col.right,
-                                                         app.row(), app.col_next(),
+                                                         app.row_next(), app.col_reset(),
                                                          self.reloadLastSessions, image=self.icons.SEARCH_RESET,
                                                          text=Strings.RESET_SEARCH_ACTION)
         self.ui_search_reset_button.grid_remove()
+
+        # 4th line TOOLBAR
+        GhApp.createButton(header_col.left, app.row(), app.col_next(), self.applyRefresh,
+                           Strings.REFRESH_ACTION, image=self.icons.REFRESH)
+        self.ui_game_action_panel = GameActionPanel(header_col.left, self, app.row(), app.col_next())
+        self.ui_game_action_panel.grid_remove()
+
+        app.row_col_reset()
 
         # CONTENT
         content_col = GhColumnPanel(self.app.content)
@@ -152,16 +160,9 @@ class procGui(EventListener):
         footer_col = GhColumnPanel(self.app.footer)
 
         # FOOTER LEFT
-        GhApp.createButton(footer_col.left, app.row(), app.col_next(), self.applyRefresh,
-                           Strings.REFRESH_ACTION, image=self.icons.REFRESH)
-        GhApp.createLabel(footer_col.left, app.row(), app.col_next(), text=" ")
-        self.ui_game_action_panel = GameActionPanel(footer_col.left, self, app.row(), 5)
-        self.ui_game_action_panel.grid_remove()
-
-        # FOOTER RIGHT
         app.row_col_reset()
-        self.ui_status = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
-        self.ui_game_stat = GhApp.createLabel(footer_col.right, app.row(), app.col_next())
+        self.ui_status = GhApp.createLabel(footer_col.left, app.row(), app.col_next())
+        self.ui_game_stat = GhApp.createLabel(footer_col.left, app.row(), app.col_next())
         GhApp.createButton(footer_col.right, app.row(), app.col_next(), self.applyAbout, Strings.ABOUT_ACTION,
                            image=self.icons.ABOUT)
 
