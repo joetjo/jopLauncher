@@ -35,13 +35,18 @@ def toV3(storage, version):
     for key, value in games.items():
         value["type"] = ""
 
+
 def toV4(storage, version):
     games = storage.data()['Games']
 
     for key, value in games.items():
         value["status"] = ""
-        value["sheet"] = value["note"]
+        try:
+            value["sheet"] = value["note"]
+        except KeyError:
+            value["sheet"] = ""
         value["note"] = ""
+
 
 class StorageVersion:
     VERSION_LIST = [0,

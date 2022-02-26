@@ -23,6 +23,7 @@ class Strings:
     FILTER = "| Filter:"
     SEARCHING = "Display mode [Searching...please wait]"
     INSTALLED_FILTER = "installed"
+    EXTENDED_FILTER = "extended"
     PLAY_TIME = "Play time"
     TIME_PLAYED = "Total time"
     LAST_LAUNCH = "Last play"
@@ -58,6 +59,7 @@ class Strings:
 
     # Buttons
     SEARCH_ACTION = "  Go"
+    ADD_FILTER_ACTION = "Extended Search"
     RESET_SEARCH_ACTION = "Reset"
     REFRESH_ACTION = "Refresh"
     EDIT_ACTION = " edit"

@@ -32,8 +32,10 @@ class DisplayMode:
         self.display_mode_string = Strings.PREVIOUS
         # DISPLAY MODE : search or last_session
         self.search_mode = False
-        # RESULT FILTER: show or not show only installed game
+        # RESULT FILTER: show or not show : only installed game
         self.installed_mode = False
+        # RESULT FILTER: show or not show : game that match the extended filter
+        self.extended_mode = False
         # OPTIONAL DISPLAY
         self.excluded_mode = False
         self.launcher_mode = False
@@ -55,10 +57,16 @@ class DisplayMode:
         self.display_mode_string = result
         self.app.ui_prev_session_label.set(self.display_mode_string)
 
-    def filterMode(self, installed_mode):
+    def filterMode(self, installed_mode, extended_mode):
         self.installed_mode = installed_mode
+        self.extended_mode = extended_mode
+        # TODO extended mode
         # reload in current mode
         self.refreshSessions()
+
+    def editExtendedFilter(self):
+
+    # TODO
 
     def isSearchInProgress(self):
         return self.search_mode

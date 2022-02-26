@@ -98,7 +98,7 @@ class procGui(EventListener):
         app.row_col_reset()
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), width=15)
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), text=Strings.SEARCH)
-        self.ui_search_entry = GhApp.createEntry(header_col.right, app.row(), app.col_next(), 20, "",
+        self.ui_search_entry = GhApp.createEntry(header_col.right, app.row(), app.col_next(), 25, "",
                                                  command=self.applySearch)
         self.ui_search_button = GhApp.createButton(header_col.right, app.row_next(), app.col_reset(),
                                                    self.applySearch, text=Strings.SEARCH_ACTION,
@@ -107,9 +107,18 @@ class procGui(EventListener):
         # 2nd line
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), width=15)
         GhApp.createLabel(header_col.right, app.row(), app.col_next(), text=Strings.FILTER)
-        self.filter_panel = GhSimplePanel(header_col.right, app.row_next(), app.col_reset())
+
+        # 2nd line - filter panel start
+        self.filter_panel = GhSimplePanel(header_col.right, app.row(), app.col_next())
         self.ui_installed_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 0,
                                                         text=Strings.INSTALLED_FILTER, command=self.applyFilter)
+        self.ui_extended_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 1,
+                                                       text=Strings.EXTENDED_FILTER, command=self.applyFilter)
+        # 2nd line - filter panel end
+
+        self.ui_new_filter_button = GhApp.createButton(header_col.right, app.row_next(), app.col_reset(),
+                                                       self.applyNewFilter, text=Strings.ADD_FILTER_ACTION,
+                                                       image=self.icons.EDIT)
 
         # 3rd line
         self.ui_prev_session_label = GhApp.createLabel(header_col.right, app.row(), app.col_reset(3), colspan=3)
@@ -212,7 +221,10 @@ class procGui(EventListener):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
-        self.display_mode.filterMode(self.ui_installed_filter.get() == 1)
+        self.display_mode.filterMode(self.ui_installed_filter.get() == 1, self.ui_extended_filter.get() == 1)
+
+    def applyNewFilter(self):
+        self.display_mode.editExtendedFilter()
 
     def applySearch(self):
         token = self.ui_search_entry.get()

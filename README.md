@@ -70,11 +70,11 @@ Edit SbSGL.json in home dir.
   - type : to be able to filter display by type
   - note : personal evaluation
   - status : in progress, standby, to be started, ...
+- update markdownHelper to 2.0 ( add count support for statistics )
 
 # Last version is 2021.1.1221a
 
 # Enhancement
-
 - update markdownHelper to 1.9
 
 # Known limitations

@@ -7,7 +7,7 @@ JopSETUP = JopSetup(False)
 
 class JopLauncher:
     # To be updated on release
-    VERSION = '2022.2.14a'
+    VERSION = '2022.2.25a'
     DEBUG = False
     ###########################
     APP_NAME = 'Jop Game Launcher'
