@@ -24,6 +24,7 @@ class Strings:
     SEARCHING = "Display mode [Searching...please wait]"
     INSTALLED_FILTER = "installed"
     EXTENDED_FILTER = "extended"
+    EXTENDED_FILTER_TOOLBAR = "Extended Filter:"
     PLAY_TIME = "Play time"
     TIME_PLAYED = "Total time"
     LAST_LAUNCH = "Last play"
@@ -59,10 +60,13 @@ class Strings:
 
     # Buttons
     SEARCH_ACTION = "  Go"
-    ADD_FILTER_ACTION = "Extended Search"
+    ADD_FILTER_ACTION = "Add filter"
+    DEL_FILTER_ACTION = "Remove Filter"
+    APPLY_FILTER_ACTION = "OK"
+    CANCEL_FILTER_ACTION = "Cancel"
     RESET_SEARCH_ACTION = "Reset"
     REFRESH_ACTION = "Refresh"
-    EDIT_ACTION = " edit"
+    EDIT_ACTION = " edit sheet"
     EDIT_APPLY_ACTION = " save edit"
     EDIT_CANCEL_ACTION = " cancel edit"
     IGNORE_ACTION = " exclude"

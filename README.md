@@ -67,10 +67,13 @@ Edit SbSGL.json in home dir.
 # Next version
 - If a game is re-installed in another place, path to the game is automatically updated.
 - Add properties to each game:
-  - type : to be able to filter display by type
-  - note : personal evaluation
-  - status : in progress, standby, to be started, ...
-- update markdownHelper to 2.0 ( add count support for statistics )
+    - type : to be able to filter display by type
+    - note : personal evaluation
+    - status : in progress, standby, to be started, ...
+- Update markdownHelper to 2.0 ( add count support for statistics )
+- Move toolbar to the top ( why it was at the bottom ??? who designed this ??? )
+- Add extended filtering on properties
+- On startup display mode enabled to show only installed game.
 
 # Last version is 2021.1.1221a
 

@@ -142,16 +142,16 @@
         "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Borderland2\\BorderLand2.exe",
         "BorderLand2",
         "",
-            "EPIC",
-            "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
-            "tests\\jeux\\games\\Borderland2\\borderland2.exe"
-        ],
-        [
-            "Control",
-            "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Control\\Control.exe",
-            "Control",
-            "",
-            "STEAM",
+        "EPIC",
+        "C:/Users/nicol/PycharmProjects/jopLauncher/tests/jeux/games/Borderland2/Launcher.exe",
+        "tests\\jeux\\games\\Borderland2\\borderland2.exe"
+      ],
+      [
+        "Control",
+        "C:\\Users\\nicol\\PycharmProjects\\jopLauncher\\tests\\jeux\\games\\Control\\Control.exe",
+        "Control",
+        "",
+        "STEAM",
             "",
             ""
         ],

@@ -1,0 +1,179 @@
+# Copyright 2022 joetjo https://github.com/joetjo/MarkdownHelper
+#
+#   Licensed under the Apache License, Version 2.0 (the "License");
+#   you may not use this file except in compliance with the License.
+#   You may obtain a copy of the License at
+#
+#       http://www.apache.org/licenses/LICENSE-2.0
+#
+#   Unless required by applicable law or agreed to in writing, software
+#   distributed under the License is distributed on an "AS IS" BASIS,
+#   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#   See the License for the specific language governing permissions and
+#   limitations under the License.
+
+from gridgui.application import GhApp
+from gridgui.simplepanel import GhSimplePanel
+from launcher.gui.displaymode import Filter
+from launcher.gui.strings import Strings
+
+# Extender filter editor
+from launcher.log import Log
+
+COMBO_WIDTH = 15
+ATTRIBUTES_SUPPORTED = ["Status", "Type", "Note"]
+OPERATOR_SUPPORTED = ["=", "!="]
+
+
+class FilerLinePanel(GhSimplePanel):
+
+    def __init__(self, parent, filterPanel, row, col, sticky="nsew"):
+        super().__init__(parent, row, col, colspan=6, sticky=sticky)
+
+        self.content = parent
+        self.filterRow = row
+        self.filterCol = col
+        self.parent = parent
+        self.filterPanel = filterPanel
+        self.ui_attribute_selector = GhApp.createCombobox(parent, row, col,
+                                                          self.filterPanel.applyTypeSelection, ATTRIBUTES_SUPPORTED,
+                                                          width=COMBO_WIDTH)
+        self.ui_attribute_selector.set(ATTRIBUTES_SUPPORTED[1])
+        self.ui_operator_selector = GhApp.createCombobox(parent, row, col + 1,
+                                                         self.filterPanel.applyOperatorSelection, OPERATOR_SUPPORTED,
+                                                         width=2)
+        self.ui_operator_selector.set("=")
+        self.ui_value_selector = GhApp.createCombobox(parent, row, col + 2,
+                                                      self.filterPanel.applyValueSelection, "",
+                                                      width=COMBO_WIDTH)
+        # self.filterPanel.applyTypeSelection()
+        self.ui_del_button = GhApp.createButton(parent, row, col + 3,
+                                                self.applyDel, Strings.DEL_FILTER_ACTION,
+                                                image=self.filterPanel.app.icons.REMOVE,
+                                                text_visible=False, anchor="w")
+        # A Unique + button on last line
+        self.addLastLineButtons()
+
+    def addLastLineButtons(self):
+        self.filterPanel.ui_add_button = GhApp.createButton(self.parent, self.filterRow, self.filterCol + 4,
+                                                            self.filterPanel.applyAdd, Strings.ADD_FILTER_ACTION,
+                                                            image=self.filterPanel.app.icons.PLUS,
+                                                            text_visible=False, anchor="w")
+        self.filterPanel.ui_ok_button = GhApp.createButton(self.parent, self.filterRow, self.filterCol + 5,
+                                                           self.filterPanel.applyOK, Strings.APPLY_FILTER_ACTION,
+                                                           text_visible=True, anchor="w")
+
+    def grid_remove(self):
+        self.ui_attribute_selector.grid_remove()
+        self.ui_operator_selector.grid_remove()
+        self.ui_value_selector.grid_remove()
+        self.ui_del_button.grid_remove()
+
+    def grid(self):
+        self.ui_attribute_selector.grid()
+        self.ui_operator_selector.grid()
+        self.ui_value_selector.grid()
+        self.ui_del_button.grid()
+
+    def applyDel(self):
+        self.filterPanel.applyDel(self)
+
+
+class ExtenderFilterPanel(GhSimplePanel):
+
+    def __init__(self, parent, app, row=0, col=0, sticky="nsew"):
+        super().__init__(parent, row, col, colspan=6, sticky=sticky)
+
+        # TODO - support only to create filter from scratch - no  reloading current filter yet
+
+        self.filterColumn = 4
+        self.filterRow = row
+
+        self.app = app
+        self.filters = []
+
+        self.ui_title = GhApp.createLabel(parent, self.row(), self.col_next(), text=Strings.EXTENDED_FILTER_TOOLBAR)
+        self.ui_add_button = GhApp.createButton(parent, self.row(), self.col_next(),
+                                                self.applyAdd, Strings.ADD_FILTER_ACTION, image=self.app.icons.PLUS,
+                                                text_visible=False, anchor="w")
+        self.ui_ok_button = GhApp.createButton(parent, self.row_next(), self.col_next(),
+                                               self.applyOK, Strings.CANCEL_FILTER_ACTION,
+                                               text_visible=True, anchor="w")
+        self.row_next()
+
+    def grid_remove(self):
+        self.ui_title.grid_remove()
+        self.ui_add_button.grid_remove()
+        self.ui_ok_button.grid_remove()
+
+    def grid(self):
+        self.ui_title.grid()
+        self.ui_add_button.grid()
+        self.ui_ok_button.grid()
+
+    def setFilters(self, filters):
+        self.filters = []
+        self.row_reset(self.filterRow)
+
+        for f in filters:
+            filterPanel = self.applyAdd()
+            filterPanel.ui_attribute_selector.set(f.attribute)
+            if f.operatorIsEqual:
+                filterPanel.ui_operator_selector.set("=")
+            else:
+                filterPanel.ui_operator_selector.set("!=")
+            filterPanel.ui_value_selector.set(f.value)
+
+        if len(self.filters) == 0:
+            self.applyAdd()
+
+    def getLastFilterPanel(self):
+        filterCount = len(self.filters)
+        if filterCount == 0:
+            return None
+        else:
+            return self.filters[filterCount - 1]
+
+    def applyAdd(self):
+        Log.info("Adding filter {} {}".format(self.row(), self.filterColumn))
+        self.grid_remove()
+        filterPanel = FilerLinePanel(self.content, self, self.row_next(), self.filterColumn);
+        self.filters.append(filterPanel)
+        return filterPanel
+
+    def applyDel(self, filterPanel):
+        # Last line need a specific processing - last line detection
+        lastFilter = self.getLastFilterPanel()
+        lastLine = False
+        if lastFilter is not None and lastFilter == filterPanel:
+            lastLine = True
+        # Removing the requested filter
+        self.filters.remove(filterPanel)
+        filterPanel.grid_remove()
+        Log.info("Filter line removed --> remaining filter: {}".format(len(self.filters)))
+        # Processing the last line case if needed
+        if lastLine:
+            lastFilter = self.getLastFilterPanel()
+            if lastFilter is not None:
+                self.grid_remove()
+                lastFilter.addLastLineButtons()
+
+    def applyOK(self):
+        filters = []
+        for filterPanel in self.filters:
+            filters.append(Filter(filterPanel.ui_attribute_selector.get(),
+                                  filterPanel.ui_value_selector.get(),
+                                  filterPanel.ui_operator_selector == '='))
+            filterPanel.grid_remove()
+        self.grid_remove()
+
+        self.app.applyFilterSetup(filters)
+
+    def applyTypeSelection(self):
+        Log.info("Filter at selection ** NOT IMPLEMENTED ")
+
+    def applyOperatorSelection(self):
+        Log.info("Filter at selection ** NOT IMPLEMENTED ")
+
+    def applyValueSelection(self):
+        Log.info("Filter at selection ** NOT IMPLEMENTED ")

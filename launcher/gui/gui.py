@@ -28,6 +28,7 @@ from gridgui.simplepanel import GhSimplePanel
 from icons.icons import GhIcons
 from launcher.core.procevent import EventListener
 from launcher.gui.displaymode import DisplayMode
+from launcher.gui.extenderfilterpanel import ExtenderFilterPanel
 from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
 from launcher.gui.menu import MainMenu
@@ -112,6 +113,7 @@ class procGui(EventListener):
         self.filter_panel = GhSimplePanel(header_col.right, app.row(), app.col_next())
         self.ui_installed_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 0,
                                                         text=Strings.INSTALLED_FILTER, command=self.applyFilter)
+        self.ui_installed_filter.set(True)  # Enabled by default - mist be coherent with default value in displaymode.py
         self.ui_extended_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 1,
                                                        text=Strings.EXTENDED_FILTER, command=self.applyFilter)
         # 2nd line - filter panel end
@@ -129,11 +131,16 @@ class procGui(EventListener):
                                                          text=Strings.RESET_SEARCH_ACTION)
         self.ui_search_reset_button.grid_remove()
 
-        # 4th line TOOLBAR
+        # 4th line
+        # 4th line LEFT - TOOLBAR
         GhApp.createButton(header_col.left, app.row(), app.col_next(), self.applyRefresh,
                            Strings.REFRESH_ACTION, image=self.icons.REFRESH)
-        self.ui_game_action_panel = GameActionPanel(header_col.left, self, app.row(), app.col_next())
+        self.ui_game_action_panel = GameActionPanel(header_col.left, self, app.row(), app.col_reset())
         self.ui_game_action_panel.grid_remove()
+
+        # 4th line RIGHT - Extended filter
+        self.ui_extended_filter_toolbar = ExtenderFilterPanel(header_col.right, self, app.row(), app.col_next())
+        self.ui_extended_filter_toolbar.grid_remove()
 
         app.row_col_reset()
 
@@ -226,6 +233,13 @@ class procGui(EventListener):
 
     def applyNewFilter(self):
         self.display_mode.editExtendedFilter()
+        self.ui_new_filter_button.grid_remove()
+
+    def applyFilterSetup(self, filters):
+        filterCount = len(filters)
+        self.display_mode.applyExtendedFilter(filters)
+        self.ui_new_filter_button.grid()
+        self.ui_extended_filter.set(filterCount > 0)
 
     def applySearch(self):
         token = self.ui_search_entry.get()

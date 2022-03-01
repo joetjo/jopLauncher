@@ -21,10 +21,11 @@ from launcher.log import Log
 
 
 class GameEditPanel(GhSimplePanel):
+
     def __init__(self, parent, app, row, col, colspan=1, sticky="nsew"):
         super().__init__(parent, row=row, col=col, colspan=colspan, sticky=sticky)
 
-        comboWidth = 12;
+        comboWidth = 12
 
         self.app = app
         self.session = None

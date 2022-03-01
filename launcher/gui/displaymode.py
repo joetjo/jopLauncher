@@ -17,6 +17,14 @@ from launcher.gui.strings import Strings
 from launcher.log import Log
 
 
+class Filter:
+
+    def __init__(self, attribute, value, operatorIsEqual):
+        self.attribute = attribute
+        self.value = value
+        self.operatorIsEqual = operatorIsEqual
+
+
 class DisplayMode:
     """Keep track of display mode used by ProcGUI
 
@@ -33,9 +41,10 @@ class DisplayMode:
         # DISPLAY MODE : search or last_session
         self.search_mode = False
         # RESULT FILTER: show or not show : only installed game
-        self.installed_mode = False
+        self.installed_mode = True
         # RESULT FILTER: show or not show : game that match the extended filter
         self.extended_mode = False
+        self.filters = []
         # OPTIONAL DISPLAY
         self.excluded_mode = False
         self.launcher_mode = False
@@ -66,7 +75,8 @@ class DisplayMode:
 
     def editExtendedFilter(self):
         Log.debug("UI: editExtendedFilter")
-        # TODO
+        self.app.ui_extended_filter_toolbar.grid()
+        self.app.ui_extended_filter_toolbar.setFilters(self.filters)
 
     def isSearchInProgress(self):
         return self.search_mode
@@ -113,3 +123,7 @@ class DisplayMode:
             self.showLauncher()
         else:
             self.showPlatforms()
+
+    def applyExtendedFilter(self, filters):
+        Log.info("Applying filter setup {}".format(len(filters)))
+        self.filters = filters
