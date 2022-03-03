@@ -22,8 +22,8 @@ ALLOWED_ATTRIBUTES = ["target",  # 1st level only: target file path
                       "title",  # mandatory on each bloc
                       "tag_condition",  # optional: tag list to filter content ( can be tag prefix )
                       "path_condition",  # optional: name list that should be used in folder path
-                      "tag_not_condition",
-                      # optional: tag list to filter content ( can be tag prefix ) ONLY IN COUNT BLOC
+                      "tag_not_condition",  # optional: tag list to filter content
+                      # ( can be tag prefix ) ONLY IN COUNT BLOC
                       "path_not_condition",  # optional: name list that should be used in folder path ONLY IN COUNT BLOC
                       "condition_type",  # if "not" --> inverse the tag_condition or path condition
                       "contents",  # sub blocs / in not defined --> leaf to print
@@ -208,7 +208,7 @@ class MhReportEntry:
         for token in tags:
             token = "#{}".format(token)
             for tag in allTags:
-                if tag.startswith(token):
+                if tag.startswith(token) and not tag.endswith("/"):
                     result.append(tag)
         return result
 

@@ -22,6 +22,9 @@ from launcher.log import Log
 
 COMBO_WIDTH = 15
 ATTRIBUTES_SUPPORTED = ["Status", "Type", "Note"]
+ATTRIBUTE_STATUS = 0
+ATTRIBUTE_TYPE = 1
+ATTRIBUTE_NOTE = 2
 OPERATOR_SUPPORTED = ["=", "!="]
 
 
@@ -36,17 +39,17 @@ class FilerLinePanel(GhSimplePanel):
         self.parent = parent
         self.filterPanel = filterPanel
         self.ui_attribute_selector = GhApp.createCombobox(parent, row, col,
-                                                          self.filterPanel.applyTypeSelection, ATTRIBUTES_SUPPORTED,
+                                                          self.applyTypeSelection, ATTRIBUTES_SUPPORTED,
                                                           width=COMBO_WIDTH)
-        self.ui_attribute_selector.set(ATTRIBUTES_SUPPORTED[1])
+        self.ui_attribute_selector.set(ATTRIBUTES_SUPPORTED[0])
         self.ui_operator_selector = GhApp.createCombobox(parent, row, col + 1,
-                                                         self.filterPanel.applyOperatorSelection, OPERATOR_SUPPORTED,
+                                                         self.applyOperatorSelection, OPERATOR_SUPPORTED,
                                                          width=2)
-        self.ui_operator_selector.set("=")
+        self.ui_operator_selector.set(OPERATOR_SUPPORTED[0])
         self.ui_value_selector = GhApp.createCombobox(parent, row, col + 2,
-                                                      self.filterPanel.applyValueSelection, "",
+                                                      self.applyValueSelection, "",
                                                       width=COMBO_WIDTH)
-        # self.filterPanel.applyTypeSelection()
+        self.applyTypeSelection(self.ui_attribute_selector.get())
         self.ui_del_button = GhApp.createButton(parent, row, col + 3,
                                                 self.applyDel, Strings.DEL_FILTER_ACTION,
                                                 image=self.filterPanel.app.icons.REMOVE,
@@ -78,13 +81,21 @@ class FilerLinePanel(GhSimplePanel):
     def applyDel(self):
         self.filterPanel.applyDel(self)
 
+    def applyTypeSelection(self, info):
+        self.ui_value_selector.setValues(self.filterPanel.getPossibleValues(self.ui_attribute_selector.get()))
+        self.ui_value_selector.set("")
+
+    def applyOperatorSelection(self, info):
+        pass
+
+    def applyValueSelection(self, info):
+        pass
+
 
 class ExtenderFilterPanel(GhSimplePanel):
 
     def __init__(self, parent, app, row=0, col=0, sticky="nsew"):
         super().__init__(parent, row, col, colspan=6, sticky=sticky)
-
-        # TODO - support only to create filter from scratch - no  reloading current filter yet
 
         self.filterColumn = 4
         self.filterRow = row
@@ -169,11 +180,20 @@ class ExtenderFilterPanel(GhSimplePanel):
 
         self.app.applyFilterSetup(filters)
 
-    def applyTypeSelection(self):
-        Log.info("Filter at selection ** NOT IMPLEMENTED ")
+    def getPossibleValues(self, attribute):
+        result = [""]
+        values = None
+        if attribute == ATTRIBUTES_SUPPORTED[ATTRIBUTE_TYPE]:
+            values = self.app.procMgr.getPossibleTypes()
+        if attribute == ATTRIBUTES_SUPPORTED[ATTRIBUTE_STATUS]:
+            values = self.app.procMgr.getPossibleStatuses()
+        if attribute == ATTRIBUTES_SUPPORTED[ATTRIBUTE_NOTE]:
+            values = self.app.procMgr.getPossibleNotes()
 
-    def applyOperatorSelection(self):
-        Log.info("Filter at selection ** NOT IMPLEMENTED ")
+        if len(values) == 0:
+            Log.info("WARNING: no value for attribute {}".format(attribute))
+        else:
+            for value in values:
+                result.append(value)
 
-    def applyValueSelection(self):
-        Log.info("Filter at selection ** NOT IMPLEMENTED ")
+        return result

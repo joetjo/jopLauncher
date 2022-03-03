@@ -41,3 +41,6 @@ class GhAppHandle:
     def setImage(self, image, compound=LEFT):
         self.widget.configure(image=image)
         self.widget.configure(compound=compound)
+
+    def setValues(self, values):
+        self.widget['values'] = values

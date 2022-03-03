@@ -191,14 +191,13 @@ class GhApp(GhGridBehaviour):
 
     @staticmethod
     def createCombobox(parent, row, col, command, values,
-                       text=None,
                        anchor='w',
                        width=None,
                        colspan=1,
                        read_only=True,
                        debug_name=None):
         combo_var = StringVar()
-        combo = Combobox(parent, text=text, width=width, textvariable=combo_var)
+        combo = Combobox(parent, width=width, textvariable=combo_var)
         combo.grid(row=row, column=col, columnspan=colspan, sticky=anchor)
         combo['values'] = values
         combo.bind('<<ComboboxSelected>>', command)
