@@ -240,6 +240,7 @@ class procGui(EventListener):
         self.display_mode.applyExtendedFilter(filters)
         self.ui_new_filter_button.grid()
         self.ui_extended_filter.set(filterCount > 0)
+        self.applyFilter()
 
     def applySearch(self):
         token = self.ui_search_entry.get()

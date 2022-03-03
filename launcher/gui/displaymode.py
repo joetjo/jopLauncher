@@ -69,7 +69,7 @@ class DisplayMode:
     def filterMode(self, installed_mode, extended_mode):
         self.installed_mode = installed_mode
         self.extended_mode = extended_mode
-        # TODO extended mode
+
         # reload in current mode
         self.refreshSessions()
 
@@ -83,7 +83,27 @@ class DisplayMode:
 
     # check if game from session map the current filter mode
     def isVisible(self, session):
-        return (self.installed_mode and GhFileUtil.fileExist(session.getPath())) or not self.installed_mode
+        installCheck = (self.installed_mode and GhFileUtil.fileExist(session.getPath())) or not self.installed_mode
+        extendCheck = True
+        if self.extended_mode:
+            for f in self.filters:
+                value = self.getValueFor(f.attribute, session)
+                if f.operatorIsEqual:
+                    extendCheck = extendCheck and value == f.value
+                else:
+                    extendCheck = extendCheck and not value == f.value
+        return installCheck and extendCheck
+
+    @staticmethod
+    def getValueFor(attribute, session):
+        if attribute == "Status":
+            return session.getStatus()
+        if attribute == "Type":
+            return session.getType()
+        if attribute == "Note":
+            return session.getNote()
+        Log.info("Warning Extended filter : invalid attribute type {}".format(attribute))
+        return ""
 
     def showExcluded(self):
         self.excluded_mode = True

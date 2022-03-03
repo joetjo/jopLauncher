@@ -25,7 +25,9 @@ ATTRIBUTES_SUPPORTED = ["Status", "Type", "Note"]
 ATTRIBUTE_STATUS = 0
 ATTRIBUTE_TYPE = 1
 ATTRIBUTE_NOTE = 2
-OPERATOR_SUPPORTED = ["=", "!="]
+OPERATOR_EQUAL = "="
+OPERATOR_DIFF = "!="
+OPERATOR_SUPPORTED = [OPERATOR_EQUAL, OPERATOR_DIFF]
 
 
 class FilerLinePanel(GhSimplePanel):
@@ -130,9 +132,9 @@ class ExtenderFilterPanel(GhSimplePanel):
             filterPanel = self.applyAdd()
             filterPanel.ui_attribute_selector.set(f.attribute)
             if f.operatorIsEqual:
-                filterPanel.ui_operator_selector.set("=")
+                filterPanel.ui_operator_selector.set(OPERATOR_EQUAL)
             else:
-                filterPanel.ui_operator_selector.set("!=")
+                filterPanel.ui_operator_selector.set(OPERATOR_DIFF)
             filterPanel.ui_value_selector.set(f.value)
 
         if len(self.filters) == 0:
@@ -174,7 +176,7 @@ class ExtenderFilterPanel(GhSimplePanel):
         for filterPanel in self.filters:
             filters.append(Filter(filterPanel.ui_attribute_selector.get(),
                                   filterPanel.ui_value_selector.get(),
-                                  filterPanel.ui_operator_selector == '='))
+                                  filterPanel.ui_operator_selector.get() is OPERATOR_EQUAL))
             filterPanel.grid_remove()
         self.grid_remove()
 
