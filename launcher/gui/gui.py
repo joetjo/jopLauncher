@@ -229,15 +229,22 @@ class procGui(EventListener):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
+        if self.ui_extended_filter.get() == 1:
+            self.ui_extended_filter_toolbar.showFilterLabel()
+        else:
+            self.ui_extended_filter_toolbar.hideFilterLabel()
         self.display_mode.filterMode(self.ui_installed_filter.get() == 1, self.ui_extended_filter.get() == 1)
 
     def applyNewFilter(self):
         self.display_mode.editExtendedFilter()
         self.ui_new_filter_button.grid_remove()
 
+    def saveFilterSetup(self, filters):
+        self.display_mode.applyExtendedFilter(filters)
+        self.applyFilter()
+
     def applyFilterSetup(self, filters):
         filterCount = len(filters)
-        self.display_mode.applyExtendedFilter(filters)
         self.ui_new_filter_button.grid()
         self.ui_extended_filter.set(filterCount > 0)
         self.applyFilter()

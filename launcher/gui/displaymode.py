@@ -75,7 +75,7 @@ class DisplayMode:
 
     def editExtendedFilter(self):
         Log.debug("UI: editExtendedFilter")
-        self.app.ui_extended_filter_toolbar.grid()
+        self.app.ui_extended_filter_toolbar.enableEdit()
         self.app.ui_extended_filter_toolbar.setFilters(self.filters)
 
     def isSearchInProgress(self):

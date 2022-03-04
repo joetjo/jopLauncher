@@ -86,12 +86,13 @@ class FilerLinePanel(GhSimplePanel):
     def applyTypeSelection(self, info):
         self.ui_value_selector.setValues(self.filterPanel.getPossibleValues(self.ui_attribute_selector.get()))
         self.ui_value_selector.set("")
+        self.filterPanel.saveFilters()
 
     def applyOperatorSelection(self, info):
-        pass
+        self.filterPanel.saveFilters()
 
     def applyValueSelection(self, info):
-        pass
+        self.filterPanel.saveFilters()
 
 
 class ExtenderFilterPanel(GhSimplePanel):
@@ -105,7 +106,7 @@ class ExtenderFilterPanel(GhSimplePanel):
         self.app = app
         self.filters = []
 
-        self.ui_title = GhApp.createLabel(parent, self.row(), self.col_next(), text=Strings.EXTENDED_FILTER_TOOLBAR)
+        self.ui_title = GhApp.createLabel(parent, self.row(), self.col_next(), colspan=6)
         self.ui_add_button = GhApp.createButton(parent, self.row(), self.col_next(),
                                                 self.applyAdd, Strings.ADD_FILTER_ACTION, image=self.app.icons.PLUS,
                                                 text_visible=False, anchor="w")
@@ -115,14 +116,36 @@ class ExtenderFilterPanel(GhSimplePanel):
         self.row_next()
 
     def grid_remove(self):
-        self.ui_title.grid_remove()
         self.ui_add_button.grid_remove()
         self.ui_ok_button.grid_remove()
 
     def grid(self):
-        self.ui_title.grid()
         self.ui_add_button.grid()
         self.ui_ok_button.grid()
+
+    def enableEdit(self):
+        self.ui_title.grid_remove()
+        self.grid()
+
+    def disableEdit(self):
+        if len(self.filters) == 0:
+            self.ui_title.grid_remove()
+        else:
+            message = ""
+            for f in self.filters:
+                message = "{} {} {} {} |".format(message,
+                                                 f.ui_attribute_selector.get(),
+                                                 f.ui_operator_selector.get(),
+                                                 f.ui_value_selector.get())
+            self.ui_title.set(message)
+            self.ui_title.grid()
+        self.grid_remove()
+
+    def hideFilterLabel(self):
+        self.ui_title.grid_remove()
+
+    def showFilterLabel(self):
+        self.ui_title.grid()
 
     def setFilters(self, filters):
         self.filters = []
@@ -150,7 +173,7 @@ class ExtenderFilterPanel(GhSimplePanel):
     def applyAdd(self):
         Log.info("Adding filter {} {}".format(self.row(), self.filterColumn))
         self.grid_remove()
-        filterPanel = FilerLinePanel(self.content, self, self.row_next(), self.filterColumn);
+        filterPanel = FilerLinePanel(self.content, self, self.row_next(), self.filterColumn)
         self.filters.append(filterPanel)
         return filterPanel
 
@@ -171,16 +194,20 @@ class ExtenderFilterPanel(GhSimplePanel):
                 self.grid_remove()
                 lastFilter.addLastLineButtons()
 
-    def applyOK(self):
+    def saveFilters(self):
         filters = []
         for filterPanel in self.filters:
             filters.append(Filter(filterPanel.ui_attribute_selector.get(),
                                   filterPanel.ui_value_selector.get(),
                                   filterPanel.ui_operator_selector.get() is OPERATOR_EQUAL))
-            filterPanel.grid_remove()
-        self.grid_remove()
+        self.app.saveFilterSetup(filters)
 
-        self.app.applyFilterSetup(filters)
+    def applyOK(self):
+        for filterPanel in self.filters:
+            filterPanel.grid_remove()
+        self.disableEdit()
+
+        self.app.applyFilterSetup(self.filters)
 
     def getPossibleValues(self, attribute):
         result = [""]
