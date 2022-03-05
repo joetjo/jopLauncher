@@ -160,6 +160,7 @@ class ExtenderFilterPanel(GhSimplePanel):
                 filterPanel.ui_operator_selector.set(OPERATOR_EQUAL)
             else:
                 filterPanel.ui_operator_selector.set(OPERATOR_DIFF)
+            filterPanel.applyTypeSelection(filterPanel.ui_attribute_selector.get())
             filterPanel.ui_value_selector.set(f.value)
 
         if len(self.filters) == 0:
