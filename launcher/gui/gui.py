@@ -237,7 +237,7 @@ class procGui(EventListener):
             self.ui_sessions[idx].set()
 
     def applyFilter(self):
-        if self.ui_extended_filter.get() == 1:
+        if not self.ui_extended_filter_toolbar.editMode and self.ui_extended_filter.get() == 1:
             self.ui_extended_filter_toolbar.showFilterLabel()
         else:
             self.ui_extended_filter_toolbar.hideFilterLabel()

@@ -108,7 +108,7 @@ class ExtenderFilterPanel(GhSimplePanel):
         self.ui_title = GhApp.createLabel(parent, self.row(), self.col_next(), colspan=6)
         self.ui_add_button = None
         self.ui_ok_button = None
-
+        self.editMode = False
         self.row_next()
 
     def grid_remove(self):
@@ -122,10 +122,12 @@ class ExtenderFilterPanel(GhSimplePanel):
             self.ui_ok_button.grid()
 
     def enableEdit(self):
-        self.ui_title.grid_remove()
+        self.editMode = True
         self.grid()
+        self.hideFilterLabel()
 
     def disableEdit(self):
+        self.editMode = False
         for filterPanel in self.filters:
             filterPanel.grid_remove()
         if len(self.filters) == 0:
@@ -138,7 +140,7 @@ class ExtenderFilterPanel(GhSimplePanel):
                                                  f.ui_operator_selector.get(),
                                                  f.ui_value_selector.get())
             self.ui_title.set(message)
-            self.ui_title.grid()
+            self.showFilterLabel()
         self.grid_remove()
 
     def hideFilterLabel(self):
