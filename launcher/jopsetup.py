@@ -63,6 +63,10 @@ class JopSetup:
     GAME_STATUSES = "GAME_STATUSES"
     GAME_NOTES = "GAME_NOTES"
 
+    EXTENDED_FILTER = "EXTENDED_FILTER"
+    INSTALLED_MODE = "INSTALLED_MODE"
+    EXTENDED_MODE = "EXTENDED_MODE"
+
     @staticmethod
     # Test Purpose
     def initJopSetup(content):
@@ -116,10 +120,14 @@ class JopSetup:
         self.initSetupEntry(self.ITCHIO, ["G:/itchio/itch-setup.exe", "--prefer-launch" "--appname" "itch"])
         self.initSetupEntry(self.UBISOFT, ["C:/Program Files (x86)/Ubisoft/Ubisoft Game Launcher/Uplay.exe"])
         self.initSetupEntry(self.ORIGIN, ["C:/Program Files (x86)/Origin/Origin.exe"])
-        self.initSetupEntry(self.GAME_TYPES, ["FPS", "RPG", "COOP", "VN", "SIMULATION"]);
+        self.initSetupEntry(self.GAME_TYPES, ["FPS", "RPG", "COOP", "VN", "SIMULATION"])
         self.initSetupEntry(self.GAME_STATUSES, ["TO BE STARTED", "IN PROGRESS", "ALTERNATIVE PLAY",
-                                                 "IN STANDBY", "DONE"]);
-        self.initSetupEntry(self.GAME_NOTES, ["1", "2", "3", "4", "GIVUP"]);
+                                                 "IN STANDBY", "DONE"])
+        self.initSetupEntry(self.GAME_NOTES, ["1", "2", "3", "4", "GIVUP"])
+        self.initSetupEntry(self.EXTENDED_FILTER, [])
+        self.initSetupEntry(self.INSTALLED_MODE, False)
+        self.initSetupEntry(self.EXTENDED_MODE, False)
+
         #        self.initSetupEntry(self., )
         if print_mode:
             print("========================================================")

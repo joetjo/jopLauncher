@@ -33,7 +33,7 @@ class DisplayMode:
     - ui_... component widget (
     """
 
-    def __init__(self, app):
+    def __init__(self, app, installed_mode, extended_mode, extended_filter):
         self.app = app
 
         # PREVIOUS or SEARCH
@@ -41,10 +41,13 @@ class DisplayMode:
         # DISPLAY MODE : search or last_session
         self.search_mode = False
         # RESULT FILTER: show or not show : only installed game
-        self.installed_mode = True
+        self.installed_mode = installed_mode
         # RESULT FILTER: show or not show : game that match the extended filter
-        self.extended_mode = False
+        self.extended_mode = extended_mode
         self.filters = []
+        for f in extended_filter:
+            self.filters.append(Filter(f["attribute"], f["value"], f["operatorIsEqual"]))
+
         # OPTIONAL DISPLAY
         self.excluded_mode = False
         self.launcher_mode = False
@@ -69,6 +72,7 @@ class DisplayMode:
     def filterMode(self, installed_mode, extended_mode):
         self.installed_mode = installed_mode
         self.extended_mode = extended_mode
+        self.app.saveFilterMode()
 
         # reload in current mode
         self.refreshSessions()

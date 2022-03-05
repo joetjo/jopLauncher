@@ -86,7 +86,6 @@ class FilerLinePanel(GhSimplePanel):
     def applyTypeSelection(self, info):
         self.ui_value_selector.setValues(self.filterPanel.getPossibleValues(self.ui_attribute_selector.get()))
         self.ui_value_selector.set("")
-        self.filterPanel.saveFilters()
 
     def applyOperatorSelection(self, info):
         self.filterPanel.saveFilters()
@@ -107,27 +106,28 @@ class ExtenderFilterPanel(GhSimplePanel):
         self.filters = []
 
         self.ui_title = GhApp.createLabel(parent, self.row(), self.col_next(), colspan=6)
-        self.ui_add_button = GhApp.createButton(parent, self.row(), self.col_next(),
-                                                self.applyAdd, Strings.ADD_FILTER_ACTION, image=self.app.icons.PLUS,
-                                                text_visible=False, anchor="w")
-        self.ui_ok_button = GhApp.createButton(parent, self.row_next(), self.col_next(),
-                                               self.applyOK, Strings.CANCEL_FILTER_ACTION,
-                                               text_visible=True, anchor="w")
+        self.ui_add_button = None
+        self.ui_ok_button = None
+
         self.row_next()
 
     def grid_remove(self):
-        self.ui_add_button.grid_remove()
-        self.ui_ok_button.grid_remove()
+        if self.ui_add_button is not None:
+            self.ui_add_button.grid_remove()
+            self.ui_ok_button.grid_remove()
 
     def grid(self):
-        self.ui_add_button.grid()
-        self.ui_ok_button.grid()
+        if self.ui_add_button is not None:
+            self.ui_add_button.grid()
+            self.ui_ok_button.grid()
 
     def enableEdit(self):
         self.ui_title.grid_remove()
         self.grid()
 
     def disableEdit(self):
+        for filterPanel in self.filters:
+            filterPanel.grid_remove()
         if len(self.filters) == 0:
             self.ui_title.grid_remove()
         else:
@@ -203,10 +203,8 @@ class ExtenderFilterPanel(GhSimplePanel):
         self.app.saveFilterSetup(filters)
 
     def applyOK(self):
-        for filterPanel in self.filters:
-            filterPanel.grid_remove()
+        self.saveFilters()
         self.disableEdit()
-
         self.app.applyFilterSetup(self.filters)
 
     def getPossibleValues(self, attribute):

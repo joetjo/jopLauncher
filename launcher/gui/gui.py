@@ -33,6 +33,7 @@ from launcher.gui.gameactionspanel import GameActionPanel
 from launcher.gui.gamesession import GameSession
 from launcher.gui.menu import MainMenu
 from launcher.gui.strings import Strings
+from launcher.jopsetup import JopSetup
 from launcher.log import Log
 from markdown.markdown import MarkdownHelper
 
@@ -49,11 +50,12 @@ class procGui(EventListener):
     def __init__(self, procmgr, bgthread):
         self.ready = False
         self.procMgr = procmgr
+
         self.procMgr.setListener(self)
         self.max_session_count = JopSETUP.get(JopSETUP.MAX_LAST_SESSION_COUNT)
         self.last_start = -1
         self.last_start_time = None
-        self.display_mode = DisplayMode(self)
+        self.display_mode = DisplayMode(self, self.getInstalledMode(), self.getExtendedMode(), self.getExtendedFilter())
         self.discord = True
 
         self.app = GhApp("{} - {}".format(JopLauncher.APP_NAME, JopLauncher.VERSION), self.applyExit)
@@ -113,9 +115,11 @@ class procGui(EventListener):
         self.filter_panel = GhSimplePanel(header_col.right, app.row(), app.col_next())
         self.ui_installed_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 0,
                                                         text=Strings.INSTALLED_FILTER, command=self.applyFilter)
-        self.ui_installed_filter.set(True)  # Enabled by default - mist be coherent with default value in displaymode.py
+
         self.ui_extended_filter = GhApp.createCheckbox(self.filter_panel.content, 0, 1,
                                                        text=Strings.EXTENDED_FILTER, command=self.applyFilter)
+        self.ui_installed_filter.set(self.display_mode.installed_mode)
+        self.ui_extended_filter.set(self.display_mode.extended_mode)
         # 2nd line - filter panel end
 
         self.ui_new_filter_button = GhApp.createButton(header_col.right, app.row_next(), app.col_reset(),
@@ -141,6 +145,10 @@ class procGui(EventListener):
         # 4th line RIGHT - Extended filter
         self.ui_extended_filter_toolbar = ExtenderFilterPanel(header_col.right, self, app.row(), app.col_next())
         self.ui_extended_filter_toolbar.grid_remove()
+
+        if self.display_mode.extended_mode:
+            self.ui_extended_filter_toolbar.setFilters(self.display_mode.filters)
+            self.ui_extended_filter_toolbar.disableEdit()
 
         app.row_col_reset()
 
@@ -241,7 +249,19 @@ class procGui(EventListener):
 
     def saveFilterSetup(self, filters):
         self.display_mode.applyExtendedFilter(filters)
+
+        extended_filter = []
+        for f in filters:
+            extended_filter.append({"attribute": f.attribute, "operatorIsEqual": f.operatorIsEqual, "value": f.value})
+        JopSETUP.set(JopSetup.EXTENDED_FILTER, extended_filter)
+        self.saveFilterMode()
+
         self.applyFilter()
+
+    def saveFilterMode(self):
+        JopSETUP.set(JopSetup.INSTALLED_MODE, self.display_mode.installed_mode)
+        JopSETUP.set(JopSetup.EXTENDED_MODE, self.display_mode.extended_mode)
+        JopSETUP.save()
 
     def applyFilterSetup(self, filters):
         filterCount = len(filters)
@@ -521,3 +541,14 @@ class procGui(EventListener):
     @staticmethod
     def applyLaunchDiscord():
         GhLauncher.launch("discord", JopSETUP.get(JopSETUP.DISCORD))
+
+    def getExtendedFilter(self):
+        return JopSETUP.get(JopSetup.EXTENDED_FILTER)
+
+    @staticmethod
+    def getInstalledMode():
+        return JopSETUP.get(JopSetup.INSTALLED_MODE)
+
+    @staticmethod
+    def getExtendedMode():
+        return JopSETUP.get(JopSetup.EXTENDED_MODE)
